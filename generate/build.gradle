@@ -1,0 +1,58 @@
+import org.w3c.dom.Document
+import org.w3c.dom.Element
+import org.w3c.dom.Node
+import org.w3c.dom.NodeList
+import org.w3c.dom.ls.DOMImplementationLS
+import org.w3c.dom.ls.LSOutput
+import org.w3c.dom.ls.LSSerializer
+
+import javax.xml.parsers.DocumentBuilder
+import javax.xml.parsers.DocumentBuilderFactory
+
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    jaxb
+    xjc
+}
+
+def jaxbApiVer = "2.2.7"
+def jaxbImplVer = "2.2.7-b41"
+def jaxbXjcVer = "2.2.7-b41"
+
+dependencies {
+    jaxb "com.sun.xml.bind:jaxb-xjc:$jaxbXjcVer"
+    jaxb "com.sun.xml.bind:jaxb-impl:$jaxbImplVer"
+    jaxb "javax.xml.bind:jaxb-api:$jaxbApiVer"
+    jaxb 'net.codesup.util:jaxb2-rich-contract-plugin:1.17.0'
+
+    xjc 'org.jvnet.jaxb2_commons:jaxb2-basics:1.11.1'
+}
+
+
+def packageBase = 'ru.nyrk.egrul.generate'
+def packageBaseDir = 'src/main/java/' + packageBase.replace('.', '/')
+
+task frXjc {
+    def schemaBase = 'src/main/resources/'
+
+    task frXjcSimple {
+        def schema = schemaBase + 'simple/accept.wsdl'
+        def packagel = packageBase + '.simple'
+        def bindingXml = schemaBase + 'simple/binding.xml'
+
+        inputs.file schema
+        inputs.file bindingXml
+        outputs.dir 'src/main/java/' + packagel.replace('.', '/')
+
+        doLast {
+            createJavaFromWsdl(packagel, schema, bindingXml)
+        }
+    }
+
+    dependsOn << frXjcSimple;
+}
