@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:xjb="http://java.sun.com/xml/ns/jaxb"
+           xjb:version="1.0"
+           elementFormDefault="qualified"
+           attributeFormDefault="unqualified">
+    <xs:element name="Файл">
+        <xs:annotation>
+            <xs:documentation>Сведения, содержащиеся в Едином государственном реестре индивидуальных предпринимателей
+            </xs:documentation>
+            <xs:appinfo>
+                <xjb:class name="FileElement"/>
+            </xs:appinfo>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ИдОтпр" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>Сведения об отправителе</xs:documentation>
+                        <xs:appinfo>
+                            <xjb:property name="IdOtpt"/>
+                        </xs:appinfo>
+
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="ИдФайл" use="required">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор файла</xs:documentation>
+                    <xs:documentation>Содержит (повторяет) имя передаваемого файла (без расширения)</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="100"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <!--<xs:complexType name="ВидЗапТип">-->
+    <!--<xs:annotation>-->
+    <!--<xs:documentation>Сведения о виде записи, внесенной в ЕГРИП</xs:documentation>-->
+    <!--</xs:annotation>-->
+    <!--<xs:attribute name="КодСПВЗ" use="required">-->
+    <!--<xs:annotation>-->
+    <!--<xs:documentation>Код вида записи (причины внесения записи в ЕГРИП) по справочнику СПВЗ-->
+    <!--</xs:documentation>-->
+    <!--</xs:annotation>-->
+    <!--<xs:simpleType>-->
+    <!--<xs:restriction base="xs:string">-->
+    <!--<xs:length value="5"/>-->
+    <!--<xs:pattern value="[0-9]{5}"/>-->
+    <!--</xs:restriction>-->
+    <!--</xs:simpleType>-->
+    <!--</xs:attribute>-->
+    <!--<xs:attribute name="НаимВидЗап" use="required">-->
+    <!--<xs:annotation>-->
+    <!--<xs:documentation>Наименование вида записи (причины внесения записи в ЕГРИП)</xs:documentation>-->
+    <!--</xs:annotation>-->
+    <!--<xs:simpleType>-->
+    <!--<xs:restriction base="xs:string">-->
+    <!--<xs:minLength value="5"/>-->
+    <!--<xs:maxLength value="500"/>-->
+    <!--</xs:restriction>-->
+    <!--</xs:simpleType>-->
+    <!--</xs:attribute>-->
+    <!--</xs:complexType>-->
+</xs:schema>

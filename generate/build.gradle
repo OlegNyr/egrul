@@ -21,8 +21,8 @@ configurations {
 }
 
 def jaxbApiVer = "2.2.7"
-def jaxbImplVer = "2.2.7-b41"
-def jaxbXjcVer = "2.2.7-b41"
+def jaxbImplVer = "2.2.7"
+def jaxbXjcVer = "2.2.7"
 
 dependencies {
     jaxb "com.sun.xml.bind:jaxb-xjc:$jaxbXjcVer"
@@ -30,20 +30,47 @@ dependencies {
     jaxb "javax.xml.bind:jaxb-api:$jaxbApiVer"
     jaxb 'net.codesup.util:jaxb2-rich-contract-plugin:1.17.0'
 
-    xjc 'org.jvnet.jaxb2_commons:jaxb2-basics:1.11.1'
+    compile "com.sun.xml.bind:jaxb-xjc:$jaxbXjcVer"
+    compile "com.sun.xml.bind:jaxb-impl:$jaxbImplVer"
+    compile "javax.xml.bind:jaxb-api:$jaxbApiVer"
+    compile 'net.codesup.util:jaxb2-rich-contract-plugin:1.17.0'
+    compile 'org.jvnet.jaxb2_commons:jaxb2-basics:1.11.1'
 }
 
 
 def packageBase = 'ru.nyrk.egrul.generate'
 def packageBaseDir = 'src/main/java/' + packageBase.replace('.', '/')
 
+
+def createJavaFromWsdl(String modelPackage, String wsdl, String binding) {
+    def targetDir = 'src/main/java'
+    def jaxbTargetDir = file(targetDir)
+    jaxbTargetDir.mkdirs()
+    println modelPackage
+    println wsdl
+    println binding
+    ant.taskdef(name: 'xjc', classname: 'com.sun.tools.xjc.XJC2Task', classpath: configurations.jaxb.asPath)
+    ant.jaxbTargetDir = jaxbTargetDir
+    println jaxbTargetDir
+    System.setProperty('javax.xml.accessExternalSchema', 'all')
+    ant.xjc(destdir: '${jaxbTargetDir}',
+            package: modelPackage,
+            binding: binding,
+            encoding: 'UTF-8',
+            header: false) {
+        schema(file: wsdl)
+        classpath(path: configurations.xjc.asPath)
+//        arg(line: '-extension -Xcopy')
+    }
+}
+
 task frXjc {
     def schemaBase = 'src/main/resources/'
-
+//    /work/trc/egrul/generate/src/main/resources/
     task frXjcSimple {
-        def schema = schemaBase + 'simple/accept.wsdl'
-        def packagel = packageBase + '.simple'
-        def bindingXml = schemaBase + 'simple/binding.xml'
+        def schema = schemaBase + 'egrul/VO_RUGF_2_311_26_04_04_02.xsd'
+        def packagel = packageBase + '.egrul'
+        def bindingXml = schemaBase + 'egrul/binding.xml'
 
         inputs.file schema
         inputs.file bindingXml

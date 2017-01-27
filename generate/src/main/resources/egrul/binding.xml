@@ -1,0 +1,20 @@
+<xjb:bindings
+        xmlns:xjb="http://java.sun.com/xml/ns/jaxb"
+        xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        version="2.1">
+    <!--<xjb:globalBindings enableJavaNamingConventions="true"/>-->
+
+    <xjb:bindings schemaLocation="VO_RUGF_2_311_26_04_04_02.xsd"
+                  multiple="true"/>
+    <xjb:globalBindings localScoping="toplevel">
+        <xjb:javaType name="java.util.Date" xmlType="xs:date"
+                      parseMethod="ru.sbrf.dbofi.server.api.util.adapter.DateAdapter.parseDate"
+                      printMethod="ru.sbrf.dbofi.server.api.util.adapter.DateAdapter.printDate"
+        />
+        <xjb:javaType name="java.util.Date" xmlType="xs:dateTime"
+                      parseMethod="ru.sbrf.dbofi.server.api.util.adapter.DateTimeAdapter.parseDateTime"
+                      printMethod="ru.sbrf.dbofi.server.api.util.adapter.DateTimeAdapter.printDateTime"
+        />
+    </xjb:globalBindings>
+</xjb:bindings>

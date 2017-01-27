@@ -1,0 +1,51 @@
+<xjb:bindings
+        xmlns:xjb="http://java.sun.com/xml/ns/jaxb"
+        xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        version="2.1">
+    <xjb:bindings schemaLocation="simple.xsd"
+                  multiple="true">
+        <!--<xjb:bindings node="./xs:element[@name='Файл']">-->
+            <!--<xjb:class name="FileElement"/>-->
+            <!--<xjb:bindings node=".//xs:element[@name='ИдОтпр']">-->
+                <!--<xjb:property name="IdOtpr"/>-->
+            <!--</xjb:bindings>-->
+            <!--<xjb:bindings node=".//xs:attribute[@name='ИдФайл']">-->
+                <!--<xjb:property name="IdFile"/>-->
+            <!--</xjb:bindings>-->
+        <!--</xjb:bindings>-->
+
+
+        <!--<xjb:bindings node="./xs:element[@name='createUserResponse']">-->
+            <!--<xjb:class name="CreateUserResponseElement"/>-->
+        <!--</xjb:bindings>-->
+        <!--<xjb:bindings node="./xs:element[@name='authenticateResponse']">-->
+            <!--<xjb:class name="AuthenticateResponseElement"/>-->
+        <!--</xjb:bindings>-->
+        <!--<xjb:bindings node="./xs:element[@name='queryAuthStatusResponse']">-->
+            <!--<xjb:class name="QueryAuthStatusResponseElement"/>-->
+        <!--</xjb:bindings>-->
+        <!--<xjb:bindings node="./xs:element[@name='queryResponse']">-->
+            <!--<xjb:class name="QueryResponseElement"/>-->
+        <!--</xjb:bindings>-->
+        <!--<xjb:bindings node="./xs:element[@name='updateUserResponse']">-->
+            <!--<xjb:class name="UpdateUserResponseElement"/>-->
+        <!--</xjb:bindings>-->
+        <!--<xjb:bindings node="./xs:element[@name='analyzeResponse']">-->
+            <!--<xjb:class name="AnalyzeResponseElement"/>-->
+        <!--</xjb:bindings>-->
+        <!--<xjb:bindings node="./xs:element[@name='notifyResponse']">-->
+            <!--<xjb:class name="NotifyResponseElement"/>-->
+        <!--</xjb:bindings>-->
+    </xjb:bindings>
+    <xjb:globalBindings>
+        <xjb:javaType name="java.util.Date" xmlType="xs:date"
+                      parseMethod="ru.sbrf.dbofi.server.api.util.adapter.DateAdapter.parseDate"
+                      printMethod="ru.sbrf.dbofi.server.api.util.adapter.DateAdapter.printDate"
+        />
+        <xjb:javaType name="java.util.Date" xmlType="xs:dateTime"
+                      parseMethod="ru.sbrf.dbofi.server.api.util.adapter.DateTimeAdapter.parseDateTime"
+                      printMethod="ru.sbrf.dbofi.server.api.util.adapter.DateTimeAdapter.printDateTime"
+        />
+    </xjb:globalBindings>
+</xjb:bindings>
