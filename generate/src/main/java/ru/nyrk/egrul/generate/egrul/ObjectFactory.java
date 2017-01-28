@@ -263,11 +263,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link СвЗалогДержФЛ }
+     * Create an instance of {@link InfoPawneeFLType }
      * 
      */
-    public СвЗалогДержФЛ createСвЗалогДержФЛ() {
-        return new СвЗалогДержФЛ();
+    public InfoPawneeFLType createInfoPawneeFLType() {
+        return new InfoPawneeFLType();
     }
 
     /**
@@ -303,11 +303,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link SvUl }
+     * Create an instance of {@link DocSvUl }
      * 
      */
-    public SvUl createSvUl() {
-        return new SvUl();
+    public DocSvUl createDocSvUl() {
+        return new DocSvUl();
     }
 
     /**
@@ -319,275 +319,275 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link СвАдресЮЛ }
+     * Create an instance of {@link DocInfoAddressUl }
      * 
      */
-    public СвАдресЮЛ createСвАдресЮЛ() {
-        return new СвАдресЮЛ();
+    public DocInfoAddressUl createDocInfoAddressUl() {
+        return new DocInfoAddressUl();
     }
 
     /**
-     * Create an instance of {@link СвАдрЭлПочты }
+     * Create an instance of {@link DocInfoAddressEmailType }
      * 
      */
-    public СвАдрЭлПочты createСвАдрЭлПочты() {
-        return new СвАдрЭлПочты();
+    public DocInfoAddressEmailType createDocInfoAddressEmailType() {
+        return new DocInfoAddressEmailType();
     }
 
     /**
-     * Create an instance of {@link СвОбрЮЛ }
+     * Create an instance of {@link DocInfoRegisterULType }
      * 
      */
-    public СвОбрЮЛ createСвОбрЮЛ() {
-        return new СвОбрЮЛ();
+    public DocInfoRegisterULType createDocInfoRegisterULType() {
+        return new DocInfoRegisterULType();
     }
 
     /**
-     * Create an instance of {@link СвРегОрг }
+     * Create an instance of {@link DocInfoRegistratorType }
      * 
      */
-    public СвРегОрг createСвРегОрг() {
-        return new СвРегОрг();
+    public DocInfoRegistratorType createDocInfoRegistratorType() {
+        return new DocInfoRegistratorType();
     }
 
     /**
-     * Create an instance of {@link DocInfoStatus }
+     * Create an instance of {@link DocInfoStatusType }
      * 
      */
-    public DocInfoStatus createDocInfoStatus() {
-        return new DocInfoStatus();
+    public DocInfoStatusType createDocInfoStatusType() {
+        return new DocInfoStatusType();
     }
 
     /**
-     * Create an instance of {@link СвПрекрЮЛ }
+     * Create an instance of {@link DocInfoEndULType }
      * 
      */
-    public СвПрекрЮЛ createСвПрекрЮЛ() {
-        return new СвПрекрЮЛ();
+    public DocInfoEndULType createDocInfoEndULType() {
+        return new DocInfoEndULType();
     }
 
     /**
-     * Create an instance of {@link СвУчетНО }
+     * Create an instance of {@link DocInfoUchetNalogOrgan }
      * 
      */
-    public СвУчетНО createСвУчетНО() {
-        return new СвУчетНО();
+    public DocInfoUchetNalogOrgan createDocInfoUchetNalogOrgan() {
+        return new DocInfoUchetNalogOrgan();
     }
 
     /**
-     * Create an instance of {@link СвРегПФ }
+     * Create an instance of {@link DocInfoRegisterPFType }
      * 
      */
-    public СвРегПФ createСвРегПФ() {
-        return new СвРегПФ();
+    public DocInfoRegisterPFType createDocInfoRegisterPFType() {
+        return new DocInfoRegisterPFType();
     }
 
     /**
-     * Create an instance of {@link СвРегФСС }
+     * Create an instance of {@link DocInfoRegisterFSSType }
      * 
      */
-    public СвРегФСС createСвРегФСС() {
-        return new СвРегФСС();
+    public DocInfoRegisterFSSType createDocInfoRegisterFSSType() {
+        return new DocInfoRegisterFSSType();
     }
 
     /**
-     * Create an instance of {@link СвУстКап }
+     * Create an instance of {@link DocInfoUstavKapitalType }
      * 
      */
-    public СвУстКап createСвУстКап() {
-        return new СвУстКап();
+    public DocInfoUstavKapitalType createDocInfoUstavKapitalType() {
+        return new DocInfoUstavKapitalType();
     }
 
     /**
-     * Create an instance of {@link InfoUprOrganDoc }
+     * Create an instance of {@link DocInfoUprOrganType }
      * 
      */
-    public InfoUprOrganDoc createInfoUprOrganDoc() {
-        return new InfoUprOrganDoc();
+    public DocInfoUprOrganType createDocInfoUprOrganType() {
+        return new DocInfoUprOrganType();
     }
 
     /**
-     * Create an instance of {@link СведДолжнФЛ }
+     * Create an instance of {@link DocInfoLicoDoverenType }
      * 
      */
-    public СведДолжнФЛ createСведДолжнФЛ() {
-        return new СведДолжнФЛ();
+    public DocInfoLicoDoverenType createDocInfoLicoDoverenType() {
+        return new DocInfoLicoDoverenType();
     }
 
     /**
-     * Create an instance of {@link СвУчредит }
+     * Create an instance of {@link DocInfoUcheredType }
      * 
      */
-    public СвУчредит createСвУчредит() {
-        return new СвУчредит();
+    public DocInfoUcheredType createDocInfoUcheredType() {
+        return new DocInfoUcheredType();
     }
 
     /**
-     * Create an instance of {@link СвДержРеестрАО }
+     * Create an instance of {@link DocInfoReestrAOType }
      * 
      */
-    public СвДержРеестрАО createСвДержРеестрАО() {
-        return new СвДержРеестрАО();
+    public DocInfoReestrAOType createDocInfoReestrAOType() {
+        return new DocInfoReestrAOType();
     }
 
     /**
-     * Create an instance of {@link СвОКВЭД }
+     * Create an instance of {@link DocInfoOKVEDType }
      * 
      */
-    public СвОКВЭД createСвОКВЭД() {
-        return new СвОКВЭД();
+    public DocInfoOKVEDType createDocInfoOKVEDType() {
+        return new DocInfoOKVEDType();
     }
 
     /**
-     * Create an instance of {@link СвЛицензия }
+     * Create an instance of {@link DocInfoLicensiaType }
      * 
      */
-    public СвЛицензия createСвЛицензия() {
-        return new СвЛицензия();
+    public DocInfoLicensiaType createDocInfoLicensiaType() {
+        return new DocInfoLicensiaType();
     }
 
     /**
-     * Create an instance of {@link СвПодразд }
+     * Create an instance of {@link DocInfoPodrazdelType }
      * 
      */
-    public СвПодразд createСвПодразд() {
-        return new СвПодразд();
+    public DocInfoPodrazdelType createDocInfoPodrazdelType() {
+        return new DocInfoPodrazdelType();
     }
 
     /**
-     * Create an instance of {@link СвРеорг }
+     * Create an instance of {@link DocInfoReorganType }
      * 
      */
-    public СвРеорг createСвРеорг() {
-        return new СвРеорг();
+    public DocInfoReorganType createDocInfoReorganType() {
+        return new DocInfoReorganType();
     }
 
     /**
-     * Create an instance of {@link СвПредш }
+     * Create an instance of {@link DocInfoPredshtstvType }
      * 
      */
-    public СвПредш createСвПредш() {
-        return new СвПредш();
+    public DocInfoPredshtstvType createDocInfoPredshtstvType() {
+        return new DocInfoPredshtstvType();
     }
 
     /**
-     * Create an instance of {@link СвКФХПредш }
+     * Create an instance of {@link DocInfoKFHPredshestvType }
      * 
      */
-    public СвКФХПредш createСвКФХПредш() {
-        return new СвКФХПредш();
+    public DocInfoKFHPredshestvType createDocInfoKFHPredshestvType() {
+        return new DocInfoKFHPredshestvType();
     }
 
     /**
-     * Create an instance of {@link СвПреем }
+     * Create an instance of {@link DocInfoPreemnikType }
      * 
      */
-    public СвПреем createСвПреем() {
-        return new СвПреем();
+    public DocInfoPreemnikType createDocInfoPreemnikType() {
+        return new DocInfoPreemnikType();
     }
 
     /**
-     * Create an instance of {@link СвКФХПреем }
+     * Create an instance of {@link DocInfoKFHPrimnikType }
      * 
      */
-    public СвКФХПреем createСвКФХПреем() {
-        return new СвКФХПреем();
+    public DocInfoKFHPrimnikType createDocInfoKFHPrimnikType() {
+        return new DocInfoKFHPrimnikType();
     }
 
     /**
-     * Create an instance of {@link СвЗапЕГРЮЛ }
+     * Create an instance of {@link DocInfoRecordEGRULType }
      * 
      */
-    public СвЗапЕГРЮЛ createСвЗапЕГРЮЛ() {
-        return new СвЗапЕГРЮЛ();
+    public DocInfoRecordEGRULType createDocInfoRecordEGRULType() {
+        return new DocInfoRecordEGRULType();
     }
 
     /**
-     * Create an instance of {@link СвЗаявФЛ }
+     * Create an instance of {@link DocVidInfoZayvitelType }
      * 
      */
-    public СвЗаявФЛ createСвЗаявФЛ() {
-        return new СвЗаявФЛ();
+    public DocVidInfoZayvitelType createDocVidInfoZayvitelType() {
+        return new DocVidInfoZayvitelType();
     }
 
     /**
-     * Create an instance of {@link СведПредДок }
+     * Create an instance of {@link DocInfoPredDocType }
      * 
      */
-    public СведПредДок createСведПредДок() {
-        return new СведПредДок();
+    public DocInfoPredDocType createDocInfoPredDocType() {
+        return new DocInfoPredDocType();
     }
 
     /**
-     * Create an instance of {@link СвСвид }
+     * Create an instance of {@link DocInfoSvidetelType }
      * 
      */
-    public СвСвид createСвСвид() {
-        return new СвСвид();
+    public DocInfoSvidetelType createDocInfoSvidetelType() {
+        return new DocInfoSvidetelType();
     }
 
     /**
-     * Create an instance of {@link СвСтатусЗап }
+     * Create an instance of {@link DocInfoStatusRecordType }
      * 
      */
-    public СвСтатусЗап createСвСтатусЗап() {
-        return new СвСтатусЗап();
+    public DocInfoStatusRecordType createDocInfoStatusRecordType() {
+        return new DocInfoStatusRecordType();
     }
 
     /**
-     * Create an instance of {@link ВидЗаяв }
+     * Create an instance of {@link DocVidZayvitelType }
      * 
      */
-    public ВидЗаяв createВидЗаяв() {
-        return new ВидЗаяв();
+    public DocVidZayvitelType createDocVidZayvitelType() {
+        return new DocVidZayvitelType();
     }
 
     /**
-     * Create an instance of {@link СвЮЛ }
+     * Create an instance of {@link DocInfoULReorgType }
      * 
      */
-    public СвЮЛ createСвЮЛ() {
-        return new СвЮЛ();
+    public DocInfoULReorgType createDocInfoULReorgType() {
+        return new DocInfoULReorgType();
     }
 
     /**
-     * Create an instance of {@link СвУпрОрг }
+     * Create an instance of {@link DocInfoUpravlOrganType }
      * 
      */
-    public СвУпрОрг createСвУпрОрг() {
-        return new СвУпрОрг();
+    public DocInfoUpravlOrganType createDocInfoUpravlOrganType() {
+        return new DocInfoUpravlOrganType();
     }
 
     /**
-     * Create an instance of {@link СвФЛ }
+     * Create an instance of {@link DocInfoFLReorganType }
      * 
      */
-    public СвФЛ createСвФЛ() {
-        return new СвФЛ();
+    public DocInfoFLReorganType createDocInfoFLReorganType() {
+        return new DocInfoFLReorganType();
     }
 
     /**
-     * Create an instance of {@link СвФИОИНН }
+     * Create an instance of {@link DocInfoFIOInnType }
      * 
      */
-    public СвФИОИНН createСвФИОИНН() {
-        return new СвФИОИНН();
+    public DocInfoFIOInnType createDocInfoFIOInnType() {
+        return new DocInfoFIOInnType();
     }
 
     /**
-     * Create an instance of {@link СвРожд }
+     * Create an instance of {@link DocInfoBirthType }
      * 
      */
-    public СвРожд createСвРожд() {
-        return new СвРожд();
+    public DocInfoBirthType createDocInfoBirthType() {
+        return new DocInfoBirthType();
     }
 
     /**
-     * Create an instance of {@link УдЛичнФЛ }
+     * Create an instance of {@link DocInfoUdLichnostType }
      * 
      */
-    public УдЛичнФЛ createУдЛичнФЛ() {
-        return new УдЛичнФЛ();
+    public DocInfoUdLichnostType createDocInfoUdLichnostType() {
+        return new DocInfoUdLichnostType();
     }
 
     /**
@@ -599,243 +599,243 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link АдрМЖИн }
+     * Create an instance of {@link AddressMGIType }
      * 
      */
-    public АдрМЖИн createАдрМЖИн() {
-        return new АдрМЖИн();
+    public AddressMGIType createAddressMGIType() {
+        return new AddressMGIType();
     }
 
     /**
-     * Create an instance of {@link СвЮЛсложнРеорг }
+     * Create an instance of {@link DocInfoULSlognReorgan }
      * 
      */
-    public СвЮЛсложнРеорг createСвЮЛсложнРеорг() {
-        return new СвЮЛсложнРеорг();
+    public DocInfoULSlognReorgan createDocInfoULSlognReorgan() {
+        return new DocInfoULSlognReorgan();
     }
 
     /**
-     * Create an instance of {@link InfoULPravoReorg }
+     * Create an instance of {@link DocInfoULPravoReorg }
      * 
      */
-    public InfoULPravoReorg createInfoULPravoReorg() {
-        return new InfoULPravoReorg();
+    public DocInfoULPravoReorg createDocInfoULPravoReorg() {
+        return new DocInfoULPravoReorg();
     }
 
     /**
-     * Create an instance of {@link СвСтатус }
+     * Create an instance of {@link DocInfoStatusReorganType }
      * 
      */
-    public СвСтатус createСвСтатус() {
-        return new СвСтатус();
+    public DocInfoStatusReorganType createDocInfoStatusReorganType() {
+        return new DocInfoStatusReorganType();
     }
 
     /**
-     * Create an instance of {@link СвРеоргЮЛ }
+     * Create an instance of {@link DocInfoReorganULType }
      * 
      */
-    public СвРеоргЮЛ createСвРеоргЮЛ() {
-        return new СвРеоргЮЛ();
+    public DocInfoReorganULType createDocInfoReorganULType() {
+        return new DocInfoReorganULType();
     }
 
     /**
-     * Create an instance of {@link СвФилиал }
+     * Create an instance of {@link DocFilialInfoStopLicensiaType }
      * 
      */
-    public СвФилиал createСвФилиал() {
-        return new СвФилиал();
+    public DocFilialInfoStopLicensiaType createDocFilialInfoStopLicensiaType() {
+        return new DocFilialInfoStopLicensiaType();
     }
 
     /**
-     * Create an instance of {@link СвПредстав }
+     * Create an instance of {@link DocInfoPredstavitelstvaType }
      * 
      */
-    public СвПредстав createСвПредстав() {
-        return new СвПредстав();
+    public DocInfoPredstavitelstvaType createDocInfoPredstavitelstvaType() {
+        return new DocInfoPredstavitelstvaType();
     }
 
     /**
-     * Create an instance of {@link СвПриостЛиц }
+     * Create an instance of {@link DocInfoStopLicensiaType }
      * 
      */
-    public СвПриостЛиц createСвПриостЛиц() {
-        return new СвПриостЛиц();
+    public DocInfoStopLicensiaType createDocInfoStopLicensiaType() {
+        return new DocInfoStopLicensiaType();
     }
 
     /**
-     * Create an instance of {@link УчрЮЛРос }
+     * Create an instance of {@link DocInfoUcheredULRFType }
      * 
      */
-    public УчрЮЛРос createУчрЮЛРос() {
-        return new УчрЮЛРос();
+    public DocInfoUcheredULRFType createDocInfoUcheredULRFType() {
+        return new DocInfoUcheredULRFType();
     }
 
     /**
-     * Create an instance of {@link УчрЮЛИн }
+     * Create an instance of {@link DocInfoUcheredULInostrType }
      * 
      */
-    public УчрЮЛИн createУчрЮЛИн() {
-        return new УчрЮЛИн();
+    public DocInfoUcheredULInostrType createDocInfoUcheredULInostrType() {
+        return new DocInfoUcheredULInostrType();
     }
 
     /**
-     * Create an instance of {@link УчрФЛ }
+     * Create an instance of {@link DocInfoUcheredFLType }
      * 
      */
-    public УчрФЛ createУчрФЛ() {
-        return new УчрФЛ();
+    public DocInfoUcheredFLType createDocInfoUcheredFLType() {
+        return new DocInfoUcheredFLType();
     }
 
     /**
-     * Create an instance of {@link УчрРФСубМО }
+     * Create an instance of {@link DocInfoRFSubMOType }
      * 
      */
-    public УчрРФСубМО createУчрРФСубМО() {
-        return new УчрРФСубМО();
+    public DocInfoRFSubMOType createDocInfoRFSubMOType() {
+        return new DocInfoRFSubMOType();
     }
 
     /**
-     * Create an instance of {@link УчрПИФ }
+     * Create an instance of {@link DocInfoUchredPifType }
      * 
      */
-    public УчрПИФ createУчрПИФ() {
-        return new УчрПИФ();
+    public DocInfoUchredPifType createDocInfoUchredPifType() {
+        return new DocInfoUchredPifType();
     }
 
     /**
-     * Create an instance of {@link СвНаимПИФ }
+     * Create an instance of {@link DocInfoUchredNamePifType }
      * 
      */
-    public СвНаимПИФ createСвНаимПИФ() {
-        return new СвНаимПИФ();
+    public DocInfoUchredNamePifType createDocInfoUchredNamePifType() {
+        return new DocInfoUchredNamePifType();
     }
 
     /**
-     * Create an instance of {@link СвУпрКомпПИФ }
+     * Create an instance of {@link DocInfoPifType }
      * 
      */
-    public СвУпрКомпПИФ createСвУпрКомпПИФ() {
-        return new СвУпрКомпПИФ();
+    public DocInfoPifType createDocInfoPifType() {
+        return new DocInfoPifType();
     }
 
     /**
-     * Create an instance of {@link ВидНаимУчр }
+     * Create an instance of {@link DocInfoVidNameUchredType }
      * 
      */
-    public ВидНаимУчр createВидНаимУчр() {
-        return new ВидНаимУчр();
+    public DocInfoVidNameUchredType createDocInfoVidNameUchredType() {
+        return new DocInfoVidNameUchredType();
     }
 
     /**
-     * Create an instance of {@link СвОргОсущПр }
+     * Create an instance of {@link DocInfoOraganVlastiType }
      * 
      */
-    public СвОргОсущПр createСвОргОсущПр() {
-        return new СвОргОсущПр();
+    public DocInfoOraganVlastiType createDocInfoOraganVlastiType() {
+        return new DocInfoOraganVlastiType();
     }
 
     /**
-     * Create an instance of {@link СвФЛОсущПр }
+     * Create an instance of {@link DocInfoFLOsuchestvlUcheredType }
      * 
      */
-    public СвФЛОсущПр createСвФЛОсущПр() {
-        return new СвФЛОсущПр();
+    public DocInfoFLOsuchestvlUcheredType createDocInfoFLOsuchestvlUcheredType() {
+        return new DocInfoFLOsuchestvlUcheredType();
     }
 
     /**
-     * Create an instance of {@link СвДовУпрЮЛ }
+     * Create an instance of {@link DocInfoDoveritUprULType }
      * 
      */
-    public СвДовУпрЮЛ createСвДовУпрЮЛ() {
-        return new СвДовУпрЮЛ();
+    public DocInfoDoveritUprULType createDocInfoDoveritUprULType() {
+        return new DocInfoDoveritUprULType();
     }
 
     /**
-     * Create an instance of {@link СвДовУпрФЛ }
+     * Create an instance of {@link DocInfoDoveritFLType }
      * 
      */
-    public СвДовУпрФЛ createСвДовУпрФЛ() {
-        return new СвДовУпрФЛ();
+    public DocInfoDoveritFLType createDocInfoDoveritFLType() {
+        return new DocInfoDoveritFLType();
     }
 
     /**
-     * Create an instance of {@link ЛицоУпрНасл }
+     * Create an instance of {@link DocInfoLicoUprNaslType }
      * 
      */
-    public ЛицоУпрНасл createЛицоУпрНасл() {
-        return new ЛицоУпрНасл();
+    public DocInfoLicoUprNaslType createDocInfoLicoUprNaslType() {
+        return new DocInfoLicoUprNaslType();
     }
 
     /**
-     * Create an instance of {@link СвРегСтарые }
+     * Create an instance of {@link DocInfoUcheredULRFRegOldType }
      * 
      */
-    public СвРегСтарые createСвРегСтарые() {
-        return new СвРегСтарые();
+    public DocInfoUcheredULRFRegOldType createDocInfoUcheredULRFRegOldType() {
+        return new DocInfoUcheredULRFRegOldType();
     }
 
     /**
-     * Create an instance of {@link СвДолжн }
+     * Create an instance of {@link DocInfoDolgnostFL }
      * 
      */
-    public СвДолжн createСвДолжн() {
-        return new СвДолжн();
+    public DocInfoDolgnostFL createDocInfoDolgnostFL() {
+        return new DocInfoDolgnostFL();
     }
 
     /**
-     * Create an instance of {@link СвДискв }
+     * Create an instance of {@link DocInfoDelete }
      * 
      */
-    public СвДискв createСвДискв() {
-        return new СвДискв();
+    public DocInfoDelete createDocInfoDelete() {
+        return new DocInfoDelete();
     }
 
     /**
-     * Create an instance of {@link СвПредЮЛ }
+     * Create an instance of {@link DocInfoPredstavitelULType }
      * 
      */
-    public СвПредЮЛ createСвПредЮЛ() {
-        return new СвПредЮЛ();
+    public DocInfoPredstavitelULType createDocInfoPredstavitelULType() {
+        return new DocInfoPredstavitelULType();
     }
 
     /**
-     * Create an instance of {@link ПредИнЮЛ }
+     * Create an instance of {@link DocPredInostrUL }
      * 
      */
-    public ПредИнЮЛ createПредИнЮЛ() {
-        return new ПредИнЮЛ();
+    public DocPredInostrUL createDocPredInostrUL() {
+        return new DocPredInostrUL();
     }
 
     /**
-     * Create an instance of {@link СведУмУК }
+     * Create an instance of {@link DocInfoUmenshenKapitalType }
      * 
      */
-    public СведУмУК createСведУмУК() {
-        return new СведУмУК();
+    public DocInfoUmenshenKapitalType createDocInfoUmenshenKapitalType() {
+        return new DocInfoUmenshenKapitalType();
     }
 
     /**
-     * Create an instance of {@link СвОргФСС }
+     * Create an instance of {@link DocInfoRegisterOrganFSSType }
      * 
      */
-    public СвОргФСС createСвОргФСС() {
-        return new СвОргФСС();
+    public DocInfoRegisterOrganFSSType createDocInfoRegisterOrganFSSType() {
+        return new DocInfoRegisterOrganFSSType();
     }
 
     /**
-     * Create an instance of {@link СвОргПФ }
+     * Create an instance of {@link DocInfoPFType }
      * 
      */
-    public СвОргПФ createСвОргПФ() {
-        return new СвОргПФ();
+    public DocInfoPFType createDocInfoPFType() {
+        return new DocInfoPFType();
     }
 
     /**
-     * Create an instance of {@link СпПрекрЮЛ }
+     * Create an instance of {@link DocInfoSposobPrekrUL }
      * 
      */
-    public СпПрекрЮЛ createСпПрекрЮЛ() {
-        return new СпПрекрЮЛ();
+    public DocInfoSposobPrekrUL createDocInfoSposobPrekrUL() {
+        return new DocInfoSposobPrekrUL();
     }
 
     /**
@@ -847,27 +847,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link СвРешИсклЮЛ }
+     * Create an instance of {@link DocInfoReshenExcludeUL }
      * 
      */
-    public СвРешИсклЮЛ createСвРешИсклЮЛ() {
-        return new СвРешИсклЮЛ();
+    public DocInfoReshenExcludeUL createDocInfoReshenExcludeUL() {
+        return new DocInfoReshenExcludeUL();
     }
 
     /**
-     * Create an instance of {@link СпОбрЮЛ }
+     * Create an instance of {@link DocInfoObrazovULType }
      * 
      */
-    public СпОбрЮЛ createСпОбрЮЛ() {
-        return new СпОбрЮЛ();
+    public DocInfoObrazovULType createDocInfoObrazovULType() {
+        return new DocInfoObrazovULType();
     }
 
     /**
-     * Create an instance of {@link СведОтсутАдресЮЛ }
+     * Create an instance of {@link DocInfoNedostAddressUl }
      * 
      */
-    public СведОтсутАдресЮЛ createСведОтсутАдресЮЛ() {
-        return new СведОтсутАдресЮЛ();
+    public DocInfoNedostAddressUl createDocInfoNedostAddressUl() {
+        return new DocInfoNedostAddressUl();
     }
 
     /**

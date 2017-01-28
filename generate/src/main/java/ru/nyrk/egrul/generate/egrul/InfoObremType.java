@@ -97,7 +97,7 @@ public class InfoObremType {
     @XmlElement(name = "\u0413\u0420\u041d\u0414\u0430\u0442\u0430\u0418\u0441\u043f\u0440")
     protected GRNDateType grnDateChange;
     @XmlElement(name = "\u0421\u0432\u0417\u0430\u043b\u043e\u0433\u0414\u0435\u0440\u0436\u0424\u041b")
-    protected СвЗалогДержФЛ infoPawneeFL;
+    protected InfoPawneeFLType infoPawneeFL;
     @XmlElement(name = "\u0421\u0432\u0417\u0430\u043b\u043e\u0433\u0414\u0435\u0440\u0436\u042e\u041b")
     protected GRNDateChange infoPawneeUL;
     @XmlAttribute(name = "\u0412\u0438\u0434\u041e\u0431\u0440\u0435\u043c", required = true)
@@ -182,10 +182,10 @@ public class InfoObremType {
      * 
      * @return
      *     possible object is
-     *     {@link СвЗалогДержФЛ }
+     *     {@link InfoPawneeFLType }
      *     
      */
-    public СвЗалогДержФЛ getInfoPawneeFL() {
+    public InfoPawneeFLType getInfoPawneeFL() {
         return infoPawneeFL;
     }
 
@@ -194,10 +194,10 @@ public class InfoObremType {
      * 
      * @param value
      *     allowed object is
-     *     {@link СвЗалогДержФЛ }
+     *     {@link InfoPawneeFLType }
      *     
      */
-    public void setInfoPawneeFL(СвЗалогДержФЛ value) {
+    public void setInfoPawneeFL(InfoPawneeFLType value) {
         this.infoPawneeFL = value;
     }
 

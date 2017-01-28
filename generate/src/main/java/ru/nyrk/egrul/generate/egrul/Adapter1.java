@@ -10,11 +10,11 @@ public class Adapter1
 
 
     public Date unmarshal(String value) {
-        return (ru.sbrf.dbofi.server.api.util.adapter.DateTimeAdapter.parseDateTime(value));
+        return (ru.nyrk.egrul.generate.DateTimeAdapter.parseDateTime(value));
     }
 
     public String marshal(Date value) {
-        return (ru.sbrf.dbofi.server.api.util.adapter.DateTimeAdapter.printDateTime(value));
+        return (ru.nyrk.egrul.generate.DateTimeAdapter.printDateTime(value));
     }
 
 }

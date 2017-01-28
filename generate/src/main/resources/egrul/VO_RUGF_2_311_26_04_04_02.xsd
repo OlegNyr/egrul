@@ -217,6 +217,11 @@
                                                             </xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
+                                                            <xs:annotation>
+                                                                <xs:appinfo>
+                                                                    <xjb:class name="DocInfoNedostAddressUl"/>
+                                                                </xs:appinfo>
+                                                            </xs:annotation>
                                                             <xs:sequence>
                                                                 <xs:element name="–еш—удЌедјдр" type="–еш—уд“ип"
                                                                             minOccurs="0">
@@ -281,11 +286,20 @@
                                         </xs:element>
                                         <xs:element name="—вјдрЁлѕочты" minOccurs="0">
                                             <xs:annotation>
+                                                <xs:appinfo>
+                                                    <xjb:property name="InfoAddressEmail" />
+                                                </xs:appinfo>
                                                 <xs:documentation>—ведени€ об адресе электронной почты юридического
                                                     лица
                                                 </xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
+                                                <xs:annotation>
+                                                    <xs:appinfo>
+                                                        <xjb:class name="DocInfoAddressEmailType" />
+                                                    </xs:appinfo>
+                                                    <xs:documentation>—остав и структура документа</xs:documentation>
+                                                </xs:annotation>
                                                 <xs:sequence>
                                                     <xs:element name="√–Ќƒата" type="√–Ќƒата“ип">
                                                         <xs:annotation>
@@ -320,11 +334,19 @@
                                         </xs:element>
                                         <xs:element name="—вќбрёЋ">
                                             <xs:annotation>
+                                                <xs:appinfo>
+                                                    <xjb:property name="DocInfoRegisterUL" />
+                                                </xs:appinfo>
                                                 <xs:documentation>—ведени€ о регистрации (образовании) юридического
                                                     лица
                                                 </xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
+                                                <xs:annotation>
+                                                <xs:appinfo>
+                                                    <xjb:class name="DocInfoRegisterULType" />
+                                                </xs:appinfo>
+                                                </xs:annotation>
                                                 <xs:sequence>
                                                     <xs:element name="—пќбрёЋ">
                                                         <xs:annotation>
@@ -332,6 +354,11 @@
                                                             </xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
+                                                            <xs:annotation>
+                                                                <xs:appinfo>
+                                                                    <xjb:class name="DocInfoObrazovULType"/>
+                                                                </xs:appinfo>
+                                                            </xs:annotation>
                                                             <xs:attribute name=" од—пќбрёЋ" use="required">
                                                                 <xs:annotation>
                                                                     <xs:documentation> од способа образовани€ по
@@ -482,11 +509,19 @@
                                         </xs:element>
                                         <xs:element name="—в–егќрг">
                                             <xs:annotation>
+                                                <xs:appinfo>
+                                                    <xjb:property name="DocInfoRegistrator" />
+                                                </xs:appinfo>
                                                 <xs:documentation>—ведени€ о регистрирующем органе по месту нахождени€
                                                     юридического лица
                                                 </xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
+                                                <xs:annotation>
+                                                <xs:appinfo>
+                                                    <xjb:class name="DocInfoRegistratorType" />
+                                                </xs:appinfo>
+                                                </xs:annotation>
                                                 <xs:sequence>
                                                     <xs:element name="√–Ќƒата" type="√–Ќƒата“ип">
                                                         <xs:annotation>
@@ -531,6 +566,9 @@
                                         </xs:element>
                                         <xs:element name="—в—татус" minOccurs="0" maxOccurs="unbounded">
                                             <xs:annotation>
+                                                <xs:appinfo>
+                                                    <xjb:property name="DocInfoStatusUL" />
+                                                </xs:appinfo>
                                                 <xs:documentation>—ведени€ о состо€нии (статусе) юридического лица
                                                 </xs:documentation>
                                                 <xs:documentation>‘ормируетс€ только в случае, если код состо€ни€ по
@@ -545,7 +583,7 @@
                                             <xs:complexType>
                                                 <xs:annotation>
                                                     <xs:appinfo>
-                                                        <xjb:class name="DocInfoStatus"/>
+                                                        <xjb:class name="DocInfoStatusType"/>
                                                     </xs:appinfo>
                                                 </xs:annotation>
                                                 <xs:sequence>
@@ -598,6 +636,11 @@
                                                             </xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
+                                                            <xs:annotation>
+                                                                <xs:appinfo>
+                                                                    <xjb:class name="DocInfoReshenExcludeUL"/>
+                                                                </xs:appinfo>
+                                                            </xs:annotation>
                                                             <xs:attribute name="ƒата–еш" use="required">
                                                                 <xs:annotation>
                                                                     <xs:documentation>ƒата решени€</xs:documentation>
@@ -665,6 +708,9 @@
                                         </xs:element>
                                         <xs:element name="—вѕрекрёЋ" minOccurs="0">
                                             <xs:annotation>
+                                                <xs:appinfo>
+                                                    <xjb:property name="DocInfoEndUL" />
+                                                </xs:appinfo>
                                                 <xs:documentation>—ведени€ о прекращении юридического лица
                                                 </xs:documentation>
                                                 <xs:documentation>‘ормируетс€ только в случае, если код статуса ёЋ по
@@ -672,6 +718,11 @@
                                                 </xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
+                                                <xs:annotation>
+                                                <xs:appinfo>
+                                                    <xjb:class name="DocInfoEndULType" />
+                                                </xs:appinfo>
+                                                </xs:annotation>
                                                 <xs:sequence>
                                                     <xs:element name="—пѕрекрёЋ">
                                                         <xs:annotation>
@@ -679,6 +730,11 @@
                                                             </xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
+                                                            <xs:annotation>
+                                                                <xs:appinfo>
+                                                                    <xjb:class name="DocInfoSposobPrekrUL"/>
+                                                                </xs:appinfo>
+                                                            </xs:annotation>
                                                             <xs:attribute name=" од—пѕрекрёЋ" use="required">
                                                                 <xs:annotation>
                                                                     <xs:documentation> од способа прекращени€ по
@@ -733,10 +789,18 @@
                                         </xs:element>
                                         <xs:element name="—в”четЌќ" minOccurs="0">
                                             <xs:annotation>
+                                                <xs:appinfo>
+                                                    <xjb:property name="DocInfoUchetNalogOrgan" />
+                                                </xs:appinfo>
                                                 <xs:documentation>—ведени€ об учете в налоговом органе
                                                 </xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
+                                                <xs:annotation>
+                                                <xs:appinfo>
+                                                    <xjb:class name="DocInfoUchetNalogOrgan" />
+                                                </xs:appinfo>
+                                                </xs:annotation>
                                                 <xs:sequence>
                                                     <xs:annotation>
                                                         <xs:documentation/>
@@ -790,12 +854,20 @@
                                         </xs:element>
                                         <xs:element name="—в–егѕ‘" minOccurs="0">
                                             <xs:annotation>
+                                                <xs:appinfo>
+                                                    <xjb:property name="DocInfoRegisterPF" />
+                                                </xs:appinfo>
                                                 <xs:documentation>—ведени€ о регистрации юридического лица в качестве
                                                     страховател€ в территориальном органе ѕенсионного фонда –оссийской
                                                     ‘едерации
                                                 </xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
+                                                <xs:annotation>
+                                                <xs:appinfo>
+                                                    <xjb:class name="DocInfoRegisterPFType" />
+                                                </xs:appinfo>
+                                                </xs:annotation>
                                                 <xs:sequence>
                                                     <xs:element name="—вќргѕ‘">
                                                         <xs:annotation>
@@ -804,6 +876,11 @@
                                                             </xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
+                                                            <xs:annotation>
+                                                                <xs:appinfo>
+                                                                    <xjb:class name="DocInfoPFType" />
+                                                                </xs:appinfo>
+                                                            </xs:annotation>
                                                             <xs:attribute name=" одѕ‘" use="required">
                                                                 <xs:annotation>
                                                                     <xs:documentation> од по справочнику —“ќѕ‘
@@ -874,12 +951,20 @@
                                         </xs:element>
                                         <xs:element name="—в–ег‘——" minOccurs="0">
                                             <xs:annotation>
+                                                <xs:appinfo>
+                                                    <xjb:property name="DocInfoRegisterFSSType" />
+                                                </xs:appinfo>
                                                 <xs:documentation>—ведени€ о регистрации юридического лица в качестве
                                                     страховател€ в исполнительном органе ‘онда социального страховани€
                                                     –оссийской ‘едерации
                                                 </xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
+                                                <xs:annotation>
+                                                <xs:appinfo>
+                                                    <xjb:class name="DocInfoRegisterFSSType" />
+                                                </xs:appinfo>
+                                                </xs:annotation>
                                                 <xs:sequence>
                                                     <xs:element name="—вќрг‘——">
                                                         <xs:annotation>
@@ -888,6 +973,11 @@
                                                             </xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
+                                                            <xs:annotation>
+                                                                <xs:appinfo>
+                                                                    <xjb:class name="DocInfoRegisterOrganFSSType" />
+                                                                </xs:appinfo>
+                                                            </xs:annotation>
                                                             <xs:attribute name=" од‘——" use="required">
                                                                 <xs:annotation>
                                                                     <xs:documentation> од по справочнику —“ќ‘——
@@ -957,12 +1047,20 @@
                                         </xs:element>
                                         <xs:element name="—в”ст ап" minOccurs="0">
                                             <xs:annotation>
+                                                    <xs:appinfo>
+                                                        <xjb:property name="DocInfoUstavKapital" />
+                                                    </xs:appinfo>
                                                 <xs:documentation>—ведени€ о размере указанного в учредительных
                                                     документах коммерческой организации уставного капитала (складочного
                                                     капитала, уставного фонда, паевого фонда)
                                                 </xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
+                                                <xs:annotation>
+                                                <xs:appinfo>
+                                                    <xjb:class name="DocInfoUstavKapitalType" />
+                                                </xs:appinfo>
+                                                </xs:annotation>
                                                 <xs:sequence>
                                                     <xs:element name="ƒол€–убл€" type="ƒробь“ип" minOccurs="0">
                                                         <xs:annotation>
@@ -1002,6 +1100,11 @@
                                                             </xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
+                                                            <xs:annotation>
+                                                            <xs:appinfo>
+                                                                <xjb:class name="DocInfoUmenshenKapitalType" />
+                                                            </xs:appinfo>
+                                                            </xs:annotation>
                                                             <xs:sequence>
                                                                 <xs:element name="√–Ќƒата" type="√–Ќƒата“ип">
                                                                     <xs:annotation>
@@ -1078,14 +1181,14 @@
                                         <xs:element name="—в”прќрг" minOccurs="0" maxOccurs="unbounded">
                                             <xs:annotation>
                                                 <xs:appinfo>
-                                                    <xjb:property name="InfoUprOrganDoc"/>
+                                                    <xjb:property name="DocInfoUprOrgan"/>
                                                 </xs:appinfo>
                                                 <xs:documentation>—ведени€ об управл€ющей организации</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:annotation>
                                                 <xs:appinfo>
-                                                    <xjb:class name="InfoUprOrganDoc"/>
+                                                    <xjb:class name="DocInfoUprOrganType"/>
                                                 </xs:appinfo>
                                                 </xs:annotation>
                                                 <xs:sequence>
@@ -1128,6 +1231,11 @@
                                                             </xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
+                                                            <xs:annotation>
+                                                                <xs:appinfo>
+                                                                    <xjb:class name="DocInfoPredstavitelULType"/>
+                                                                </xs:appinfo>
+                                                            </xs:annotation>
                                                             <xs:sequence>
                                                                 <xs:element name="√–Ќƒата" type="√–Ќƒата“ип">
                                                                     <xs:annotation>
@@ -1181,12 +1289,20 @@
                                                     </xs:element>
                                                     <xs:element name="ѕред»нёЋ" minOccurs="0">
                                                         <xs:annotation>
+                                                            <xs:appinfo>
+                                                                <xjb:property name="PredInostrUL"/>
+                                                            </xs:appinfo>
                                                             <xs:documentation>—ведени€ о лице, через которое иностранное
                                                                 юридическое лицо осуществл€ет полномочи€ управл€ющей
                                                                 организации
                                                             </xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
+                                                            <xs:annotation>
+                                                            <xs:appinfo>
+                                                                <xjb:class name="DocPredInostrUL"/>
+                                                            </xs:appinfo>
+                                                            </xs:annotation>
                                                             <xs:sequence>
                                                                 <xs:element name="√–Ќƒатаѕерв" type="√–Ќƒата“ип"
                                                                             minOccurs="0">
@@ -1271,11 +1387,19 @@
                                         </xs:element>
                                         <xs:element name="—ведƒолжн‘Ћ" minOccurs="0" maxOccurs="unbounded">
                                             <xs:annotation>
+                                                <xs:appinfo>
+                                                    <xjb:property name="DocInfoLicoDoveren"/>
+                                                </xs:appinfo>
                                                 <xs:documentation>—ведени€ о лице, имеющем право без доверенности
                                                     действовать от имени юридического лица
                                                 </xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
+                                                <xs:annotation>
+                                                <xs:appinfo>
+                                                    <xjb:class name="DocInfoLicoDoverenType"/>
+                                                </xs:appinfo>
+                                                </xs:annotation>
                                                 <xs:sequence>
                                                     <xs:element name="√–Ќƒатаѕерв" type="√–Ќƒата“ип" minOccurs="0">
                                                         <xs:annotation>
@@ -1295,6 +1419,11 @@
                                                             <xs:documentation>—ведени€ о должности ‘Ћ</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
+                                                            <xs:annotation>
+                                                            <xs:appinfo>
+                                                                <xjb:class name="DocInfoDolgnostFL"/>
+                                                            </xs:appinfo>
+                                                            </xs:annotation>
                                                             <xs:sequence>
                                                                 <xs:element name="√–Ќƒата" type="√–Ќƒата“ип">
                                                                     <xs:annotation>
@@ -1426,6 +1555,11 @@
                                                             </xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
+                                                            <xs:annotation>
+                                                            <xs:appinfo>
+                                                                <xjb:class name="DocInfoDelete"/>
+                                                            </xs:appinfo>
+                                                            </xs:annotation>
                                                             <xs:sequence>
                                                                 <xs:element name="√–Ќƒата" type="√–Ќƒата“ип">
                                                                     <xs:annotation>
@@ -1478,11 +1612,19 @@
                                         </xs:element>
                                         <xs:element name="—в”чредит" minOccurs="0">
                                             <xs:annotation>
+                                                <xs:appinfo>
+                                                    <xjb:property name="DocInfoUchered"/>
+                                                </xs:appinfo>
                                                 <xs:documentation>—ведени€ об учредител€х (участниках) юридического
                                                     лица
                                                 </xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
+                                                <xs:annotation>
+                                                <xs:appinfo>
+                                                    <xjb:class name="DocInfoUcheredType"/>
+                                                </xs:appinfo>
+                                                </xs:annotation>
                                                 <xs:sequence>
                                                     <xs:element name="”чрёЋ–ос" minOccurs="0" maxOccurs="unbounded">
                                                         <xs:annotation>
@@ -1491,6 +1633,11 @@
                                                             </xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
+                                                            <xs:annotation>
+                                                                <xs:appinfo>
+                                                                    <xjb:class name="DocInfoUcheredULRFType"/>
+                                                                </xs:appinfo>
+                                                            </xs:annotation>
                                                             <xs:sequence>
                                                                 <xs:element name="√–Ќƒатаѕерв" type="√–Ќƒата“ип"
                                                                             minOccurs="0">
@@ -1518,6 +1665,11 @@
                                                                         </xs:documentation>
                                                                     </xs:annotation>
                                                                     <xs:complexType>
+                                                                        <xs:annotation>
+                                                                            <xs:appinfo>
+                                                                                <xjb:class name="DocInfoUcheredULRFRegOldType"/>
+                                                                            </xs:appinfo>
+                                                                        </xs:annotation>
                                                                         <xs:sequence>
                                                                             <xs:element name="√–Ќƒата"
                                                                                         type="√–Ќƒата“ип">
@@ -1610,6 +1762,11 @@
                                                             </xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
+                                                            <xs:annotation>
+                                                                <xs:appinfo>
+                                                                    <xjb:class name="DocInfoUcheredULInostrType"/>
+                                                                </xs:appinfo>
+                                                            </xs:annotation>
                                                             <xs:sequence>
                                                                 <xs:element name="√–Ќƒатаѕерв" type="√–Ќƒата“ип"
                                                                             minOccurs="0">
@@ -1664,6 +1821,11 @@
                                                             </xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
+                                                            <xs:annotation>
+                                                                <xs:appinfo>
+                                                                    <xjb:class name="DocInfoUcheredFLType"/>
+                                                                </xs:appinfo>
+                                                            </xs:annotation>
                                                             <xs:sequence>
                                                                 <xs:element name="√–Ќƒатаѕерв" type="√–Ќƒата“ип"
                                                                             minOccurs="0">
@@ -1755,6 +1917,11 @@
                                                                         </xs:documentation>
                                                                     </xs:annotation>
                                                                     <xs:complexType>
+                                                                        <xs:annotation>
+                                                                            <xs:appinfo>
+                                                                                <xjb:class name="DocInfoDoveritUprULType"/>
+                                                                            </xs:appinfo>
+                                                                        </xs:annotation>
                                                                         <xs:sequence>
                                                                             <xs:element name="√–Ќƒатаѕерв"
                                                                                         type="√–Ќƒата“ип" minOccurs="0">
@@ -1784,6 +1951,11 @@
                                                                         </xs:documentation>
                                                                     </xs:annotation>
                                                                     <xs:complexType>
+                                                                        <xs:annotation>
+                                                                            <xs:appinfo>
+                                                                                <xjb:class name="DocInfoDoveritFLType"/>
+                                                                            </xs:appinfo>
+                                                                        </xs:annotation>
                                                                         <xs:sequence>
                                                                             <xs:element name="√–Ќƒатаѕерв"
                                                                                         type="√–Ќƒата“ип" minOccurs="0">
@@ -1869,12 +2041,20 @@
                                                                 </xs:element>
                                                                 <xs:element name="Ћицо”прЌасл" minOccurs="0">
                                                                     <xs:annotation>
+                                                                        <xs:appinfo>
+                                                                            <xjb:property name="DocInfoLicoUprNasl"/>
+                                                                        </xs:appinfo>
                                                                         <xs:documentation>—ведени€ о лице,
                                                                             осуществл€ющем управление долей, переход€щей
                                                                             в пор€дке наследовани€
                                                                         </xs:documentation>
                                                                     </xs:annotation>
                                                                     <xs:complexType>
+                                                                        <xs:annotation>
+                                                                        <xs:appinfo>
+                                                                            <xjb:class name="DocInfoLicoUprNaslType"/>
+                                                                        </xs:appinfo>
+                                                                        </xs:annotation>
                                                                         <xs:sequence>
                                                                             <xs:element name="√–Ќƒатаѕерв"
                                                                                         type="√–Ќƒата“ип" minOccurs="0">
@@ -1977,6 +2157,11 @@
                                                             </xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
+                                                            <xs:annotation>
+                                                                <xs:appinfo>
+                                                                    <xjb:class name="DocInfoRFSubMOType"/>
+                                                                </xs:appinfo>
+                                                            </xs:annotation>
                                                             <xs:sequence>
                                                                 <xs:element name="√–Ќƒатаѕерв" type="√–Ќƒата“ип"
                                                                             minOccurs="0">
@@ -1988,6 +2173,9 @@
                                                                 </xs:element>
                                                                 <xs:element name="¬идЌаим”чр">
                                                                     <xs:annotation>
+                                                                        <xs:appinfo>
+                                                                            <xjb:property name="VidNameUchred"/>
+                                                                        </xs:appinfo>
                                                                         <xs:documentation>—ведени€ о виде учредител€
                                                                             (участника) и (при необходимости)
                                                                             наименовании муниципального образовани€ и
@@ -1995,6 +2183,11 @@
                                                                         </xs:documentation>
                                                                     </xs:annotation>
                                                                     <xs:complexType>
+                                                                        <xs:annotation>
+                                                                        <xs:appinfo>
+                                                                            <xjb:class name="DocInfoVidNameUchredType"/>
+                                                                        </xs:appinfo>
+                                                                        </xs:annotation>
                                                                         <xs:attribute name=" од”чр–‘—убћќ"
                                                                                       use="required">
                                                                             <xs:annotation>
@@ -2091,6 +2284,11 @@
                                                                         </xs:documentation>
                                                                     </xs:annotation>
                                                                     <xs:complexType>
+                                                                        <xs:annotation>
+                                                                            <xs:appinfo>
+                                                                                <xjb:class name="DocInfoOraganVlastiType"/>
+                                                                            </xs:appinfo>
+                                                                        </xs:annotation>
                                                                         <xs:sequence>
                                                                             <xs:element name="√–Ќƒатаѕерв"
                                                                                         type="√–Ќƒата“ип" minOccurs="0">
@@ -2123,6 +2321,11 @@
                                                                         </xs:documentation>
                                                                     </xs:annotation>
                                                                     <xs:complexType>
+                                                                        <xs:annotation>
+                                                                            <xs:appinfo>
+                                                                                <xjb:class name="DocInfoFLOsuchestvlUcheredType"/>
+                                                                            </xs:appinfo>
+                                                                        </xs:annotation>
                                                                         <xs:sequence>
                                                                             <xs:element name="√–Ќƒатаѕерв"
                                                                                         type="√–Ќƒата“ип" minOccurs="0">
@@ -2225,6 +2428,11 @@
                                                             </xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
+                                                            <xs:annotation>
+                                                                <xs:appinfo>
+                                                                    <xjb:class name="DocInfoUchredPifType"/>
+                                                                </xs:appinfo>
+                                                            </xs:annotation>
                                                             <xs:sequence>
                                                                 <xs:element name="√–Ќƒатаѕерв" type="√–Ќƒата“ип"
                                                                             minOccurs="0">
@@ -2242,6 +2450,11 @@
                                                                         </xs:documentation>
                                                                     </xs:annotation>
                                                                     <xs:complexType>
+                                                                        <xs:annotation>
+                                                                            <xs:appinfo>
+                                                                                <xjb:class name="DocInfoUchredNamePifType"/>
+                                                                            </xs:appinfo>
+                                                                        </xs:annotation>
                                                                         <xs:sequence>
                                                                             <xs:element name="√–Ќƒата"
                                                                                         type="√–Ќƒата“ип">
@@ -2290,6 +2503,11 @@
                                                                         </xs:documentation>
                                                                     </xs:annotation>
                                                                     <xs:complexType>
+                                                                        <xs:annotation>
+                                                                            <xs:appinfo>
+                                                                                <xjb:class name="DocInfoPifType"/>
+                                                                            </xs:appinfo>
+                                                                        </xs:annotation>
                                                                         <xs:sequence>
                                                                             <xs:element name="√–Ќƒатаѕерв"
                                                                                         type="√–Ќƒата“ип" minOccurs="0">
@@ -2337,6 +2555,9 @@
                                         </xs:element>
                                         <xs:element name="—вƒол€ќќќ" type="ƒол€”ст ап≈√–ёЋ“ип" minOccurs="0">
                                             <xs:annotation>
+                                                    <xs:appinfo>
+                                                        <xjb:property name="DocInfoDoluOOO"/>
+                                                    </xs:appinfo>
                                                 <xs:documentation>—ведени€ о доле в уставном капитале общества с
                                                     ограниченной ответственностью, принадлежащей обществу
                                                 </xs:documentation>
@@ -2344,11 +2565,19 @@
                                         </xs:element>
                                         <xs:element name="—вƒерж–еестрјќ" minOccurs="0">
                                             <xs:annotation>
+                                                <xs:appinfo>
+                                                    <xjb:property name="DocInfoReestrAO"/>
+                                                </xs:appinfo>
                                                 <xs:documentation>—ведени€ о держателе реестра акционеров акционерного
                                                     общества
                                                 </xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
+                                                <xs:annotation>
+                                                <xs:appinfo>
+                                                    <xjb:class name="DocInfoReestrAOType"/>
+                                                </xs:appinfo>
+                                                </xs:annotation>
                                                 <xs:sequence>
                                                     <xs:element name="√–Ќƒатаѕерв" type="√–Ќƒата“ип" minOccurs="0">
                                                         <xs:annotation>
@@ -2374,6 +2603,11 @@
                                                 </xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
+                                                <xs:annotation>
+                                                <xs:appinfo>
+                                                    <xjb:class name="DocInfoOKVEDType"/>
+                                                </xs:appinfo>
+                                                </xs:annotation>
                                                 <xs:sequence>
                                                     <xs:element name="—вќ ¬Ёƒќсн" type="—вќ ¬Ёƒ“ип" minOccurs="0">
                                                         <xs:annotation>
@@ -2401,6 +2635,11 @@
                                                 </xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
+                                                <xs:annotation>
+                                                <xs:appinfo>
+                                                    <xjb:class name="DocInfoLicensiaType"/>
+                                                </xs:appinfo>
+                                                </xs:annotation>
                                                 <xs:sequence>
                                                     <xs:element name="ЌаимЋиц¬идƒе€т" maxOccurs="unbounded">
                                                         <xs:annotation>
@@ -2481,6 +2720,11 @@
                                                             </xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
+                                                            <xs:annotation>
+                                                            <xs:appinfo>
+                                                                <xjb:class name="DocInfoStopLicensiaType"/>
+                                                            </xs:appinfo>
+                                                            </xs:annotation>
                                                             <xs:sequence>
                                                                 <xs:element name="√–Ќƒата" type="√–Ќƒата“ип">
                                                                     <xs:annotation>
@@ -2597,6 +2841,11 @@
                                                 </xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
+                                                <xs:annotation>
+                                                    <xs:appinfo>
+                                                        <xjb:class name="DocInfoPodrazdelType"/>
+                                                    </xs:appinfo>
+                                                </xs:annotation>
                                                 <xs:sequence>
                                                     <xs:element name="—в‘илиал" minOccurs="0" maxOccurs="unbounded">
                                                         <xs:annotation>
@@ -2604,6 +2853,11 @@
                                                             </xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
+                                                            <xs:annotation>
+                                                                <xs:appinfo>
+                                                                    <xjb:class name="DocFilialInfoStopLicensiaType"/>
+                                                                </xs:appinfo>
+                                                            </xs:annotation>
                                                             <xs:sequence>
                                                                 <xs:element name="√–Ќƒатаѕерв" type="√–Ќƒата“ип"
                                                                             minOccurs="0">
@@ -2655,6 +2909,11 @@
                                                             </xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
+                                                            <xs:annotation>
+                                                                <xs:appinfo>
+                                                                    <xjb:class name="DocInfoPredstavitelstvaType"/>
+                                                                </xs:appinfo>
+                                                            </xs:annotation>
                                                             <xs:sequence>
                                                                 <xs:element name="√–Ќƒатаѕерв" type="√–Ќƒата“ип"
                                                                             minOccurs="0">
@@ -2707,6 +2966,11 @@
                                                 <xs:documentation>—ведени€ об участии в реорганизации</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
+                                                <xs:annotation>
+                                                    <xs:appinfo>
+                                                        <xjb:class name="DocInfoReorganType"/>
+                                                    </xs:appinfo>
+                                                </xs:annotation>
                                                 <xs:sequence>
                                                     <xs:element name="—в—татус">
                                                         <xs:annotation>
@@ -2715,6 +2979,11 @@
                                                             </xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
+                                                            <xs:annotation>
+                                                                <xs:appinfo>
+                                                                    <xjb:class name="DocInfoStatusReorganType"/>
+                                                                </xs:appinfo>
+                                                            </xs:annotation>
                                                             <xs:attribute name=" од—татусёЋ" use="required">
                                                                 <xs:annotation>
                                                                     <xs:documentation> од формы реорганизации (статуса)
@@ -2768,6 +3037,11 @@
                                                             </xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
+                                                            <xs:annotation>
+                                                                <xs:appinfo>
+                                                                    <xjb:class name="DocInfoReorganULType"/>
+                                                                </xs:appinfo>
+                                                            </xs:annotation>
                                                             <xs:sequence>
                                                                 <xs:element name="√–Ќƒата»спр" type="√–Ќƒата“ип"
                                                                             minOccurs="0">
@@ -2835,6 +3109,11 @@
                                                 <xs:documentation>—ведени€ о правопредшественнике</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
+                                                <xs:annotation>
+                                                    <xs:appinfo>
+                                                        <xjb:class name="DocInfoPredshtstvType"/>
+                                                    </xs:appinfo>
+                                                </xs:annotation>
                                                 <xs:sequence>
                                                     <xs:element name="—вёЋсложн–еорг" minOccurs="0">
                                                         <xs:annotation>
@@ -2847,7 +3126,7 @@
                                                         <xs:complexType>
                                                             <xs:annotation>
                                                             <xs:appinfo>
-                                                                <xjb:class name="InfoULPravoReorg"/>
+                                                                <xjb:class name="DocInfoULPravoReorg"/>
                                                             </xs:appinfo>
                                                             </xs:annotation>
                                                             <xs:attribute name="ќ√–Ќ" type="ќ√–Ќ“ип" use="required">
@@ -2929,6 +3208,11 @@
                                                 </xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
+                                                <xs:annotation>
+                                                    <xs:appinfo>
+                                                        <xjb:class name="DocInfoKFHPredshestvType"/>
+                                                    </xs:appinfo>
+                                                </xs:annotation>
                                                 <xs:sequence>
                                                     <xs:element name="—в‘Ћ" type="—в‘Ћ≈√–ёЋ“ип">
                                                         <xs:annotation>
@@ -2951,6 +3235,11 @@
                                                 <xs:documentation>—ведени€ о правопреемнике</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
+                                                <xs:annotation>
+                                                    <xs:appinfo>
+                                                        <xjb:class name="DocInfoPreemnikType"/>
+                                                    </xs:appinfo>
+                                                </xs:annotation>
                                                 <xs:sequence>
                                                     <xs:element name="—вёЋсложн–еорг" minOccurs="0">
                                                         <xs:annotation>
@@ -2962,6 +3251,11 @@
                                                             </xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
+                                                            <xs:annotation>
+                                                                <xs:appinfo>
+                                                                    <xjb:class name="DocInfoULSlognReorgan"/>
+                                                                </xs:appinfo>
+                                                            </xs:annotation>
                                                             <xs:attribute name="ќ√–Ќ" type="ќ√–Ќ“ип" use="required">
                                                                 <xs:annotation>
                                                                     <xs:documentation>ќсновной государственный
@@ -3043,6 +3337,11 @@
                                                 </xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
+                                                <xs:annotation>
+                                                    <xs:appinfo>
+                                                        <xjb:class name="DocInfoKFHPrimnikType"/>
+                                                    </xs:appinfo>
+                                                </xs:annotation>
                                                 <xs:sequence>
                                                     <xs:element name="—в‘Ћ" type="—в‘Ћ≈√–ёЋ“ип">
                                                         <xs:annotation>
@@ -3066,6 +3365,11 @@
                                                 </xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
+                                                <xs:annotation>
+                                                    <xs:appinfo>
+                                                        <xjb:class name="DocInfoRecordEGRULType"/>
+                                                    </xs:appinfo>
+                                                </xs:annotation>
                                                 <xs:sequence>
                                                     <xs:element name="¬ид«ап" type="¬ид«ап“ип">
                                                         <xs:annotation>
@@ -3083,6 +3387,9 @@
                                                     </xs:element>
                                                     <xs:element name="—в«а€в‘Ћ" minOccurs="0" maxOccurs="unbounded">
                                                         <xs:annotation>
+                                                            <xs:appinfo>
+                                                                <xjb:property name="InfoZayvitelFL"/>
+                                                            </xs:appinfo>
                                                             <xs:documentation>—ведени€ о за€вителе</xs:documentation>
                                                             <xs:documentation>‘ормируетс€ при наличии указанных сведений
                                                                 и формировании выписки дл€ правоохранительных органов
@@ -3090,12 +3397,25 @@
                                                             </xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
+                                                            <xs:annotation>
+                                                            <xs:appinfo>
+                                                                <xjb:class name="DocVidInfoZayvitelType"/>
+                                                            </xs:appinfo>
+                                                            </xs:annotation>
                                                             <xs:sequence>
                                                                 <xs:element name="¬ид«а€в">
                                                                     <xs:annotation>
+                                                                        <xs:appinfo>
+                                                                            <xjb:property name="VidZayvitel"/>
+                                                                        </xs:appinfo>
                                                                         <xs:documentation>«а€витель</xs:documentation>
                                                                     </xs:annotation>
                                                                     <xs:complexType>
+                                                                        <xs:annotation>
+                                                                            <xs:appinfo>
+                                                                                <xjb:class name="DocVidZayvitelType"/>
+                                                                            </xs:appinfo>
+                                                                        </xs:annotation>
                                                                         <xs:attribute name=" од—«ќёЋ" use="required">
                                                                             <xs:annotation>
                                                                                 <xs:documentation> од по справочнику
@@ -3135,6 +3455,11 @@
                                                                         </xs:documentation>
                                                                     </xs:annotation>
                                                                     <xs:complexType>
+                                                                        <xs:annotation>
+                                                                            <xs:appinfo>
+                                                                                <xjb:class name="DocInfoULReorgType"/>
+                                                                            </xs:appinfo>
+                                                                        </xs:annotation>
                                                                         <xs:attribute name="ќ√–Ќ" type="ќ√–Ќ“ип"
                                                                                       use="optional">
                                                                             <xs:annotation>
@@ -3178,6 +3503,11 @@
                                                                         </xs:documentation>
                                                                     </xs:annotation>
                                                                     <xs:complexType>
+                                                                        <xs:annotation>
+                                                                            <xs:appinfo>
+                                                                                <xjb:class name="DocInfoUpravlOrganType"/>
+                                                                            </xs:appinfo>
+                                                                        </xs:annotation>
                                                                         <xs:attribute name="ќ√–Ќ" type="ќ√–Ќ“ип"
                                                                                       use="optional">
                                                                             <xs:annotation>
@@ -3216,6 +3546,11 @@
                                                                         </xs:documentation>
                                                                     </xs:annotation>
                                                                     <xs:complexType>
+                                                                        <xs:annotation>
+                                                                            <xs:appinfo>
+                                                                                <xjb:class name="DocInfoFLReorganType"/>
+                                                                            </xs:appinfo>
+                                                                        </xs:annotation>
                                                                         <xs:sequence>
                                                                             <xs:element name="—в‘»ќ»ЌЌ">
                                                                                 <xs:annotation>
@@ -3224,6 +3559,11 @@
                                                                                     </xs:documentation>
                                                                                 </xs:annotation>
                                                                                 <xs:complexType>
+                                                                                    <xs:annotation>
+                                                                                        <xs:appinfo>
+                                                                                            <xjb:class name="DocInfoFIOInnType"/>
+                                                                                        </xs:appinfo>
+                                                                                    </xs:annotation>
                                                                                     <xs:sequence>
                                                                                         <xs:element name="√–Ќƒата»спр"
                                                                                                     type="√–Ќƒата“ип"
@@ -3324,6 +3664,11 @@
                                                                                     </xs:documentation>
                                                                                 </xs:annotation>
                                                                                 <xs:complexType>
+                                                                                    <xs:annotation>
+                                                                                        <xs:appinfo>
+                                                                                            <xjb:class name="DocInfoBirthType"/>
+                                                                                        </xs:appinfo>
+                                                                                    </xs:annotation>
                                                                                     <xs:sequence>
                                                                                         <xs:element name="√–Ќƒата»спр"
                                                                                                     type="√–Ќƒата“ип"
@@ -3426,6 +3771,11 @@
                                                                                     </xs:documentation>
                                                                                 </xs:annotation>
                                                                                 <xs:complexType>
+                                                                                    <xs:annotation>
+                                                                                        <xs:appinfo>
+                                                                                            <xjb:class name="DocInfoUdLichnostType"/>
+                                                                                        </xs:appinfo>
+                                                                                    </xs:annotation>
                                                                                     <xs:sequence>
                                                                                         <xs:element name="√–Ќƒата»спр"
                                                                                                     type="√–Ќƒата“ип"
@@ -3782,6 +4132,9 @@
                                                                             </xs:element>
                                                                             <xs:element name="јдрћ∆»н" minOccurs="0">
                                                                                 <xs:annotation>
+                                                                                    <xs:appinfo>
+                                                                                        <xjb:property name="AddressMGI"/>
+                                                                                    </xs:appinfo>
                                                                                     <xs:documentation>—ведени€ об адресе
                                                                                         места жительства за пределами
                                                                                         –оссийской ‘едерации
@@ -3794,6 +4147,11 @@
                                                                                     </xs:documentation>
                                                                                 </xs:annotation>
                                                                                 <xs:complexType>
+                                                                                    <xs:annotation>
+                                                                                    <xs:appinfo>
+                                                                                        <xjb:class name="AddressMGIType"/>
+                                                                                    </xs:appinfo>
+                                                                                    </xs:annotation>
                                                                                     <xs:sequence>
                                                                                         <xs:element name="√–Ќƒата»спр"
                                                                                                     type="√–Ќƒата“ип"
@@ -3881,6 +4239,11 @@
                                                             </xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
+                                                            <xs:annotation>
+                                                                <xs:appinfo>
+                                                                    <xjb:class name="DocInfoPredDocType"/>
+                                                                </xs:appinfo>
+                                                            </xs:annotation>
                                                             <xs:sequence>
                                                                 <xs:element name="Ќаимƒок">
                                                                     <xs:annotation>
@@ -3936,6 +4299,11 @@
                                                             </xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
+                                                            <xs:annotation>
+                                                                <xs:appinfo>
+                                                                    <xjb:class name="DocInfoSvidetelType"/>
+                                                                </xs:appinfo>
+                                                            </xs:annotation>
                                                             <xs:sequence>
                                                                 <xs:element name="√–Ќƒата—видЌед" type="√–Ќƒата“ип"
                                                                             minOccurs="0">
@@ -4016,6 +4384,11 @@
                                                             </xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
+                                                            <xs:annotation>
+                                                                <xs:appinfo>
+                                                                    <xjb:class name="DocInfoStatusRecordType"/>
+                                                                </xs:appinfo>
+                                                            </xs:annotation>
                                                             <xs:sequence>
                                                                 <xs:element name="√–ЌƒатаЌед" type="»д√–Ќƒата“ип"
                                                                             minOccurs="0">
@@ -5190,6 +5563,11 @@
                     <xs:documentation>—ведени€ о залогодержателе - ‘Ћ</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
+                    <xs:annotation>
+                    <xs:appinfo>
+                        <xjb:class name="InfoPawneeFLType"/>
+                    </xs:appinfo>
+                    </xs:annotation>
                     <xs:sequence>
                         <xs:element name="√–Ќƒатаѕерв" type="√–Ќƒата“ип" minOccurs="0">
                             <xs:annotation>

@@ -45,7 +45,8 @@ def packageBaseDir = 'src/main/java/' + packageBase.replace('.', '/')
 def createJavaFromWsdl(String modelPackage, String wsdl, String binding) {
     def targetDir = 'src/main/java'
     def jaxbTargetDir = file(targetDir)
-    jaxbTargetDir.mkdirs()
+    jaxbTargetDir.deleteDir();
+    jaxbTargetDir.mkdirs();
     println modelPackage
     println wsdl
     println binding

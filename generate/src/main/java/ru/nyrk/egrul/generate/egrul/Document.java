@@ -1650,19 +1650,19 @@ import javax.xml.bind.annotation.XmlType;
 public class Document {
 
     @XmlElement(name = "\u0421\u0432\u042e\u041b", required = true)
-    protected SvUl svUl;
+    protected DocSvUl svUl;
     @XmlAttribute(name = "\u0418\u0434\u0414\u043e\u043a", required = true)
-    protected String идДок;
+    protected String idDoc;
 
     /**
      * Gets the value of the svUl property.
      * 
      * @return
      *     possible object is
-     *     {@link SvUl }
+     *     {@link DocSvUl }
      *     
      */
-    public SvUl getSvUl() {
+    public DocSvUl getSvUl() {
         return svUl;
     }
 
@@ -1671,35 +1671,35 @@ public class Document {
      * 
      * @param value
      *     allowed object is
-     *     {@link SvUl }
+     *     {@link DocSvUl }
      *     
      */
-    public void setSvUl(SvUl value) {
+    public void setSvUl(DocSvUl value) {
         this.svUl = value;
     }
 
     /**
-     * Gets the value of the идДок property.
+     * Gets the value of the idDoc property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getИдДок() {
-        return идДок;
+    public String getIdDoc() {
+        return idDoc;
     }
 
     /**
-     * Sets the value of the идДок property.
+     * Sets the value of the idDoc property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setИдДок(String value) {
-        this.идДок = value;
+    public void setIdDoc(String value) {
+        this.idDoc = value;
     }
 
 }
