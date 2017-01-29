@@ -27,6 +27,9 @@ repositories {
 
 
 dependencies {
+	compile project(":generate")
+
+	compile('com.google.guava:guava:19.0')
 	compile('org.springframework.boot:spring-boot-starter-cache')
 	compile('org.springframework.boot:spring-boot-starter-data-neo4j')
 	compile('org.springframework.boot:spring-boot-starter-groovy-templates')

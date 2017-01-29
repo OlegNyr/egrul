@@ -7,11 +7,14 @@ import lombok.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Component
-@ConfigurationProperties(prefix = "myconfig")
+@ConfigurationProperties(prefix = "config")
 @Data
-public class ServersProperties {
-    private List<Server> servers;
+public class ConfigAppProperties {
+    @Valid
+    private Server nalog;
+    private String dataDir;
 }

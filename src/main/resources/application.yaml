@@ -1,3 +1,11 @@
 logging:
   level:
     org.apache.http: INFO
+
+config:
+  dataDir: data
+  nalog:
+    url: url
+    p12: pathP12Container
+    password: passwordConteiner
+    autorization: autorization basic user:password
