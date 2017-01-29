@@ -429,7 +429,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class DocInfoRecordEGRULType {
 
     @XmlElement(name = "\u0412\u0438\u0434\u0417\u0430\u043f", required = true)
-    protected VidRecord видЗап;
+    protected VidRecordType видЗап;
     @XmlElement(name = "\u0421\u0432\u0420\u0435\u0433\u041e\u0440\u0433", required = true)
     protected InfoRegOrganType свРегОрг;
     @XmlElement(name = "\u0421\u0432\u0417\u0430\u044f\u0432\u0424\u041b")
@@ -457,10 +457,10 @@ public class DocInfoRecordEGRULType {
      * 
      * @return
      *     possible object is
-     *     {@link VidRecord }
+     *     {@link VidRecordType }
      *     
      */
-    public VidRecord getВидЗап() {
+    public VidRecordType getВидЗап() {
         return видЗап;
     }
 
@@ -469,10 +469,10 @@ public class DocInfoRecordEGRULType {
      * 
      * @param value
      *     allowed object is
-     *     {@link VidRecord }
+     *     {@link VidRecordType }
      *     
      */
-    public void setВидЗап(VidRecord value) {
+    public void setВидЗап(VidRecordType value) {
         this.видЗап = value;
     }
 

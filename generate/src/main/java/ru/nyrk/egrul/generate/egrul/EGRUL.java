@@ -1,6 +1,8 @@
 
 package ru.nyrk.egrul.generate.egrul;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -21,7 +23,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;complexContent>
  *       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *         &lt;sequence>
- *           &lt;element name="СвЮЛ">
+ *           &lt;element name="СвЮЛ" maxOccurs="unbounded" minOccurs="0">
  *             &lt;complexType>
  *               &lt;complexContent>
  *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
@@ -1640,36 +1642,41 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "svUl"
+    "docInfoUL"
 })
 @XmlRootElement(name = "EGRUL")
 public class EGRUL {
 
-    @XmlElement(name = "\u0421\u0432\u042e\u041b", required = true)
-    protected DocSvUl svUl;
+    @XmlElement(name = "\u0421\u0432\u042e\u041b")
+    protected List<DocInfoULType> docInfoUL;
 
     /**
-     * Gets the value of the svUl property.
+     * Gets the value of the docInfoUL property.
      * 
-     * @return
-     *     possible object is
-     *     {@link DocSvUl }
-     *     
-     */
-    public DocSvUl getSvUl() {
-        return svUl;
-    }
-
-    /**
-     * Sets the value of the svUl property.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the docInfoUL property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link DocSvUl }
-     *     
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getDocInfoUL().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link DocInfoULType }
+     * 
+     * 
      */
-    public void setSvUl(DocSvUl value) {
-        this.svUl = value;
+    public List<DocInfoULType> getDocInfoUL() {
+        if (docInfoUL == null) {
+            docInfoUL = new ArrayList<DocInfoULType>();
+        }
+        return this.docInfoUL;
     }
 
 }

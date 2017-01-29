@@ -63,11 +63,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link VidRecord }
+     * Create an instance of {@link VidRecordType }
      * 
      */
-    public VidRecord createVidRecord() {
-        return new VidRecord();
+    public VidRecordType createVidRecordType() {
+        return new VidRecordType();
     }
 
     /**
@@ -287,11 +287,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DocSvUl }
+     * Create an instance of {@link DocInfoULType }
      * 
      */
-    public DocSvUl createDocSvUl() {
-        return new DocSvUl();
+    public DocInfoULType createDocInfoULType() {
+        return new DocInfoULType();
     }
 
     /**
