@@ -31,11 +31,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link FileElement }
+     * Create an instance of {@link EGRUL }
      * 
      */
-    public FileElement createFileElement() {
-        return new FileElement();
+    public EGRUL createEGRUL() {
+        return new EGRUL();
     }
 
     /**
@@ -284,22 +284,6 @@ public class ObjectFactory {
      */
     public ShareSize createShareSize() {
         return new ShareSize();
-    }
-
-    /**
-     * Create an instance of {@link IdOtpr }
-     * 
-     */
-    public IdOtpr createIdOtpr() {
-        return new IdOtpr();
-    }
-
-    /**
-     * Create an instance of {@link Document }
-     * 
-     */
-    public Document createDocument() {
-        return new Document();
     }
 
     /**

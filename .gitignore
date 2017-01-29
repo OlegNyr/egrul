@@ -28,3 +28,4 @@ nbdist/
 /gradle.properties
 !/document/acc.pdf
 /document/acc.pdf
+/data/
