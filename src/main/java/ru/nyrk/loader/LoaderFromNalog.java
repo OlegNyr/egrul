@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.Date;
 
 /**
- * todo:java doc
+ * Грузит файл с сервера и возращает ссылку на файл
  */
 public interface LoaderFromNalog {
     File load(Date date, TypeFile typeFile, boolean isFull, Integer index);

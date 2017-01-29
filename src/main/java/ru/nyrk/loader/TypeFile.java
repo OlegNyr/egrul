@@ -1,8 +1,9 @@
 package ru.nyrk.loader;
 
 /**
- * todo:java doc
+ * Типы файлов
  */
 public enum TypeFile {
-    EGRUL;
+    EGRUL,
+    EGRIP
 }

@@ -33,7 +33,7 @@ import java.util.Date;
 import java.util.Optional;
 
 /**
- * todo:java doc
+ * Грузит данные с сервера Налоговой Инспекции
  */
 @Service
 public class LoaderFromNalogImpl implements LoaderFromNalog {
