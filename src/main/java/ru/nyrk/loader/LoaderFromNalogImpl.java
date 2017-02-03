@@ -1,6 +1,7 @@
 package ru.nyrk.loader;
 
 import com.google.common.collect.ImmutableMap;
+import lombok.Cleanup;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.text.StrSubstitutor;
@@ -52,9 +53,9 @@ public class LoaderFromNalogImpl implements LoaderFromNalog {
     @PostConstruct
     private void init() throws KeyStoreException, CertificateException, NoSuchAlgorithmException, IOException, UnrecoverableKeyException, KeyManagementException {
         KeyStore keyStore = KeyStore.getInstance("PKCS12");
-        try (FileInputStream fileInputStream = FileUtils.openInputStream(new File(configAppProperties.getNalog().getP12()))) {
-            keyStore.load(fileInputStream, configAppProperties.getNalog().getPassword().toCharArray());
-        }
+        File fileP12 = new File(configAppProperties.getNalog().getP12());
+        @Cleanup FileInputStream fileInputStream = FileUtils.openInputStream(fileP12);
+        keyStore.load(fileInputStream, configAppProperties.getNalog().getPassword().toCharArray());
 
         SSLContext sslcontext = SSLContexts.custom()
                 .loadTrustMaterial(null, new TrustSelfSignedStrategy())

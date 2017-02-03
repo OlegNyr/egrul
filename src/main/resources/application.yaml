@@ -2,10 +2,19 @@ logging:
   level:
     org.apache.http: INFO
 
+spring:
+  data:
+    neo4j:
+      username: neo4j
+      password: 123
+      uri: bolt://localhost
+      embedded:
+        enabled: false
+
 config:
   dataDir: data
   nalog:
     url: url
     p12: pathP12Container
     password: passwordConteiner
-    autorization: autorization basic user:password
+    autification: autorization basic user:password

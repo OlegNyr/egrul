@@ -1,39 +1,52 @@
 buildscript {
-	ext {
-		springBootVersion = '1.4.4.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
-}
+    ext {
+        springBootVersion = '1.4.4.RELEASE'
+    }
+    ext['neo4j.ogm.version']="2.1.1"
+    ext['slf4j']="1.7.22"
+    repositories {
 
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+ext['slf4j']="1.7.22"
+ext['neo4j.ogm.version']="2.1.1"
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 
 jar {
-	baseName = 'egrul'
-	version = '0.0.1-SNAPSHOT'
+    baseName = 'egrul'
+    version = '0.0.1-SNAPSHOT'
 }
 
 sourceCompatibility = 1.8
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 
 dependencies {
-	compile project(":generate")
+    compile project(":generate")
+    compile 'org.neo4j:neo4j-ogm-api:2.1.1'
+    compile 'org.neo4j:neo4j-ogm-core:2.1.1'
+    compile 'org.neo4j:neo4j-ogm-compiler:2.1.1'
+    compile 'org.neo4j:neo4j-ogm-bolt-driver:2.1.1'
+    compile 'org.neo4j:neo4j-ogm-http-driver:2.1.1'
 
-	compile('com.google.guava:guava:19.0')
-	compile('org.springframework.boot:spring-boot-starter-cache')
-	compile('org.springframework.boot:spring-boot-starter-data-neo4j')
-	compile('org.springframework.boot:spring-boot-starter-groovy-templates')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compileOnly('org.projectlombok:lombok')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+
+    compile('org.springframework.data:spring-data-neo4j:4.2.0.RELEASE')
+
+    compile('com.google.guava:guava:19.0')
+    compile('org.springframework.boot:spring-boot-starter-cache')
+
+//    compile('org.springframework.boot:spring-boot-starter-data-neo4j')
+    compile('org.springframework.boot:spring-boot-starter-groovy-templates')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compileOnly('org.projectlombok:lombok')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
 }
