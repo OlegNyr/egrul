@@ -1,11 +1,13 @@
 package ru.nyrk.database.service;
 
 import org.neo4j.ogm.session.Session;
+import org.springframework.transaction.annotation.Transactional;
 import ru.nyrk.database.entity.Entity;
 
 /**
  * Реализация CRUD
  */
+@Transactional(readOnly = true)
 abstract public class GenericService<T extends Entity> implements Service<T> {
 
     private static final int DEPTH_LIST = 0;
@@ -27,11 +29,13 @@ abstract public class GenericService<T extends Entity> implements Service<T> {
         return session.load(getEntityType(), id, DEPTH_ENTITY);
     }
 
+    @Transactional
     @Override
     public void delete(Long id) {
         session.delete(session.load(getEntityType(), id));
     }
 
+    @Transactional
     @Override
     public T createOrUpdate(T object) {
         session.save(object, DEPTH_ENTITY);
