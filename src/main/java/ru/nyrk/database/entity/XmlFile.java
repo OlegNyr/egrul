@@ -18,4 +18,6 @@ public class XmlFile extends Entity {
     private Date date;
 
     private ArchiveFile archiveFile;
+
+    private LoadedFileStatus status;
 }

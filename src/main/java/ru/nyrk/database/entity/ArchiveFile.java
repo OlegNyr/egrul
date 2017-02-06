@@ -15,7 +15,6 @@ import java.util.List;
 public class ArchiveFile extends Entity {
     @Index(unique = true)
     String fileName;
-    @DateLong
     Date dateLoad;
     @Index()
     @DateLong
