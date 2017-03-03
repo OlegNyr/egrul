@@ -1,6 +1,6 @@
-package ru.nyrk.database.service;
+package ru.nyrk.database;
 
-interface Service<T> {
+interface ServiceDatabase<T> {
 
     Iterable<T> findAll();
 

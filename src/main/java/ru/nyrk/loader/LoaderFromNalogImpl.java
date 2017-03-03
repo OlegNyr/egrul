@@ -52,7 +52,7 @@ public class LoaderFromNalogImpl implements LoaderFromNalog {
 
     private static final Logger logger = LoggerFactory.getLogger(LoaderFromNalogImpl.class);
     public static final String MD5_KEY_JSON = "md5";
-    public static final String AUTHORIZATION_HEADER_HTTP = "Authorization";
+    public static final String EMPTY_RESULT = "\"[]\"";
     //EGRUL/01.01.2017_FULL/EGRUL_FULL_2017-01-01_1.zip
     String patternFileName = "${typeFile}/${ddFirst}${full}/${typeFile}${full}_${yyFirst}${indx}.zip";
     FastDateFormat ddFirst = FastDateFormat.getInstance("dd.MM.yyyy");
@@ -104,28 +104,18 @@ public class LoaderFromNalogImpl implements LoaderFromNalog {
                 .build();
 
         try (CloseableHttpResponse httpResponse = httpClient.execute(request)) {
-            if (httpResponse.getStatusLine().getStatusCode() != 200) {
-                logger.warn(EntityUtils.toString(httpResponse.getEntity()));
-                throw new LoadException(httpResponse.getStatusLine());
-            }
+            checkNotOk(httpResponse);
             File outputFile = new File(configAppProperties.getDataDir(), nameFile);
 
             File outputFileTmp = new File(configAppProperties.getDataDir(), nameFile + ".tmp");
             outputFileTmp.deleteOnExit();
             DigestInputStream digestInputStream = new DigestInputStream(httpResponse.getEntity().getContent(), MessageDigest.getInstance("MD5"));
+
             FileUtils.copyInputStreamToFile(digestInputStream, outputFileTmp);
+
             digestInputStream.close();
 
-            byte[] mdbytes = digestInputStream.getMessageDigest().digest();
-            //convert the byte to hex format method 1
-            StringBuffer sb = new StringBuffer();
-            for (int i = 0; i < mdbytes.length; i++) {
-                sb.append(Integer.toString((mdbytes[i] & 0xff) + 0x100, 16).substring(1));
-            }
-
-            if (!sb.toString().equals(hashMD5Source)) {
-                throw new LoadException(new BasicStatusLine(HttpVersion.HTTP_1_1, 500, "not md5 equals"));
-            }
+            checkHash(hashMD5Source, digestInputStream);
 
             FileUtils.moveFile(outputFileTmp, outputFile);
 
@@ -139,6 +129,26 @@ public class LoaderFromNalogImpl implements LoaderFromNalog {
         }
     }
 
+    private void checkNotOk(CloseableHttpResponse httpResponse) throws IOException {
+        if (httpResponse.getStatusLine().getStatusCode() != 200) {
+            logger.warn(EntityUtils.toString(httpResponse.getEntity()));
+            throw new LoadException(httpResponse.getStatusLine());
+        }
+    }
+
+    private void checkHash(String hashMD5Source, DigestInputStream digestInputStream) {
+        byte[] mdbytes = digestInputStream.getMessageDigest().digest();
+        //convert the byte to hex format method 1
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < mdbytes.length; i++) {
+            sb.append(Integer.toString((mdbytes[i] & 0xff) + 0x100, 16).substring(1));
+        }
+
+        if (!sb.toString().equals(hashMD5Source)) {
+            throw new LoadException(new BasicStatusLine(HttpVersion.HTTP_1_1, 500, "not md5 equals"));
+        }
+    }
+
     private String loadMD5File(String nameFile) {
         HttpUriRequest request = RequestBuilder
                 .get(configAppProperties.getNalog().getUrl())
@@ -147,28 +157,29 @@ public class LoaderFromNalogImpl implements LoaderFromNalog {
                 .build();
 
         try (CloseableHttpResponse httpResponse = httpClient.execute(request)) {
+            checkNotOk(httpResponse);
+            String resultText = EntityUtils.toString(httpResponse.getEntity());
+            if (resultText.endsWith(EMPTY_RESULT)) { //такой текст они возвращают когда нет файла или ссылка битая
+                return makeError404();
+            }
 
-            if (httpResponse.getStatusLine().getStatusCode() != 200) {
-                logger.warn(EntityUtils.toString(httpResponse.getEntity()));
-                throw new LoadException(httpResponse.getStatusLine());
-            }
-            String result = EntityUtils.toString(httpResponse.getEntity());
-            if(result.endsWith("\"[]\"")){ //такой текст они возвращают когда нет файла или ссылка битая
-                throw new LoadException(new BasicStatusLine(HttpVersion.HTTP_1_1, 404, "not found Md5"));
-            }
-            Map<String, Object> resultMap = jsonParser.parseMap(result);
+            Map<String, Object> resultMap = jsonParser.parseMap(resultText);
             if (resultMap.containsKey(MD5_KEY_JSON)) {
                 return (String) resultMap.get(MD5_KEY_JSON);
             } else {
-                logger.warn(result);
-                throw new LoadException(new BasicStatusLine(HttpVersion.HTTP_1_1, 404, "not found Md5"));
+                logger.warn(resultText);
+                makeError404();
+                return null;
             }
-
         } catch (ClientProtocolException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private String makeError404() {
+        throw new LoadException(new BasicStatusLine(HttpVersion.HTTP_1_1, 404, "not found Md5"));
     }
 
     private String createAuthorization() {

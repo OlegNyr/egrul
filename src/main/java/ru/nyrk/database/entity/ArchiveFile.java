@@ -10,6 +10,9 @@ import org.neo4j.ogm.annotation.typeconversion.DateLong;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Файл архива загруженный с сайта налоговой
+ */
 @NodeEntity
 @Data
 public class ArchiveFile extends Entity {

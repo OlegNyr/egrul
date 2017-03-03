@@ -1,7 +1,6 @@
 package ru.nyrk.loader;
 
 import com.google.common.base.Preconditions;
-import lombok.Cleanup;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.compress.archivers.zip.ZipFile;
 import org.apache.commons.io.FilenameUtils;
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Service;
 import ru.nyrk.database.entity.ArchiveFile;
 import ru.nyrk.database.entity.LoadedFileStatus;
 import ru.nyrk.database.entity.XmlFile;
-import ru.nyrk.database.service.LoadedFileService;
+import ru.nyrk.database.LoadedFileService;
 import ru.nyrk.egrul.generate.egrul.EGRUL;
 
 import javax.xml.transform.stream.StreamSource;
@@ -62,7 +61,7 @@ public class ParseArchiveImpl implements ParseArchive {
                         continue;
                     }
                     EGRUL egrul = (EGRUL) jaxb2Marshaller.unmarshal(new StreamSource(entryStream));
-                    egrulService.insertingBatch(egrul);
+                    egrulService.insertingBatch(egrul, xmlFile);
                     xmlFile.setStatus(LoadedFileStatus.COMPLETE);
                 } catch (RuntimeException th) {
                     xmlFile.setStatus(LoadedFileStatus.ERROR);

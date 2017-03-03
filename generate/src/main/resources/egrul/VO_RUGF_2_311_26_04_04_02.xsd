@@ -4824,7 +4824,7 @@
         <xs:attribute name="НаимГород" use="required">
             <xs:annotation>
                 <xs:appinfo>
-                    <xjb:property name="NameStreet"/>
+                    <xjb:property name="NameCity"/>
                 </xs:appinfo>
                 <xs:documentation>Наименование (элемент город)</xs:documentation>
             </xs:annotation>

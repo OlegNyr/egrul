@@ -6,7 +6,7 @@ import org.neo4j.ogm.annotation.NodeEntity;
 import java.util.Date;
 
 /**
- * todo:java doc
+ * Ошибки при загрузке данных
  */
 @Data
 @NodeEntity

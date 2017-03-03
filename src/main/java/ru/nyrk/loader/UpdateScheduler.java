@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import ru.nyrk.database.entity.ArchiveFile;
 import ru.nyrk.database.entity.LoadedFileError;
 import ru.nyrk.database.entity.LoadedFileStatus;
-import ru.nyrk.database.service.LoadedFileService;
+import ru.nyrk.database.LoadedFileService;
 
 import java.io.File;
 import java.io.IOException;
@@ -60,6 +60,7 @@ public class UpdateScheduler {
                 archiveFile = loadedFileService.createOrUpdate(archiveFile);
                 //Парсим файл
                 parseArchive.parseArchiveFile(fileArchive, archiveFile);
+
                 archiveFile.setStatus(LoadedFileStatus.COMPLETE);
                 archiveFile = loadedFileService.createOrUpdate(archiveFile);
 

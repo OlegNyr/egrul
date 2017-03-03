@@ -48,7 +48,7 @@ public class CityType {
     @XmlAttribute(name = "\u0422\u0438\u043f\u0413\u043e\u0440\u043e\u0434", required = true)
     protected String cityType;
     @XmlAttribute(name = "\u041d\u0430\u0438\u043c\u0413\u043e\u0440\u043e\u0434", required = true)
-    protected String nameStreet;
+    protected String nameCity;
 
     /**
      * Gets the value of the cityType property.
@@ -75,27 +75,27 @@ public class CityType {
     }
 
     /**
-     * Gets the value of the nameStreet property.
+     * Gets the value of the nameCity property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getNameStreet() {
-        return nameStreet;
+    public String getNameCity() {
+        return nameCity;
     }
 
     /**
-     * Sets the value of the nameStreet property.
+     * Sets the value of the nameCity property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setNameStreet(String value) {
-        this.nameStreet = value;
+    public void setNameCity(String value) {
+        this.nameCity = value;
     }
 
 }
