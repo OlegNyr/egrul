@@ -6,8 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.nyrk.database.LegalPartyService;
-import ru.nyrk.database.NaturalPersonService;
+import ru.nyrk.database.EconomicActivityService;
 import ru.nyrk.database.entity.XmlFile;
 import ru.nyrk.database.entity.legal.*;
 import ru.nyrk.egrul.generate.egrul.*;
@@ -27,6 +26,8 @@ public class EgrulServiceImpl implements EgrulService {
     private EgrulOwnerServiceHelper egrulOwnerServiceHelper;
     @Autowired
     private EgrulHistoryServiceHelper egrulHistoryServiceHelper;
+    @Autowired
+    private EconomicActivityService economicActivityService;
 
     @Override
     public void insertingBatch(EGRUL egrul, XmlFile xmlFile) {
@@ -45,7 +46,6 @@ public class EgrulServiceImpl implements EgrulService {
                 legalPartyBuilder.legalAddress(addAddress(d.getInfoAddressUl().getAddressRF()));
             }
 
-            LegalParty legalParty = legalPartyBuilder.build();
             if (d.getDocInfoRegisterUL() != null) {
                 legalPartyBuilder.beginDate(
                         MoreObjects.firstNonNull(
@@ -69,7 +69,14 @@ public class EgrulServiceImpl implements EgrulService {
 
             setCapital(d, legalPartyBuilder);
             legalPartyBuilder.ownerCompanys(egrulOwnerServiceHelper.makeOwnerCompanys(d.getDocInfoUchered()));
+
+            LegalParty legalParty = legalPartyBuilder.build();
+
             legalPartyBuilder.historyRecords(egrulHistoryServiceHelper.makeHistoryRecord(d.getDocInfoRecordEGRUL()));
+            if (d.getDocInfoOKVED() != null) {
+                legalPartyBuilder.economicActivity(makeEconomicActivity(d.getDocInfoOKVED().getСвОКВЭДОсн()));
+                legalPartyBuilder.economicActivitiesOther(makeEconomicActivityList(d.getDocInfoOKVED()));
+            }
 
             if (d.getInfoNameUl() != null) {
                 legalParty.setDateRecord(d.getInfoNameUl().getGRNDate().getDateRecord());
@@ -77,6 +84,27 @@ public class EgrulServiceImpl implements EgrulService {
             }
         }
     }
+
+    private List<EconomicActivity> makeEconomicActivityList(DocInfoOKVEDType docInfoOKVED) {
+        List<EconomicActivity> economicActivities = Lists.newArrayList();
+//        docInfoOKVED.getСвОКВЭДОсн()
+        for (InfoOKVEDType infoOKVEDType : docInfoOKVED.getСвОКВЭДДоп()) {
+            economicActivities.add(makeEconomicActivity(infoOKVEDType));
+        }
+        return null;
+
+    }
+
+    private EconomicActivity makeEconomicActivity(InfoOKVEDType infoOKVEDType) {
+        if (infoOKVEDType != null) {
+            return economicActivityService.findByCodeOrCreate(
+                    new EconomicActivity(infoOKVEDType.getKodOKVED(), infoOKVEDType.getNameOKVED())
+            );
+        } else {
+            return null;
+        }
+    }
+
 
     private void setCapital(DocInfoULType d, LegalParty.LegalPartyBuilder legalPartyBuilder) {
         if (d.getDocInfoUstavKapital() != null) {

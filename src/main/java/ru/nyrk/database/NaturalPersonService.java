@@ -1,6 +1,6 @@
 package ru.nyrk.database;
 
-import ru.nyrk.loader.NaturalPerson;
+import ru.nyrk.database.entity.legal.NaturalPerson;
 
 /**
  * Сервис управления физическими лицами

@@ -3,6 +3,7 @@ package ru.nyrk.loader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.nyrk.database.NaturalPersonService;
+import ru.nyrk.database.entity.legal.NaturalPerson;
 import ru.nyrk.egrul.generate.egrul.InfoFLEGRULType;
 
 @Service

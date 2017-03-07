@@ -4,7 +4,6 @@ import lombok.Builder;
 import lombok.Data;
 import org.neo4j.ogm.annotation.NodeEntity;
 import ru.nyrk.database.entity.XmlFile;
-import ru.nyrk.loader.LegalAttorney;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -24,8 +23,8 @@ public class LegalParty extends GRNDate {
 
     Date beginDate;
     Date endDate;
-    String  endCode;
-    String  endName;
+    String endCode;
+    String endName;
 
     String regNumber;
     String pensionFondRegNumber;
@@ -42,6 +41,10 @@ public class LegalParty extends GRNDate {
     Address legalAddress;
     XmlFile xmlFile;
 
+
+    List<EconomicActivity> economicActivitiesOther;
+
+    EconomicActivity economicActivity;
 
     List<HistoryRecord> historyRecords;
 

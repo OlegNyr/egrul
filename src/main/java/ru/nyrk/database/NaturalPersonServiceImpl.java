@@ -3,7 +3,7 @@ package ru.nyrk.database;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.nyrk.database.repository.NaturalPersonRepository;
-import ru.nyrk.loader.NaturalPerson;
+import ru.nyrk.database.entity.legal.NaturalPerson;
 
 /**
  * Имплементация управления персонами

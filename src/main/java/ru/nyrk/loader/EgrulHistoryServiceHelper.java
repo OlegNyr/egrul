@@ -1,25 +1,19 @@
 package ru.nyrk.loader;
 
-import com.google.common.base.MoreObjects;
 import com.google.common.collect.Lists;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.nyrk.database.LegalPartyService;
-import ru.nyrk.database.entity.XmlFile;
-import ru.nyrk.database.entity.legal.Address;
 import ru.nyrk.database.entity.legal.HistoryRecord;
-import ru.nyrk.database.entity.legal.LegalParty;
+import ru.nyrk.database.entity.legal.HistoryRecordDocument;
 import ru.nyrk.egrul.generate.egrul.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * ПОлучает структуру
  */
 @Service
-public class EgrulHistoryServiceHelper{
+public class EgrulHistoryServiceHelper {
 
 
     public List<HistoryRecord> makeHistoryRecord(List<DocInfoRecordEGRULType> docInfoRecordEGRUL) {
@@ -31,6 +25,13 @@ public class EgrulHistoryServiceHelper{
             historyRecord.setVidRecord(ddd.getВидЗап().getKodSPVZ());
             historyRecord.setNameRecord(ddd.getВидЗап().getNameVidRecord());
             historyRecord.setHaveRecord(ddd.getСвРегОрг().getInfoRegOrgan());
+
+            List<HistoryRecordDocument> historyRecordDocuments =
+                    ddd.getСведПредДок()
+                            .stream()
+                            .map(s -> new HistoryRecordDocument(s.getДатаДок(), s.getНаимДок(), s.getНомДок()))
+                            .collect(Collectors.toList());
+            historyRecord.setHistoryRecordDocuments(historyRecordDocuments);
             historyRecords.add(historyRecord);
         }
         return historyRecords;
