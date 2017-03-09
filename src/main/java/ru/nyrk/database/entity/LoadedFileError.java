@@ -1,6 +1,7 @@
 package ru.nyrk.database.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.neo4j.ogm.annotation.NodeEntity;
 
 import java.util.Date;
@@ -10,6 +11,7 @@ import java.util.Date;
  */
 @Data
 @NodeEntity
+@EqualsAndHashCode(callSuper = false)
 public class LoadedFileError extends Entity {
     Date date;
     String message;

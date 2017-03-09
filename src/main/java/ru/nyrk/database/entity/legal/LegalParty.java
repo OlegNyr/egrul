@@ -2,6 +2,7 @@ package ru.nyrk.database.entity.legal;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.neo4j.ogm.annotation.NodeEntity;
 import ru.nyrk.database.entity.XmlFile;
 
@@ -15,45 +16,46 @@ import java.util.List;
  */
 @Data()
 @NodeEntity
-@Builder
+@EqualsAndHashCode(callSuper = true)
 public class LegalParty extends GRNDate {
-    String inn;
-    String ogrn;
-    Date ogrnDate;
+    private String inn;
+    private String ogrn;
+    private Date ogrnDate;
 
-    Date beginDate;
-    Date endDate;
-    String endCode;
-    String endName;
+    private Date beginDate;
+    private Date endDate;
+    private String endCode;
+    private String endName;
 
-    String regNumber;
-    String pensionFondRegNumber;
-    Date pensionFondRegDate;
+    private String regNumber;
+    private String pensionFondRegNumber;
+    private Date pensionFondRegDate;
 
-    String kpp;
+    private String kpp;
 
-    String okpfCode;
-    String okpfDict;
-    String okpfName;
+    private String okpfCode;
+    private String okpfDict;
+    private String okpfName;
 
-    String fullName;
-    String shortName;
-    Address legalAddress;
-    XmlFile xmlFile;
-
-
-    List<EconomicActivity> economicActivitiesOther;
-
-    EconomicActivity economicActivity;
-
-    List<HistoryRecord> historyRecords;
-
-    List<LegalAttorney> legalAttorneys;
+    private String fullName;
+    private String shortName;
+    private Address legalAddress;
+    private XmlFile xmlFile;
 
 
-    BigDecimal capital;
-    List<OwnerCompany> ownerCompanys;
+    private List<EconomicActivity> economicActivitiesOther;
+
+    private EconomicActivity economicActivity;
+
+    private List<HistoryRecord> historyRecords;
+
+    private List<LegalAttorney> legalAttorneys;
+
+
+    private BigDecimal capital;
+    private List<OwnerCompany> ownerCompanies;
 
     public LegalParty() {
     }
+
 }

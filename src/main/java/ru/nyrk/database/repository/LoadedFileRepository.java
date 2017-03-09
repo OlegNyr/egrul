@@ -1,5 +1,6 @@
 package ru.nyrk.database.repository;
 
+import org.springframework.data.neo4j.annotation.Depth;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import ru.nyrk.database.entity.ArchiveFile;
@@ -12,6 +13,6 @@ public interface LoadedFileRepository extends GraphRepository<ArchiveFile> {
             "where a.dateFile = max\n" +
             "RETURN a")
     ArchiveFile lastArchiveFileComplete();
-
+    @Depth(value = 0)
     ArchiveFile findByDateFileAndFileId(Date dateFile, Integer fileId);
 }

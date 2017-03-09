@@ -12,6 +12,8 @@ import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import ru.nyrk.database.EconomicActivityService;
+import ru.nyrk.database.entity.legal.EconomicActivity;
 import ru.nyrk.egrul.generate.egrul.EGRUL;
 import ru.nyrk.loader.UpdateScheduler;
 
@@ -45,7 +47,14 @@ public class EgrulApplication {
     }
 
     @Bean
-    CommandLineRunner commandLineRunner(UpdateScheduler updateScheduler) {
-        return args -> updateScheduler.execute();
+    CommandLineRunner commandLineRunner(UpdateScheduler updateScheduler, EconomicActivityService economicActivityService) {
+        return args -> {
+//            updateScheduler.execute();
+            economicActivityService.findByCodeOrCreate(new EconomicActivity("94.99", null));
+
+        };
+//
+//
+//
     }
 }

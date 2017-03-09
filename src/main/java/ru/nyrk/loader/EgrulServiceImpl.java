@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.nyrk.database.EconomicActivityService;
+import ru.nyrk.database.LegalPartyService;
+import ru.nyrk.database.LegalPartyServiceImpl;
 import ru.nyrk.database.entity.XmlFile;
 import ru.nyrk.database.entity.legal.*;
 import ru.nyrk.egrul.generate.egrul.*;
@@ -28,66 +30,69 @@ public class EgrulServiceImpl implements EgrulService {
     private EgrulHistoryServiceHelper egrulHistoryServiceHelper;
     @Autowired
     private EconomicActivityService economicActivityService;
+    @Autowired
+    private LegalPartyService legalPartyService;
 
     @Override
     public void insertingBatch(EGRUL egrul, XmlFile xmlFile) {
-        for (DocInfoULType d : egrul.getDocInfoUL()) {
-            LegalParty.LegalPartyBuilder legalPartyBuilder =
-                    LegalParty.builder()
-                            .xmlFile(xmlFile)
-                            .inn(d.getINN())
-                            .kpp(d.getKPP())
-                            .ogrn(d.getOGRN())
-                            .okpfCode(d.getKodOPF())
-                            .okpfDict(d.getSprOPF())
-                            .okpfName(d.getFullNameOPF());
-            addNameUl(d, legalPartyBuilder);
-            if (d.getInfoAddressUl() != null) {
-                legalPartyBuilder.legalAddress(addAddress(d.getInfoAddressUl().getAddressRF()));
+        for (DocInfoULType docInfoUL : egrul.getDocInfoUL()) {
+            LegalPartyBuilder legalPartyBuilder =
+                    LegalPartyBuilder.aLegalParty()
+                            .withXmlFile(xmlFile)
+                            .withInn(docInfoUL.getINN())
+                            .withKpp(docInfoUL.getKPP())
+                            .withOgrn(docInfoUL.getOGRN())
+                            .withOkpfCode(docInfoUL.getKodOPF())
+                            .withOkpfDict(docInfoUL.getSprOPF())
+                            .withOkpfName(docInfoUL.getFullNameOPF());
+            addNameUl(docInfoUL, legalPartyBuilder);
+            if (docInfoUL.getInfoAddressUl() != null) {
+                legalPartyBuilder.withLegalAddress(addAddress(docInfoUL.getInfoAddressUl().getAddressRF()));
             }
 
-            if (d.getDocInfoRegisterUL() != null) {
-                legalPartyBuilder.beginDate(
+            if (docInfoUL.getDocInfoRegisterUL() != null) {
+                legalPartyBuilder.withBeginDate(
                         MoreObjects.firstNonNull(
-                                d.getDocInfoRegisterUL().getДатаРег(),
-                                d.getDocInfoRegisterUL().getДатаОГРН()
+                                docInfoUL.getDocInfoRegisterUL().getДатаРег(),
+                                docInfoUL.getDocInfoRegisterUL().getДатаОГРН()
                         ));
-                legalPartyBuilder.regNumber(d.getDocInfoRegisterUL().getРегНом());
+                legalPartyBuilder.withRegNumber(docInfoUL.getDocInfoRegisterUL().getРегНом());
             }
-            if (d.getDocInfoRegisterPF() != null) {
-                legalPartyBuilder.pensionFondRegNumber(d.getDocInfoRegisterPF().getРегНомПФ());
-                legalPartyBuilder.pensionFondRegDate(d.getDocInfoRegisterPF().getДатаРег());
+            if (docInfoUL.getDocInfoRegisterPF() != null) {
+                legalPartyBuilder.withPensionFondRegNumber(docInfoUL.getDocInfoRegisterPF().getРегНомПФ());
+                legalPartyBuilder.withPensionFondRegDate(docInfoUL.getDocInfoRegisterPF().getДатаРег());
             }
-            if (d.getDocInfoEndUL() != null) {
-                legalPartyBuilder.endDate(d.getDocInfoEndUL().getДатаПрекрЮЛ());
-                if (d.getDocInfoEndUL().getСпПрекрЮЛ() != null) {
-                    legalPartyBuilder.endCode(d.getDocInfoEndUL().getСпПрекрЮЛ().getКодСпПрекрЮЛ());
-                    legalPartyBuilder.endName(d.getDocInfoEndUL().getСпПрекрЮЛ().getНаимСпПрекрЮЛ());
+            if (docInfoUL.getDocInfoEndUL() != null) {
+                legalPartyBuilder.withEndDate(docInfoUL.getDocInfoEndUL().getДатаПрекрЮЛ());
+                if (docInfoUL.getDocInfoEndUL().getСпПрекрЮЛ() != null) {
+                    legalPartyBuilder.withEndCode(docInfoUL.getDocInfoEndUL().getСпПрекрЮЛ().getКодСпПрекрЮЛ());
+                    legalPartyBuilder.withEndName(docInfoUL.getDocInfoEndUL().getСпПрекрЮЛ().getНаимСпПрекрЮЛ());
                 }
             }
-            legalPartyBuilder.legalAttorneys(makeLegalAttorney(d.getDocInfoLicoDoveren()));
+            legalPartyBuilder.withLegalAttorneys(makeLegalAttorney(docInfoUL.getDocInfoLicoDoveren()));
 
-            setCapital(d, legalPartyBuilder);
-            legalPartyBuilder.ownerCompanys(egrulOwnerServiceHelper.makeOwnerCompanys(d.getDocInfoUchered()));
+            setCapital(docInfoUL, legalPartyBuilder);
+            legalPartyBuilder.withOwnerCompanies(egrulOwnerServiceHelper.makeOwnerCompanys(docInfoUL.getDocInfoUchered()));
+
+
+            legalPartyBuilder.withHistoryRecords(egrulHistoryServiceHelper.makeHistoryRecord(docInfoUL.getDocInfoRecordEGRUL()));
+            if (docInfoUL.getDocInfoOKVED() != null) {
+                legalPartyBuilder.withEconomicActivity(makeEconomicActivity(docInfoUL.getDocInfoOKVED().getСвОКВЭДОсн()));
+                legalPartyBuilder.withEconomicActivitiesOther(makeEconomicActivityList(docInfoUL.getDocInfoOKVED()));
+            }
 
             LegalParty legalParty = legalPartyBuilder.build();
-
-            legalPartyBuilder.historyRecords(egrulHistoryServiceHelper.makeHistoryRecord(d.getDocInfoRecordEGRUL()));
-            if (d.getDocInfoOKVED() != null) {
-                legalPartyBuilder.economicActivity(makeEconomicActivity(d.getDocInfoOKVED().getСвОКВЭДОсн()));
-                legalPartyBuilder.economicActivitiesOther(makeEconomicActivityList(d.getDocInfoOKVED()));
+            if (docInfoUL.getInfoNameUl() != null) {
+                legalParty.setDateRecord(docInfoUL.getInfoNameUl().getGRNDate().getDateRecord());
+                legalParty.setGrn(docInfoUL.getInfoNameUl().getGRNDate().getGRN());
             }
 
-            if (d.getInfoNameUl() != null) {
-                legalParty.setDateRecord(d.getInfoNameUl().getGRNDate().getDateRecord());
-                legalParty.setGrn(d.getInfoNameUl().getGRNDate().getGRN());
-            }
+            legalPartyService.createOrUpdate(legalParty);
         }
     }
 
     private List<EconomicActivity> makeEconomicActivityList(DocInfoOKVEDType docInfoOKVED) {
         List<EconomicActivity> economicActivities = Lists.newArrayList();
-//        docInfoOKVED.getСвОКВЭДОсн()
         for (InfoOKVEDType infoOKVEDType : docInfoOKVED.getСвОКВЭДДоп()) {
             economicActivities.add(makeEconomicActivity(infoOKVEDType));
         }
@@ -97,18 +102,19 @@ public class EgrulServiceImpl implements EgrulService {
 
     private EconomicActivity makeEconomicActivity(InfoOKVEDType infoOKVEDType) {
         if (infoOKVEDType != null) {
-            return economicActivityService.findByCodeOrCreate(
-                    new EconomicActivity(infoOKVEDType.getKodOKVED(), infoOKVEDType.getNameOKVED())
-            );
+            Object o = economicActivityService.findByCodeOrCreate(
+                    new EconomicActivity(infoOKVEDType.getKodOKVED(), infoOKVEDType.getNameOKVED()));
+            logger.info("{}", o);
+            return (EconomicActivity) o;
         } else {
             return null;
         }
     }
 
 
-    private void setCapital(DocInfoULType d, LegalParty.LegalPartyBuilder legalPartyBuilder) {
+    private void setCapital(DocInfoULType d, LegalPartyBuilder legalPartyBuilder) {
         if (d.getDocInfoUstavKapital() != null) {
-            legalPartyBuilder.capital(d.getDocInfoUstavKapital().getСумКап());
+            legalPartyBuilder.withCapital(d.getDocInfoUstavKapital().getСумКап());
         }
     }
 
@@ -128,46 +134,46 @@ public class EgrulServiceImpl implements EgrulService {
     }
 
     private Address addAddress(AddressRFEGRULType a) {
-        Address.AddressBuilder addressBuilder = Address.builder()
-                .pIndex(a.getIndex())
-                .regionCode(a.getKodRegion())
-                .kladr(a.getKodKLADR())
-                .house(a.getHouse())
-                .korpus(a.getKorpus())
-                .kwartira(a.getKwart());
+        Address.AddressBuilder addressBuilder = Address.AddressBuilder.anAddress()
+                .withPIndex(a.getIndex())
+                .withRegionCode(a.getKodRegion())
+                .withKladr(a.getKodKLADR())
+                .withHouse(a.getHouse())
+                .withKorpus(a.getKorpus())
+                .withKwartira(a.getKwart());
         if (a.getRegionType() != null) {
-            addressBuilder.regionType(a.getRegionType().getRegionType());
-            addressBuilder.regionName(a.getRegionType().getDistrictName());
+            addressBuilder.withRegionType(a.getRegionType().getRegionType());
+            addressBuilder.withRegionName(a.getRegionType().getDistrictName());
         }
         if (a.getCityType() != null) {
-            addressBuilder.cityType(a.getCityType().getCityType());
-            addressBuilder.cityName(a.getCityType().getNameCity());
+            addressBuilder.withCityType(a.getCityType().getCityType());
+            addressBuilder.withCityName(a.getCityType().getNameCity());
         }
         if (a.getDistrictType() != null) {
-            addressBuilder.districtName(a.getDistrictType().getDistrictName());
-            addressBuilder.districtType(a.getDistrictType().getDistrictType());
+            addressBuilder.withDistrictName(a.getDistrictType().getDistrictName());
+            addressBuilder.withDistrictType(a.getDistrictType().getDistrictType());
         }
         if (a.getStreetType() != null) {
-            addressBuilder.streetName(a.getStreetType().getNameStreet());
-            addressBuilder.streetType(a.getStreetType().getTypeStreet());
+            addressBuilder.withStreetName(a.getStreetType().getNameStreet());
+            addressBuilder.withStreetType(a.getStreetType().getTypeStreet());
         }
-        Address address = addressBuilder.build();
+
         if (a.getGRNType() != null) {
-            address.setDateRecord(a.getGRNDateType().getDateRecord());
-            address.setGrn(a.getGRNDateType().getGRN());
+            addressBuilder.withDateRecord(a.getGRNType().getDateRecord());
+            addressBuilder.withGrn(a.getGRNType().getGRN());
         }
-        return address;
+        return addressBuilder.build();
     }
 
 
-    private void addNameUl(DocInfoULType docInfoULType, LegalParty.LegalPartyBuilder legalPartyBuilder) {
+    private void addNameUl(DocInfoULType docInfoULType, LegalPartyBuilder legalPartyBuilder) {
         if (docInfoULType.getInfoNameUl() == null) {
             logger.warn("not name for document ogrn({})", docInfoULType.getOGRN());
         }
 
         legalPartyBuilder
-                .fullName(docInfoULType.getInfoNameUl().getNameUlFull())
-                .shortName(docInfoULType.getInfoNameUl().getNameUlShort());
+                .withFullName(docInfoULType.getInfoNameUl().getNameUlFull())
+                .withShortName(docInfoULType.getInfoNameUl().getNameUlShort());
 
     }
 }

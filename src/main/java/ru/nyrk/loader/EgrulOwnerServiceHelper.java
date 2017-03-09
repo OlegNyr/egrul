@@ -7,6 +7,7 @@ import ru.nyrk.database.LegalPartyService;
 import ru.nyrk.database.LegalPartyServiceImpl;
 import ru.nyrk.database.entity.legal.LegalNotResident;
 import ru.nyrk.database.entity.legal.LegalParty;
+import ru.nyrk.database.entity.legal.LegalPartyBuilder;
 import ru.nyrk.database.entity.legal.OwnerCompany;
 import ru.nyrk.egrul.generate.egrul.*;
 
@@ -25,6 +26,7 @@ public class EgrulOwnerServiceHelper {
     private LegalPartyService legalPartyService;
 
     public List<OwnerCompany> makeOwnerCompanys(DocInfoUcheredType docInfoUchered) {
+        if(docInfoUchered != null ) return null;
         List<OwnerCompany> companyList = Lists.newArrayList();
         for (DocInfoUcheredFLType ucheredFLType : docInfoUchered.getУчрФЛ()) {
             OwnerCompany ownerCompany = new OwnerCompany();
@@ -50,28 +52,30 @@ public class EgrulOwnerServiceHelper {
     }
 
     private LegalNotResident makeLegalPartyNotResident(InfoULEGRULType infoULEGRULType, InfoRegInstrEGRULULType reg) {
-        return LegalNotResident.builder()
-                .fullName(infoULEGRULType.getNameUlFull())
-                .OKSM(reg.getOKSM().getValue())
-                .country(reg.getNameContry())
-                .regDate(reg.getDateReg())
-                .regNumb(reg.getNumberReg())
-                .regName(reg.getNameRegOrgan())
-                .address(reg.getAddress())
+        return LegalNotResident.LegalNotResidentBuilder.aLegalNotResident()
+                .withFullName(infoULEGRULType.getNameUlFull())
+                .withOKSM(reg.getOKSM().getValue())
+                .withCountry(reg.getNameContry())
+                .withRegDate(reg.getDateReg())
+                .withRegNumb(reg.getNumberReg())
+                .withRegName(reg.getNameRegOrgan())
+                .withAddress(reg.getAddress())
                 .build();
     }
 
     private LegalParty makeLegalParty(InfoULEGRULType infoULEGRULType) {
         return legalPartyService.findByOgrnOrCreate(
-                LegalParty.builder()
-                        .ogrn(infoULEGRULType.getOGRN())
-                        .fullName(infoULEGRULType.getNameUlFull())
-                        .inn(infoULEGRULType.getInn())
+                LegalPartyBuilder.aLegalParty()
+                        .withOgrn(infoULEGRULType.getOGRN())
+                        .withFullName(infoULEGRULType.getNameUlFull())
+                        .withInn(infoULEGRULType.getInn())
                         .build()
         );
     }
 
     private String makeProportion(ShareCapitalEGRULType shareCapitalEGRULType) {
+        if(shareCapitalEGRULType == null) return null;
+
         ShareSize shareSize = shareCapitalEGRULType.getShareSize();
         if (shareSize != null) {
             DrobType drobProst = shareSize.getDrobProst();

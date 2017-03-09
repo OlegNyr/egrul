@@ -11,7 +11,7 @@ import java.util.Date;
  */
 @Data
 @NodeEntity
-@EqualsAndHashCode(exclude = {"archiveFile"})
+@EqualsAndHashCode(exclude = {"archiveFile"}, callSuper = true)
 public class XmlFile extends Entity {
 
     private String name;

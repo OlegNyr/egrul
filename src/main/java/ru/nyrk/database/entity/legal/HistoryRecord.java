@@ -1,6 +1,7 @@
 package ru.nyrk.database.entity.legal;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.neo4j.ogm.annotation.NodeEntity;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
  */
 @NodeEntity
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class HistoryRecord extends GRNDate {
     private String vidRecord;
     private String nameRecord;

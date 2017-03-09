@@ -60,7 +60,9 @@ public class ParseArchiveImpl implements ParseArchive {
                     if (xmlFile.getStatus() == LoadedFileStatus.COMPLETE) {
                         continue;
                     }
+                    logger.info("Start parsing file");
                     EGRUL egrul = (EGRUL) jaxb2Marshaller.unmarshal(new StreamSource(entryStream));
+                    logger.info("Finish parsing file");
                     egrulService.insertingBatch(egrul, xmlFile);
                     xmlFile.setStatus(LoadedFileStatus.COMPLETE);
                 } catch (RuntimeException th) {

@@ -2,6 +2,7 @@ package ru.nyrk.database.entity;
 
 import com.google.common.collect.Lists;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.neo4j.ogm.annotation.Index;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
@@ -15,6 +16,7 @@ import java.util.List;
  */
 @NodeEntity
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class ArchiveFile extends Entity {
     @Index(unique = true)
     String fileName;
