@@ -10,6 +10,7 @@ spring:
       uri: bolt://localhost:7687
       embedded:
         enabled: false
+
 #      repositories:
 #        enabled: true
 

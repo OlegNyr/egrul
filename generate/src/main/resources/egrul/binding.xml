@@ -9,12 +9,12 @@
                   multiple="true"/>
     <xjb:globalBindings localScoping="toplevel">
         <xjb:javaType name="java.util.Date" xmlType="xs:date"
-                      parseMethod="ru.nyrk.egrul.generate.DateAdapter.parseDate"
-                      printMethod="ru.nyrk.egrul.generate.DateAdapter.printDate"
+                      parseMethod="ru.nyrk.generate.DateAdapter.parseDate"
+                      printMethod="ru.nyrk.generate.DateAdapter.printDate"
         />
         <xjb:javaType name="java.util.Date" xmlType="xs:dateTime"
-                      parseMethod="ru.nyrk.egrul.generate.DateTimeAdapter.parseDateTime"
-                      printMethod="ru.nyrk.egrul.generate.DateTimeAdapter.printDateTime"
+                      parseMethod="ru.nyrk.generate.DateTimeAdapter.parseDateTime"
+                      printMethod="ru.nyrk.generate.DateTimeAdapter.printDateTime"
         />
     </xjb:globalBindings>
 </xjb:bindings>
