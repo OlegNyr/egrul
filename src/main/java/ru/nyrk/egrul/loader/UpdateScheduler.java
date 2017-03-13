@@ -57,12 +57,11 @@ public class UpdateScheduler {
                         archiveFile.getFileId());
                 archiveFile.setStatus(LoadedFileStatus.LOADED);
                 archiveFile.setFileName(fileArchive.getName());
-                archiveFile = loadedFileService.createOrUpdate(archiveFile);
+                archiveFile = loadedFileService.createOrUpdate(archiveFile, 2);
                 //Парсим файл
                 parseArchive.parseArchiveFile(fileArchive, archiveFile);
-
                 archiveFile.setStatus(LoadedFileStatus.COMPLETE);
-                archiveFile = loadedFileService.createOrUpdate(archiveFile);
+                archiveFile = loadedFileService.createOrUpdate(archiveFile, 2);
 
                 archiveFile = nextArchiveFileEntity(archiveFile, firstDateYear);
                 //Если дошли до последнего

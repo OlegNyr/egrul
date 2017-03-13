@@ -27,7 +27,7 @@ abstract public class GenericService<T extends Entity> implements ServiceDatabas
 
     @Override
     public T find(Long id) {
-        return graphRepository.findOne(id, DEPTH_ENTITY);
+        return graphRepository.findOne(id, 0);
     }
 
     @Transactional

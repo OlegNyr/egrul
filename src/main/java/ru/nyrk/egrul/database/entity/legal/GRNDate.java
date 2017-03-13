@@ -11,7 +11,7 @@ import java.util.Date;
  * Дата записи и номер изменения
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 public class GRNDate extends Entity {
     @DateLong
     private Date dateRecord;

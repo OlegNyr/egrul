@@ -18,7 +18,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class ArchiveFile extends Entity {
-    @Index(unique = true)
+    @Index(unique = true, primary = true)
     String fileName;
     Date dateLoad;
     @Index()
@@ -32,7 +32,7 @@ public class ArchiveFile extends Entity {
     @Relationship(direction = Relationship.INCOMING, type = "LOADED_FILE_ERROR")
     List<LoadedFileError> errors;
 
-    @Relationship(direction = Relationship.OUTGOING, type = "XML_FILE")
+    @Relationship(direction = Relationship.INCOMING, type = "XML_FILE")
     List<XmlFile> xmlFiles;
 
     public List<XmlFile> getXmlFiles() {

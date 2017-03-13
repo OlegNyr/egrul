@@ -11,10 +11,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.stereotype.Service;
+import ru.nyrk.egrul.database.LoadedFileService;
 import ru.nyrk.egrul.database.entity.ArchiveFile;
 import ru.nyrk.egrul.database.entity.LoadedFileStatus;
 import ru.nyrk.egrul.database.entity.XmlFile;
-import ru.nyrk.egrul.database.LoadedFileService;
+import ru.nyrk.egrul.database.repository.XmlFileRepository;
+import ru.nyrk.generate.egrul.DocInfoULType;
 import ru.nyrk.generate.egrul.EGRUL;
 
 import javax.xml.transform.stream.StreamSource;
@@ -31,9 +33,8 @@ import java.util.Optional;
 
 @Service
 public class ParseArchiveImpl implements ParseArchive {
-    private static final Logger logger = LoggerFactory.getLogger(ParseArchiveImpl.class);
     public static final String EXTENSION_ZIP = "zip";
-
+    private static final Logger logger = LoggerFactory.getLogger(ParseArchiveImpl.class);
     @Autowired
     private Jaxb2Marshaller jaxb2Marshaller;
 
@@ -42,6 +43,9 @@ public class ParseArchiveImpl implements ParseArchive {
 
     @Autowired
     private EgrulService egrulService;
+
+    @Autowired
+    private XmlFileRepository xmlFileRepository;
 
     @Override
     public void parseArchiveFile(File file, ArchiveFile archiveFile) throws IOException {
@@ -60,12 +64,17 @@ public class ParseArchiveImpl implements ParseArchive {
                     if (xmlFile.getStatus() == LoadedFileStatus.COMPLETE) {
                         continue;
                     }
-                    logger.info("Start parsing file");
+                    logger.info("Start parsing file {}" + xmlFile.getName());
                     EGRUL egrul = (EGRUL) jaxb2Marshaller.unmarshal(new StreamSource(entryStream));
                     logger.info("Finish parsing file");
-                    egrulService.insertingBatch(egrul, xmlFile);
+                    logger.info("Start insert legal count " + egrul.getDocInfoUL().size());
+                    for (DocInfoULType docInfoUL : egrul.getDocInfoUL()) {
+                        egrulService.insertLegalParty(xmlFile, docInfoUL);
+                    }
+
                     xmlFile.setStatus(LoadedFileStatus.COMPLETE);
                 } catch (RuntimeException th) {
+                    logger.error("Insert", th);
                     xmlFile.setStatus(LoadedFileStatus.ERROR);
                     xmlFile.setErrorMessage(ExceptionUtils.getMessage(th));
                     loadedFileService.createOrUpdate(archiveFile);//запишем что там было в бд
@@ -80,15 +89,22 @@ public class ParseArchiveImpl implements ParseArchive {
 
     private XmlFile makeXmlFile(ArchiveFile archiveFile, ZipArchiveEntry zipArchiveEntry) {
         XmlFile xmlFile;
-        Optional<XmlFile> first = archiveFile.getXmlFiles().stream().filter(a -> a.getName().equals(zipArchiveEntry.getName())).findFirst();
+        Optional<XmlFile> first;
+        first = archiveFile
+                .getXmlFiles()
+                .stream()
+                .filter(a -> a.getName().equals(zipArchiveEntry.getName()))
+                .findFirst();
         if (first.isPresent()) {
             xmlFile = first.get();
         } else {
-            xmlFile = new XmlFile();
-            xmlFile.setName(zipArchiveEntry.getName());
-            xmlFile.setArchiveFile(archiveFile);
-            xmlFile.setDate(new Date());
-            archiveFile.getXmlFiles().add(xmlFile);
+            xmlFile = XmlFile.newBuilder()
+                    .withName(zipArchiveEntry.getName())
+                    .withArchiveFile(archiveFile)
+                    .withDate(new Date())
+                    .build();
+            archiveFile.getXmlFiles().add(xmlFileRepository.save(xmlFile));
+
         }
         return xmlFile;
     }

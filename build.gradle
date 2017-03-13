@@ -48,4 +48,10 @@ dependencies {
     compile group: 'org.springframework', name: 'spring-oxm'
     compileOnly('org.projectlombok:lombok')
     testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.neo4j:neo4j-ogm-embedded-driver:2.1.1')
+    testCompile('org.neo4j:neo4j-kernel:3.1.0')
+    // https://mvnrepository.com/artifact/org.neo4j/neo4j-lucene-index
+    testCompile group: 'org.neo4j', name: 'neo4j-lucene-index', version: '3.1.0'
+    testCompile group: 'org.neo4j', name: 'neo4j-cypher', version: '3.1.0'
+
 }

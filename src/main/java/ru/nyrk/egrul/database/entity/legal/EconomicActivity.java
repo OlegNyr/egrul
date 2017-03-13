@@ -3,6 +3,7 @@ package ru.nyrk.egrul.database.entity.legal;
 
 //
 
+import com.google.common.base.Objects;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.neo4j.ogm.annotation.Index;
@@ -14,11 +15,10 @@ import ru.nyrk.egrul.database.entity.Entity;
  */
 @Data
 @NodeEntity
-@EqualsAndHashCode(callSuper = false)
 public class EconomicActivity extends Entity {
     @Index(unique = true, primary = true)
-    String code;
-    String name;
+    private String code;
+    private String name;
 
     public EconomicActivity() {
     }
@@ -26,5 +26,19 @@ public class EconomicActivity extends Entity {
     public EconomicActivity(String code, String name) {
         this.code = code;
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        EconomicActivity that = (EconomicActivity) o;
+        return Objects.equal(code, that.code) ;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(super.hashCode(), code);
     }
 }

@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import org.neo4j.ogm.annotation.NodeEntity;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * История записи
@@ -16,5 +17,5 @@ public class HistoryRecord extends GRNDate {
     private String vidRecord;
     private String nameRecord;
     private String haveRecord;
-    private List<HistoryRecordDocument> historyRecordDocuments;
+    private Set<HistoryRecordDocument> historyRecordDocuments;
 }

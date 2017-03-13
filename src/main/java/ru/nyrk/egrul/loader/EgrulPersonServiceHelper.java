@@ -1,5 +1,7 @@
 package ru.nyrk.egrul.loader;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.nyrk.egrul.database.NaturalPersonService;
@@ -8,11 +10,14 @@ import ru.nyrk.generate.egrul.InfoFLEGRULType;
 
 @Service
 public class EgrulPersonServiceHelper {
+    private static final Logger logger = LoggerFactory.getLogger(EgrulPersonServiceHelper.class);
     @Autowired
     NaturalPersonService naturalPersonService;
 
     public NaturalPerson makeNaturalPerson(InfoFLEGRULType info) {
+
         NaturalPerson naturalPerson = new NaturalPerson();
+        naturalPerson.setKey(info.getInnFl() != null ? info.getInnFl() : info.getName() + info.getMiddleName() + info.getFamily());
         naturalPerson.setInn(info.getInnFl());
         naturalPerson.setFirstName(info.getName());
         naturalPerson.setMiddleName(info.getMiddleName());

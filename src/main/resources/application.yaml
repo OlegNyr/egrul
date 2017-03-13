@@ -1,7 +1,7 @@
 logging:
   level:
     org.apache.http: INFO
-
+#    org.neo4j.ogm.drivers.bolt.request: WARN
 spring:
   data:
     neo4j:
@@ -17,6 +17,7 @@ spring:
 config:
   dataDir: data
   nalog:
+    enbled: false
     url: url
     p12: pathP12Container
     password: passwordConteiner

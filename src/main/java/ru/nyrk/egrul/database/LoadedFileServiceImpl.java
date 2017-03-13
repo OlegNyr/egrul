@@ -1,12 +1,13 @@
 package ru.nyrk.egrul.database;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.nyrk.egrul.database.entity.ArchiveFile;
 import ru.nyrk.egrul.database.repository.LoadedFileRepository;
 
 import java.util.Date;
 
-@org.springframework.stereotype.Service
+@Service
 public class LoadedFileServiceImpl extends GenericService<ArchiveFile> implements LoadedFileService {
 
     @Autowired

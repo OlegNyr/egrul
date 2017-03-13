@@ -1,0 +1,6 @@
+spring:
+  data:
+    neo4j:
+      embedded:
+        enabled: true
+      uri: file:///${java.io.tmpdir}/neo4j.db${random.long}
