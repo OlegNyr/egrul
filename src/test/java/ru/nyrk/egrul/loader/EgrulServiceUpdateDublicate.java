@@ -1,10 +1,13 @@
 package ru.nyrk.egrul.loader;
 
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.neo4j.ogm.session.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
@@ -28,7 +31,9 @@ import ru.nyrk.generate.egrul.EGRUL;
 import javax.xml.transform.stream.StreamSource;
 import java.io.FileNotFoundException;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.*;
 
 /**
  * todo:java doc
@@ -38,9 +43,12 @@ import java.util.Optional;
 @SpringBootTest(classes = EgrulApplication.class)
 @ContextConfiguration(classes = MockConfig.class)
 @Rollback(value = false)
-@ActiveProfiles("test")
+//@ActiveProfiles("test")
 public class EgrulServiceUpdateDublicate {
 
+    private static final Logger logger = LoggerFactory.getLogger(EgrulServiceUpdateDublicate.class);
+    public static final String OGRN_MAIN = "1065405116578";
+    public static final String OGRN_OWNER = "1065405119185";
     static EGRUL egrul;
 
     @Autowired
@@ -53,6 +61,8 @@ public class EgrulServiceUpdateDublicate {
     private EgrulService egrulService;
     @Autowired
     private LegalPartyService legalPartyService;
+    @Autowired
+    private EgrulServiceAsync egrulServiceAsync;
 
     @Test
     public void contextLoads() throws FileNotFoundException {
@@ -62,21 +72,42 @@ public class EgrulServiceUpdateDublicate {
         });
 
         EGRUL egrul = getEgrul();
-        Optional<DocInfoULType> ulType = findByOgrn(egrul, "1065405116578");
-        Optional<DocInfoULType> ulType2 = findByOgrn(egrul, "1065405119185");
+        Optional<DocInfoULType> ulType = findByOgrn(egrul, OGRN_MAIN);
+        Optional<DocInfoULType> ulType2 = findByOgrn(egrul, OGRN_OWNER);
 
         egrulService.insertLegalParty(XmlFile.newBuilder().build(), ulType.get());
-        LegalParty legalPartyFind =
-                legalPartyService.findByOgrn("1065405116578", 1);
+        LegalParty legalPartyFind = legalPartyService.findByOgrn(OGRN_MAIN, 1);
         egrulService.insertLegalParty(XmlFile.newBuilder().build(), ulType.get());
-        LegalParty legalPartyFind2 =
-                legalPartyService.findByOgrn("1065405116578", 1);
+        LegalParty legalPartyFind2 = legalPartyService.findByOgrn(OGRN_MAIN, 1);
         egrulService.insertLegalParty(XmlFile.newBuilder().build(), ulType2.get());
 
+        Assert.assertEquals("Сущьности до обновлеиня и после равны", legalPartyFind, legalPartyFind2);
 
-        Assert.assertEquals(legalPartyFind, legalPartyFind2);
-        System.out.println(egrul.getDocInfoUL().size());
+        LegalParty legalPartyFindOwner = legalPartyService.findByOgrn(OGRN_OWNER, 1);
+        Assert.assertEquals(legalPartyFindOwner.getOgrn(), OGRN_OWNER);
+        Assert.assertFalse("Сущьность после обновления имеет больше данных", legalPartyFindOwner.getLegalAttorneys().isEmpty());
+    }
 
+
+    @Test
+    public void contextLoadsAsync() throws FileNotFoundException, ExecutionException, InterruptedException {
+        transactionTemplate.execute(status -> {
+            session.purgeDatabase();
+            return null;
+        });
+
+        EGRUL egrul = getEgrul();
+        XmlFile xmlFile = XmlFile.newBuilder().build();
+        List<Future<String>> futureList = Lists.newArrayList();
+        logger.info("Start submit");
+        for (DocInfoULType docInfoULType : egrul.getDocInfoUL()) {
+            futureList.add(egrulServiceAsync.insertLegalPartyAsync(xmlFile, docInfoULType));
+        }
+        logger.info("end submit");
+        for (Future<String> future : futureList) {
+           if(!future.get().equals("OK")) throw new RuntimeException(future.get());
+        }
+        logger.info("end future");
     }
 
     private Optional<DocInfoULType> findByOgrn(EGRUL egrul, String ogrn) {

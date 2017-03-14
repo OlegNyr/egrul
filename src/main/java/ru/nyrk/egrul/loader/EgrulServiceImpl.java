@@ -106,9 +106,12 @@ public class EgrulServiceImpl implements EgrulService {
 
     private EconomicActivity makeEconomicActivity(InfoOKVEDType infoOKVEDType) {
         if (infoOKVEDType != null) {
-            Object o = economicActivityService.createOrUpdate(
+            EconomicActivity findActivity = economicActivityService.findByCode(infoOKVEDType.getKodOKVED());
+            if(findActivity != null){
+                return findActivity;
+            }
+            return economicActivityService.createOrUpdate(
                     new EconomicActivity(infoOKVEDType.getKodOKVED(), infoOKVEDType.getNameOKVED()));
-            return (EconomicActivity) o;
         } else {
             return null;
         }

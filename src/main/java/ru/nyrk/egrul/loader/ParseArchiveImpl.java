@@ -68,6 +68,7 @@ public class ParseArchiveImpl implements ParseArchive {
                     EGRUL egrul = (EGRUL) jaxb2Marshaller.unmarshal(new StreamSource(entryStream));
                     logger.info("Finish parsing file");
                     logger.info("Start insert legal count " + egrul.getDocInfoUL().size());
+
                     for (DocInfoULType docInfoUL : egrul.getDocInfoUL()) {
                         egrulService.insertLegalParty(xmlFile, docInfoUL);
                     }

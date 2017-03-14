@@ -7,4 +7,5 @@ import ru.nyrk.egrul.database.entity.legal.EconomicActivity;
  */
 public interface EconomicActivityService extends ServiceDatabase<EconomicActivity> {
 
+    EconomicActivity findByCode(String kodOKVED);
 }

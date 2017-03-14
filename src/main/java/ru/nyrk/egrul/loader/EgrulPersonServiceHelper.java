@@ -15,9 +15,13 @@ public class EgrulPersonServiceHelper {
     NaturalPersonService naturalPersonService;
 
     public NaturalPerson makeNaturalPerson(InfoFLEGRULType info) {
-
-        NaturalPerson naturalPerson = new NaturalPerson();
-        naturalPerson.setKey(info.getInnFl() != null ? info.getInnFl() : info.getName() + info.getMiddleName() + info.getFamily());
+        String key = info.getInnFl() != null ? info.getInnFl() : info.getName() + info.getMiddleName() + info.getFamily();
+        NaturalPerson naturalPerson = naturalPersonService.findByKey(key);
+        if (naturalPerson != null) {
+            return naturalPerson;
+        }
+        naturalPerson = new NaturalPerson();
+        naturalPerson.setKey(key);
         naturalPerson.setInn(info.getInnFl());
         naturalPerson.setFirstName(info.getName());
         naturalPerson.setMiddleName(info.getMiddleName());
