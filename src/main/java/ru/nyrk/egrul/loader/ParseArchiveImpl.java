@@ -23,9 +23,9 @@ import javax.xml.transform.stream.StreamSource;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.Optional;
+import java.util.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 /**
  * todo:java doc
@@ -42,7 +42,7 @@ public class ParseArchiveImpl implements ParseArchive {
     private LoadedFileService loadedFileService;
 
     @Autowired
-    private EgrulService egrulService;
+    private EgrulServiceAsync egrulServiceAsync;
 
     @Autowired
     private XmlFileRepository xmlFileRepository;
@@ -67,11 +67,8 @@ public class ParseArchiveImpl implements ParseArchive {
                     logger.info("Start parsing file {}" + xmlFile.getName());
                     EGRUL egrul = (EGRUL) jaxb2Marshaller.unmarshal(new StreamSource(entryStream));
                     logger.info("Finish parsing file");
-                    logger.info("Start insert legal count " + egrul.getDocInfoUL().size());
 
-                    for (DocInfoULType docInfoUL : egrul.getDocInfoUL()) {
-                        egrulService.insertLegalParty(xmlFile, docInfoUL);
-                    }
+                    importBatch(xmlFile, egrul);
 
                     xmlFile.setStatus(LoadedFileStatus.COMPLETE);
                 } catch (RuntimeException th) {
@@ -80,12 +77,36 @@ public class ParseArchiveImpl implements ParseArchive {
                     xmlFile.setErrorMessage(ExceptionUtils.getMessage(th));
                     loadedFileService.createOrUpdate(archiveFile);//запишем что там было в бд
                     throw new RuntimeException(th);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
                 }
                 loadedFileService.createOrUpdate(archiveFile);
             }
         } finally {
             zipFile.close();
         }
+    }
+
+    private void importBatch(XmlFile xmlFile, EGRUL egrul) throws InterruptedException, ExecutionException {
+        logger.info("Start submit");
+        List<Future<String>> futureList = new ArrayList<>(egrul.getDocInfoUL().size());
+        for (DocInfoULType docInfoULType : egrul.getDocInfoUL()) {
+            futureList.add(egrulServiceAsync.insertLegalPartyAsync(xmlFile, docInfoULType));
+        }
+        logger.info("end submit");
+
+        System.out.print("Import doc:");
+        int count = 0;
+        for (Future<String> future : futureList) {
+            if(count++ % 50 == 0 ){
+                System.out.print("#");
+            }
+            if (!future.get().equals("OK")) throw new RuntimeException(future.get());
+        }
+        System.out.println(" end");
+        logger.info("end future");
     }
 
     private XmlFile makeXmlFile(ArchiveFile archiveFile, ZipArchiveEntry zipArchiveEntry) {

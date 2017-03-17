@@ -1,6 +1,7 @@
 package ru.nyrk.egrul.loader;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.neo4j.driver.v1.exceptions.TransientException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import ru.nyrk.generate.egrul.DocInfoULType;
 
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * todo:java doc
@@ -26,7 +28,7 @@ public class EgrulServiceAsyncImpl implements EgrulServiceAsync {
     @Autowired
     public EgrulServiceAsyncImpl(EgrulService egrulService) {
         this.egrulService = egrulService;
-        this.asyncTaskExecutor = makeThreadPoolTaskExecutor(5);
+        this.asyncTaskExecutor = makeThreadPoolTaskExecutor(1);
     }
 
     private ThreadPoolTaskExecutor makeThreadPoolTaskExecutor(int size) {
@@ -45,6 +47,14 @@ public class EgrulServiceAsyncImpl implements EgrulServiceAsync {
             try {
                 egrulService.insertLegalParty(xmlFile, docInfoUL);
                 return "OK";
+            } catch (TransientException transientException) {
+                if (transientException.code().equals("Neo.TransientError.Transaction.DeadlockDetected")) {
+                    Thread.sleep(TimeUnit.SECONDS.toMillis(10));
+                    egrulService.insertLegalParty(xmlFile, docInfoUL);
+                    return "OK";
+                }
+                logger.error("insert doc info UL {} code {}", docInfoUL.getOGRN(), transientException.code());
+                return ExceptionUtils.getMessage(transientException);
             } catch (Throwable th) {
                 logger.error("insert doc info UL {}", docInfoUL.getOGRN(), th);
                 return ExceptionUtils.getMessage(th);

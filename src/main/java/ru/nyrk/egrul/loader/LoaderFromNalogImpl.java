@@ -1,6 +1,8 @@
 package ru.nyrk.egrul.loader;
 
 import com.google.common.collect.ImmutableMap;
+import com.google.common.io.ByteProcessor;
+import com.google.common.io.ByteStreams;
 import com.google.common.net.HttpHeaders;
 import lombok.Cleanup;
 import org.apache.commons.codec.binary.Base64;
@@ -24,7 +26,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.JsonParser;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import ru.nyrk.egrul.prop.ConfigAppProperties;
 
@@ -32,6 +33,7 @@ import javax.annotation.PostConstruct;
 import javax.net.ssl.SSLContext;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.*;
 import java.security.cert.CertificateException;
@@ -45,9 +47,10 @@ import java.util.Optional;
 @Service
 public class LoaderFromNalogImpl implements LoaderFromNalog {
 
-    private static final Logger logger = LoggerFactory.getLogger(LoaderFromNalogImpl.class);
     public static final String MD5_KEY_JSON = "md5";
     public static final String EMPTY_RESULT = "\"[]\"";
+    private static final Logger logger = LoggerFactory.getLogger(LoaderFromNalogImpl.class);
+    private static final int MEGA_BYTE = 1024 * 1024;
     //EGRUL/01.01.2017_FULL/EGRUL_FULL_2017-01-01_1.zip
     String patternFileName = "${typeFile}/${ddFirst}${full}/${typeFile}${full}_${yyFirst}${indx}.zip";
     FastDateFormat ddFirst = FastDateFormat.getInstance("dd.MM.yyyy");
@@ -100,18 +103,42 @@ public class LoaderFromNalogImpl implements LoaderFromNalog {
 
         try (CloseableHttpResponse httpResponse = httpClient.execute(request)) {
             checkNotOk(httpResponse);
-            File outputFile = new File(configAppProperties.getDataDir(), nameFile);
 
             File outputFileTmp = new File(configAppProperties.getDataDir(), nameFile + ".tmp");
             outputFileTmp.deleteOnExit();
-            DigestInputStream digestInputStream = new DigestInputStream(httpResponse.getEntity().getContent(), MessageDigest.getInstance("MD5"));
 
-            FileUtils.copyInputStreamToFile(digestInputStream, outputFileTmp);
+            DigestInputStream digestInputStream = new DigestInputStream(httpResponse.getEntity().getContent(), MessageDigest.getInstance("MD5"));
+            logger.info("Start load from {}", request.getURI());
+            System.out.print("Loaded ");
+            try (FileOutputStream outputTemp = FileUtils.openOutputStream(outputFileTmp)) {
+                ByteStreams.readBytes(digestInputStream, new ByteProcessor<Void>() {
+                    int count = 0;
+
+                    @Override
+                    public boolean processBytes(byte[] buf, int off, int len) throws IOException {
+                        outputTemp.write(buf, off, len);
+                        count += len;
+                        if (count % MEGA_BYTE < len) {
+                            System.out.print("#");
+                        }
+                        return true;
+                    }
+
+                    @Override
+                    public Void getResult() {
+                        System.out.println("# end");
+                        return null;
+                    }
+                });
+            }
+            logger.info("Finish load from {}", request.getURI());
 
             digestInputStream.close();
 
             checkHash(hashMD5Source, digestInputStream);
 
+            File outputFile = new File(configAppProperties.getDataDir(), nameFile);
+            logger.info("Rename temp file {} to {}", outputFileTmp, outputFile);
             FileUtils.moveFile(outputFileTmp, outputFile);
 
             return outputFile;
@@ -138,7 +165,7 @@ public class LoaderFromNalogImpl implements LoaderFromNalog {
         for (int i = 0; i < mdbytes.length; i++) {
             sb.append(Integer.toString((mdbytes[i] & 0xff) + 0x100, 16).substring(1));
         }
-
+        logger.info("Check hash webserver {} loaded {}", hashMD5Source, sb.toString());
         if (!sb.toString().equals(hashMD5Source)) {
             throw new LoadException(new BasicStatusLine(HttpVersion.HTTP_1_1, 500, "not md5 equals"));
         }

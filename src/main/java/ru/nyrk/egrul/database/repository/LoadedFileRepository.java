@@ -13,6 +13,6 @@ public interface LoadedFileRepository extends GraphRepository<ArchiveFile> {
             "where a.dateFile = max\n" +
             "RETURN a")
     ArchiveFile lastArchiveFileComplete();
-    @Depth(value = 2)
+    @Depth(value = 1)
     ArchiveFile findByDateFileAndFileId(Date dateFile, Integer fileId);
 }

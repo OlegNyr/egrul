@@ -19,9 +19,6 @@ import java.util.stream.Collectors;
 @Service
 public class EgrulHistoryServiceHelper {
 
-    @Autowired
-    HistoryRecordRepository historyRecordRepository;
-
     public Set<HistoryRecord> makeHistoryRecord(List<DocInfoRecordEGRULType> docInfoRecordEGRUL) {
         Set<HistoryRecord> historyRecords = Sets.newHashSet();
         for (DocInfoRecordEGRULType ddd : docInfoRecordEGRUL) {
@@ -39,7 +36,7 @@ public class EgrulHistoryServiceHelper {
                             .collect(Collectors.toSet());
             historyRecord.setHistoryRecordDocuments(historyRecordDocuments);
 
-            historyRecords.add(historyRecordRepository.save(historyRecord));
+            historyRecords.add(historyRecord);
         }
         return historyRecords;
     }

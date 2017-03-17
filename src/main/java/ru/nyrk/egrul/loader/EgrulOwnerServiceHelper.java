@@ -68,7 +68,7 @@ public class EgrulOwnerServiceHelper {
 
     private LegalParty makeLegalParty(InfoULEGRULType infoULEGRULType) {
         String ogrn = infoULEGRULType.getOGRN() != null ? infoULEGRULType.getOGRN() : DigestUtils.sha256Hex(infoULEGRULType.getNameUlFull());
-        LegalParty byOgrn = legalPartyService.findByOgrn(ogrn,1);
+        LegalParty byOgrn = legalPartyService.findByOgrn(ogrn,0);
         if (byOgrn != null) {
             return byOgrn;
         }
@@ -92,7 +92,7 @@ public class EgrulOwnerServiceHelper {
             if (drobProst != null) {
                 return String.format("%d/%d", drobProst.getChislit(), drobProst.getZnamenatel());
             } else {
-                return String.format("%f%%", shareSize.getProcent()) + "%";
+                return String.format("%f%%", shareSize.getProcent());
             }
         } else {
             return shareCapitalEGRULType.getNominalValue().toString();
