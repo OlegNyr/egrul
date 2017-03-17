@@ -1,12 +1,9 @@
 package ru.nyrk.egrul.loader;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.nyrk.egrul.database.entity.legal.HistoryRecord;
 import ru.nyrk.egrul.database.entity.legal.HistoryRecordDocument;
-import ru.nyrk.egrul.database.repository.HistoryRecordRepository;
 import ru.nyrk.generate.egrul.DocInfoRecordEGRULType;
 
 import java.util.List;
