@@ -138,7 +138,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *                                     &lt;sequence>
  *                                       &lt;element name="ГРНДатаИспр" type="{}ГРНДатаТип" minOccurs="0"/>
  *                                     &lt;/sequence>
- *                                     &lt;attribute name="ДатаРожд" use="required" type="{http://www.w3.org/2001/XMLSchema}date" />
+ *                                     &lt;attribute name="ДатаРожд" use="required" type="{http://www.w3.org/2001/XMLSchema}dateError" />
  *                                     &lt;attribute name="МестоРожд" use="required">
  *                                       &lt;simpleType>
  *                                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
@@ -185,7 +185,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *                                         &lt;/restriction>
  *                                       &lt;/simpleType>
  *                                     &lt;/attribute>
- *                                     &lt;attribute name="ДатаДок" type="{http://www.w3.org/2001/XMLSchema}date" />
+ *                                     &lt;attribute name="ДатаДок" type="{http://www.w3.org/2001/XMLSchema}dateError" />
  *                                     &lt;attribute name="ВыдДок">
  *                                       &lt;simpleType>
  *                                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
@@ -337,7 +337,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *                   &lt;/element>
  *                   &lt;element name="ДатаДок" minOccurs="0">
  *                     &lt;simpleType>
- *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}date">
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}dateError">
  *                         &lt;minInclusive value="1900-01-01"/>
  *                       &lt;/restriction>
  *                     &lt;/simpleType>
@@ -371,7 +371,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *                 &lt;/attribute>
  *                 &lt;attribute name="ДатаВыдСвид" use="required">
  *                   &lt;simpleType>
- *                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}date">
+ *                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}dateError">
  *                     &lt;/restriction>
  *                   &lt;/simpleType>
  *                 &lt;/attribute>
@@ -404,7 +404,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *       &lt;attribute name="ГРН" type="{}ОГРНТип" />
  *       &lt;attribute name="ДатаЗап" use="required">
  *         &lt;simpleType>
- *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}date">
+ *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}dateError">
  *           &lt;/restriction>
  *         &lt;/simpleType>
  *       &lt;/attribute>

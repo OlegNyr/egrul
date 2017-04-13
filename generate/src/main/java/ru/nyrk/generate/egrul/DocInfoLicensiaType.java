@@ -59,7 +59,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *                 &lt;/sequence>
  *                 &lt;attribute name="ДатаПриостЛиц" use="required">
  *                   &lt;simpleType>
- *                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}date">
+ *                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}dateError">
  *                     &lt;/restriction>
  *                   &lt;/simpleType>
  *                 &lt;/attribute>
@@ -100,9 +100,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *           &lt;/restriction>
  *         &lt;/simpleType>
  *       &lt;/attribute>
- *       &lt;attribute name="ДатаЛиц" use="required" type="{http://www.w3.org/2001/XMLSchema}date" />
- *       &lt;attribute name="ДатаНачЛиц" use="required" type="{http://www.w3.org/2001/XMLSchema}date" />
- *       &lt;attribute name="ДатаОкончЛиц" type="{http://www.w3.org/2001/XMLSchema}date" />
+ *       &lt;attribute name="ДатаЛиц" use="required" type="{http://www.w3.org/2001/XMLSchema}dateError" />
+ *       &lt;attribute name="ДатаНачЛиц" use="required" type="{http://www.w3.org/2001/XMLSchema}dateError" />
+ *       &lt;attribute name="ДатаОкончЛиц" type="{http://www.w3.org/2001/XMLSchema}dateError" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -141,15 +141,15 @@ public class DocInfoLicensiaType {
     protected String видЛиц;
     @XmlAttribute(name = "\u0414\u0430\u0442\u0430\u041b\u0438\u0446", required = true)
     @XmlJavaTypeAdapter(Adapter2 .class)
-    @XmlSchemaType(name = "date")
+    @XmlSchemaType(name = "dateError")
     protected Date датаЛиц;
     @XmlAttribute(name = "\u0414\u0430\u0442\u0430\u041d\u0430\u0447\u041b\u0438\u0446", required = true)
     @XmlJavaTypeAdapter(Adapter2 .class)
-    @XmlSchemaType(name = "date")
+    @XmlSchemaType(name = "dateError")
     protected Date датаНачЛиц;
     @XmlAttribute(name = "\u0414\u0430\u0442\u0430\u041e\u043a\u043e\u043d\u0447\u041b\u0438\u0446")
     @XmlJavaTypeAdapter(Adapter2 .class)
-    @XmlSchemaType(name = "date")
+    @XmlSchemaType(name = "dateError")
     protected Date датаОкончЛиц;
 
     /**

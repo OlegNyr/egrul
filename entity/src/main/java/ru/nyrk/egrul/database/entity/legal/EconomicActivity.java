@@ -5,17 +5,16 @@ package ru.nyrk.egrul.database.entity.legal;
 
 import com.google.common.base.Objects;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import org.neo4j.ogm.annotation.Index;
 import org.neo4j.ogm.annotation.NodeEntity;
-import ru.nyrk.egrul.database.entity.Entity;
+import ru.nyrk.egrul.database.entity.EntityAbstract;
 
 /**
  * Общероссийский классификатор видов экономической Деятельности
  */
 @Data
 @NodeEntity
-public class EconomicActivity extends Entity {
+public class EconomicActivity extends EntityAbstract {
     @Index(unique = true, primary = true)
     private String code;
     private String name;

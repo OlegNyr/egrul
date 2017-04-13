@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.typeconversion.DateLong;
-import ru.nyrk.egrul.database.entity.Entity;
+import ru.nyrk.egrul.database.entity.EntityAbstract;
 
 import java.util.Date;
 
@@ -14,7 +14,7 @@ import java.util.Date;
 @Data
 @NodeEntity
 @EqualsAndHashCode(callSuper = false)
-public class HistoryRecordDocument extends Entity{
+public class HistoryRecordDocument extends EntityAbstract {
     @DateLong
     Date dateDoc;
     String nameDoc;

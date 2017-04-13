@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *       &lt;attribute name="ГРН" type="{}ОГРНТип" />
  *       &lt;attribute name="ДатаЗап" use="required">
  *         &lt;simpleType>
- *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}date">
+ *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}dateError">
  *           &lt;/restriction>
  *         &lt;/simpleType>
  *       &lt;/attribute>

@@ -1,10 +1,9 @@
 package ru.nyrk.egrul.database.entity.legal;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import org.neo4j.ogm.annotation.Index;
 import org.neo4j.ogm.annotation.NodeEntity;
-import ru.nyrk.egrul.database.entity.Entity;
+import ru.nyrk.egrul.database.entity.EntityAbstract;
 
 /**
  * Физическое лицо
@@ -12,7 +11,7 @@ import ru.nyrk.egrul.database.entity.Entity;
 @Data
 @NodeEntity
 //@EqualsAndHashCode(callSuper = false)
-public class NaturalPerson extends Entity {
+public class NaturalPerson extends EntityAbstract {
     @Index(unique = true, primary = true)
     String key;
     String inn;

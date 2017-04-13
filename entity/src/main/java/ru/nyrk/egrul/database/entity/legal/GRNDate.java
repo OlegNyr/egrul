@@ -3,7 +3,7 @@ package ru.nyrk.egrul.database.entity.legal;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.neo4j.ogm.annotation.typeconversion.DateLong;
-import ru.nyrk.egrul.database.entity.Entity;
+import ru.nyrk.egrul.database.entity.EntityAbstract;
 
 import java.util.Date;
 
@@ -12,7 +12,7 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class GRNDate extends Entity {
+public class GRNDate extends EntityAbstract {
     @DateLong
     private Date dateRecord;
 

@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *           &lt;/restriction>
  *         &lt;/simpleType>
  *       &lt;/attribute>
- *       &lt;attribute name="ДатаРег" type="{http://www.w3.org/2001/XMLSchema}date" />
+ *       &lt;attribute name="ДатаРег" type="{http://www.w3.org/2001/XMLSchema}dateError" />
  *       &lt;attribute name="РегНомер">
  *         &lt;simpleType>
  *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
@@ -85,7 +85,7 @@ public class InfoRegInstrEGRULULType {
     protected String nameContry;
     @XmlAttribute(name = "\u0414\u0430\u0442\u0430\u0420\u0435\u0433")
     @XmlJavaTypeAdapter(Adapter2 .class)
-    @XmlSchemaType(name = "date")
+    @XmlSchemaType(name = "dateError")
     protected Date dateReg;
     @XmlAttribute(name = "\u0420\u0435\u0433\u041d\u043e\u043c\u0435\u0440")
     protected String numberReg;

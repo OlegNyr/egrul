@@ -39,7 +39,7 @@
         <!--</xjb:bindings>-->
     </xjb:bindings>
     <xjb:globalBindings>
-        <xjb:javaType name="java.util.Date" xmlType="xs:date"
+        <xjb:javaType name="java.util.Date" xmlType="xs:dateError"
                       parseMethod="ru.sbrf.dbofi.server.api.util.adapter.DateAdapter.parseDate"
                       printMethod="ru.sbrf.dbofi.server.api.util.adapter.DateAdapter.printDate"
         />

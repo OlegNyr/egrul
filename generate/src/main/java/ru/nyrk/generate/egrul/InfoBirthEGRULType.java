@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *         &lt;element name="ГРНДата" type="{}ГРНДатаТип"/>
  *         &lt;element name="ГРНДатаИспр" type="{}ГРНДатаТип" minOccurs="0"/>
  *       &lt;/sequence>
- *       &lt;attribute name="ДатаРожд" use="required" type="{http://www.w3.org/2001/XMLSchema}date" />
+ *       &lt;attribute name="ДатаРожд" use="required" type="{http://www.w3.org/2001/XMLSchema}dateError" />
  *       &lt;attribute name="МестоРожд" use="required">
  *         &lt;simpleType>
  *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
@@ -65,7 +65,7 @@ public class InfoBirthEGRULType {
     protected GRNDateType grnDateChange;
     @XmlAttribute(name = "\u0414\u0430\u0442\u0430\u0420\u043e\u0436\u0434", required = true)
     @XmlJavaTypeAdapter(Adapter2 .class)
-    @XmlSchemaType(name = "date")
+    @XmlSchemaType(name = "dateError")
     protected Date dateBirth;
     @XmlAttribute(name = "\u041c\u0435\u0441\u0442\u043e\u0420\u043e\u0436\u0434", required = true)
     protected String addressBirth;

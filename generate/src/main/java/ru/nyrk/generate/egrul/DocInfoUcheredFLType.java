@@ -67,7 +67,7 @@ import javax.xml.bind.annotation.XmlType;
  *                   &lt;element name="АдресМЖРФ" type="{}АдрРФЕГРЮЛТип" minOccurs="0"/>
  *                   &lt;element name="АдрМЖИн" type="{}АдрИнЕГРЮЛТип" minOccurs="0"/>
  *                 &lt;/sequence>
- *                 &lt;attribute name="ДатаОткрНасл" use="required" type="{http://www.w3.org/2001/XMLSchema}date" />
+ *                 &lt;attribute name="ДатаОткрНасл" use="required" type="{http://www.w3.org/2001/XMLSchema}dateError" />
  *               &lt;/restriction>
  *             &lt;/complexContent>
  *           &lt;/complexType>

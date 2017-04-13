@@ -4,14 +4,14 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.typeconversion.DateLong;
-import ru.nyrk.egrul.database.entity.Entity;
+import ru.nyrk.egrul.database.entity.EntityAbstract;
 
 import java.util.Date;
 
 @Data
 @NodeEntity
 @EqualsAndHashCode(callSuper = false)
-public class LegalNotResident extends Entity{
+public class LegalNotResident extends EntityAbstract {
     private String fullName;
     private String OKSM;
     private String country;

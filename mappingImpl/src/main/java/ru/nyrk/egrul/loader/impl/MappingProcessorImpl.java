@@ -122,7 +122,7 @@ public class MappingProcessorImpl implements MappingProcessor {
         }
         archiveFile.setStatus(LoadedFileStatus.ERROR);
         LoadedFileError loadedFileError = new LoadedFileError();
-        loadedFileError.setDate(new Date());
+        loadedFileError.setDateError(new Date());
         loadedFileError.setMessage(ExceptionUtils.getMessage(e));
         loadedFileError.setStackTrace(ExceptionUtils.getStackTrace(e));
         archiveFile.getErrors().add(loadedFileError);

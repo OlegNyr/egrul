@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *         &lt;element name="АдресМЖРФ" type="{}АдрРФЕГРЮЛТип" minOccurs="0"/>
  *         &lt;element name="АдрМЖИн" type="{}АдрИнЕГРЮЛТип" minOccurs="0"/>
  *       &lt;/sequence>
- *       &lt;attribute name="ДатаОткрНасл" use="required" type="{http://www.w3.org/2001/XMLSchema}date" />
+ *       &lt;attribute name="ДатаОткрНасл" use="required" type="{http://www.w3.org/2001/XMLSchema}dateError" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -61,7 +61,7 @@ public class DocInfoLicoUprNaslType {
     protected AddrrInEGRULType адрМЖИн;
     @XmlAttribute(name = "\u0414\u0430\u0442\u0430\u041e\u0442\u043a\u0440\u041d\u0430\u0441\u043b", required = true)
     @XmlJavaTypeAdapter(Adapter2 .class)
-    @XmlSchemaType(name = "date")
+    @XmlSchemaType(name = "dateError")
     protected Date датаОткрНасл;
 
     /**

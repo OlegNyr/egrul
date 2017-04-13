@@ -70,11 +70,11 @@ import javax.xml.bind.annotation.XmlType;
  *                   &lt;element name="ГРНДата" type="{}ГРНДатаТип"/>
  *                   &lt;element name="ГРНДатаИспр" type="{}ГРНДатаТип" minOccurs="0"/>
  *                 &lt;/sequence>
- *                 &lt;attribute name="ДатаНачДискв" use="required" type="{http://www.w3.org/2001/XMLSchema}date" />
- *                 &lt;attribute name="ДатаОкончДискв" use="required" type="{http://www.w3.org/2001/XMLSchema}date" />
+ *                 &lt;attribute name="ДатаНачДискв" use="required" type="{http://www.w3.org/2001/XMLSchema}dateError" />
+ *                 &lt;attribute name="ДатаОкончДискв" use="required" type="{http://www.w3.org/2001/XMLSchema}dateError" />
  *                 &lt;attribute name="ДатаРеш" use="required">
  *                   &lt;simpleType>
- *                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}date">
+ *                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}dateError">
  *                     &lt;/restriction>
  *                   &lt;/simpleType>
  *                 &lt;/attribute>

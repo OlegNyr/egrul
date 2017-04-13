@@ -2,14 +2,14 @@ package ru.nyrk.egrul.database;
 
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.nyrk.egrul.database.entity.Entity;
+import ru.nyrk.egrul.database.entity.EntityAbstract;
 import ru.nyrk.egrul.prop.ServiceDatabase;
 
 /**
  * Реализация CRUD
  */
 @Transactional(readOnly = true)
-abstract public class GenericService<T extends Entity, R extends GraphRepository<T>> implements ServiceDatabase<T> {
+abstract public class GenericService<T extends EntityAbstract, R extends GraphRepository<T>> implements ServiceDatabase<T> {
 
     protected static final int DEPTH_LIST = 0;
     protected static final int DEPTH_ENTITY = 1;

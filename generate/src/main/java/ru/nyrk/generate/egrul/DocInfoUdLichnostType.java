@@ -40,7 +40,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *           &lt;/restriction>
  *         &lt;/simpleType>
  *       &lt;/attribute>
- *       &lt;attribute name="ДатаДок" type="{http://www.w3.org/2001/XMLSchema}date" />
+ *       &lt;attribute name="ДатаДок" type="{http://www.w3.org/2001/XMLSchema}dateError" />
  *       &lt;attribute name="ВыдДок">
  *         &lt;simpleType>
  *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
@@ -79,7 +79,7 @@ public class DocInfoUdLichnostType {
     protected String серНомДок;
     @XmlAttribute(name = "\u0414\u0430\u0442\u0430\u0414\u043e\u043a")
     @XmlJavaTypeAdapter(Adapter2 .class)
-    @XmlSchemaType(name = "date")
+    @XmlSchemaType(name = "dateError")
     protected Date датаДок;
     @XmlAttribute(name = "\u0412\u044b\u0434\u0414\u043e\u043a")
     protected String выдДок;

@@ -8,6 +8,7 @@ import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 import org.neo4j.ogm.annotation.typeconversion.DateLong;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -16,8 +17,9 @@ import java.util.List;
  */
 @NodeEntity
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class ArchiveFile extends Entity {
+@EqualsAndHashCode(callSuper = false)
+@Entity()
+public class ArchiveFile extends EntityAbstract {
     @Index(unique = true, primary = true)
     String fileName;
     Date dateLoad;
@@ -35,6 +37,18 @@ public class ArchiveFile extends Entity {
     @Relationship(direction = Relationship.INCOMING, type = "XML_FILE")
     List<XmlFile> xmlFiles;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    public Long getId() {
+        return id;
+    }
+
+    @OneToMany(mappedBy = "archiveFile")
+    public List<LoadedFileError> getErrors() {
+        return errors;
+    }
+
+    @OneToMany(mappedBy = "archiveFile")
     public List<XmlFile> getXmlFiles() {
         if (xmlFiles == null) {
             xmlFiles = Lists.newArrayList();

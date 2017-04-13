@@ -8,7 +8,7 @@
     <xjb:bindings schemaLocation="VO_RUGF_2_311_26_04_04_02.xsd"
                   multiple="true"/>
     <xjb:globalBindings localScoping="toplevel">
-        <xjb:javaType name="java.util.Date" xmlType="xs:date"
+        <xjb:javaType name="java.util.Date" xmlType="xs:dateError"
                       parseMethod="ru.nyrk.generate.DateAdapter.parseDate"
                       printMethod="ru.nyrk.generate.DateAdapter.printDate"
         />

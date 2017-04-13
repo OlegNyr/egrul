@@ -1,15 +1,13 @@
 package ru.nyrk.egrul.database.entity.legal;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import org.neo4j.ogm.annotation.NodeEntity;
-import ru.nyrk.egrul.database.entity.Entity;
+import ru.nyrk.egrul.database.entity.EntityAbstract;
 
 /**
  * Доверенность
  */
 @NodeEntity
-public class LegalAttorney extends Entity {
+public class LegalAttorney extends EntityAbstract {
     private NaturalPerson naturalPerson;
     private String dolgnostCode;
     private String dolgnostCodeName;

@@ -60,7 +60,7 @@ import javax.xml.bind.annotation.XmlType;
  *                 &lt;sequence>
  *                   &lt;element name="ГРНДатаИспр" type="{}ГРНДатаТип" minOccurs="0"/>
  *                 &lt;/sequence>
- *                 &lt;attribute name="ДатаРожд" use="required" type="{http://www.w3.org/2001/XMLSchema}date" />
+ *                 &lt;attribute name="ДатаРожд" use="required" type="{http://www.w3.org/2001/XMLSchema}dateError" />
  *                 &lt;attribute name="МестоРожд" use="required">
  *                   &lt;simpleType>
  *                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
@@ -107,7 +107,7 @@ import javax.xml.bind.annotation.XmlType;
  *                     &lt;/restriction>
  *                   &lt;/simpleType>
  *                 &lt;/attribute>
- *                 &lt;attribute name="ДатаДок" type="{http://www.w3.org/2001/XMLSchema}date" />
+ *                 &lt;attribute name="ДатаДок" type="{http://www.w3.org/2001/XMLSchema}dateError" />
  *                 &lt;attribute name="ВыдДок">
  *                   &lt;simpleType>
  *                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">

@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.neo4j.ogm.annotation.NodeEntity;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -12,26 +13,27 @@ import java.util.Date;
 @Data
 @NodeEntity
 @EqualsAndHashCode(exclude = {"archiveFile"}, callSuper = false)
-public class XmlFile extends Entity {
+@Entity()
+public class XmlFile extends EntityAbstract {
 
     private String name;
 
     private String errorMessage;
 
-    private Date date;
+    private Date dateFile;
 
     private ArchiveFile archiveFile;
 
     private LoadedFileStatus status;
 
-    public  XmlFile(){
+    public XmlFile() {
 
     }
 
     private XmlFile(Builder builder) {
         setName(builder.name);
         setErrorMessage(builder.errorMessage);
-        setDate(builder.date);
+        setDateFile(builder.date);
         setArchiveFile(builder.archiveFile);
         setStatus(builder.status);
     }
@@ -44,10 +46,21 @@ public class XmlFile extends Entity {
         Builder builder = new Builder();
         builder.name = copy.name;
         builder.errorMessage = copy.errorMessage;
-        builder.date = copy.date;
+        builder.date = copy.dateFile;
         builder.archiveFile = copy.archiveFile;
         builder.status = copy.status;
         return builder;
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    public Long getId() {
+        return id;
+    }
+
+    @ManyToOne
+    public ArchiveFile getArchiveFile() {
+        return archiveFile;
     }
 
     public static final class Builder {

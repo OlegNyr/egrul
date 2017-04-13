@@ -1,15 +1,19 @@
 package ru.nyrk.egrul.database.entity;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import org.neo4j.ogm.annotation.GraphId;
 
+import javax.persistence.Embeddable;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-public abstract class Entity {
+
+@Embeddable
+public abstract class EntityAbstract {
 
     @GraphId
-    private Long id;
-
+    protected Long id;
+    @Id
+    @GeneratedValue()
     public Long getId() {
         return id;
     }
@@ -21,7 +25,7 @@ public abstract class Entity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Entity)) return false;
+        if (!(o instanceof EntityAbstract)) return false;
 
         return true;
     }

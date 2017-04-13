@@ -6,7 +6,7 @@ import java.text.ParseException;
 import java.util.Date;
 
 /**
- * Адаптер для JAXB, переводит xml представление xs:date в java.util.Date и обратно. Формат в xml CCYY-MM-DD
+ * Адаптер для JAXB, переводит xml представление xs:dateError в java.util.Date и обратно. Формат в xml CCYY-MM-DD
  */
 public class DateAdapter {
 

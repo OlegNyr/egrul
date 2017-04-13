@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *         &lt;/element>
  *         &lt;element name="ДатаДок" minOccurs="0">
  *           &lt;simpleType>
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}date">
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}dateError">
  *               &lt;minInclusive value="1900-01-01"/>
  *             &lt;/restriction>
  *           &lt;/simpleType>

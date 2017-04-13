@@ -1,4 +1,7 @@
 dependencies {
     compile 'org.neo4j:neo4j-ogm-api:2.1.2'
+    // https://mvnrepository.com/artifact/org.hibernate.javax.persistence/hibernate-jpa-2.1-api
+    compile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.0.Final'
+
     compileOnly('org.projectlombok:lombok')
 }

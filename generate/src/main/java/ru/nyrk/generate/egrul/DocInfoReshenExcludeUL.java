@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;attribute name="ДатаРеш" use="required">
  *         &lt;simpleType>
- *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}date">
+ *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}dateError">
  *           &lt;/restriction>
  *         &lt;/simpleType>
  *       &lt;/attribute>
@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *       &lt;/attribute>
  *       &lt;attribute name="ДатаПубликации" use="required">
  *         &lt;simpleType>
- *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}date">
+ *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}dateError">
  *             &lt;minInclusive value="2005-07-06"/>
  *           &lt;/restriction>
  *         &lt;/simpleType>

@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *           &lt;/restriction>
  *         &lt;/simpleType>
  *       &lt;/attribute>
- *       &lt;attribute name="ДатаРеш" use="required" type="{http://www.w3.org/2001/XMLSchema}date" />
+ *       &lt;attribute name="ДатаРеш" use="required" type="{http://www.w3.org/2001/XMLSchema}dateError" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -56,7 +56,7 @@ public class DocInfoUmenshenKapitalType {
     protected BigDecimal велУмУК;
     @XmlAttribute(name = "\u0414\u0430\u0442\u0430\u0420\u0435\u0448", required = true)
     @XmlJavaTypeAdapter(Adapter2 .class)
-    @XmlSchemaType(name = "date")
+    @XmlSchemaType(name = "dateError")
     protected Date датаРеш;
 
     /**

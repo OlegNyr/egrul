@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlType;
  *                     &lt;/restriction>
  *                   &lt;/simpleType>
  *                 &lt;/attribute>
- *                 &lt;attribute name="ДатаРеш" use="required" type="{http://www.w3.org/2001/XMLSchema}date" />
+ *                 &lt;attribute name="ДатаРеш" use="required" type="{http://www.w3.org/2001/XMLSchema}dateError" />
  *               &lt;/restriction>
  *             &lt;/complexContent>
  *           &lt;/complexType>
