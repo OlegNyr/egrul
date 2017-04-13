@@ -1,4 +1,4 @@
-package ru.nyrk.egrul.loader;
+package ru.nyrk.egrul.loader.impl;
 
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -7,12 +7,11 @@ import org.apache.commons.lang3.time.FastDateFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import ru.nyrk.egrul.database.entity.ArchiveFile;
 import ru.nyrk.egrul.database.entity.LoadedFileError;
 import ru.nyrk.egrul.database.entity.LoadedFileStatus;
-import ru.nyrk.egrul.database.LoadedFileService;
+import ru.nyrk.egrul.loader.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,31 +22,24 @@ import java.util.Date;
  * Шедуллер должен обновлять бд
  */
 @Service
-public class UpdateScheduler {
+public class MappingProcessorImpl implements MappingProcessor {
 
-    private static final Logger logger = LoggerFactory.getLogger(UpdateScheduler.class);
+    private static final Logger logger = LoggerFactory.getLogger(MappingProcessorImpl.class);
 
     private static final int ONE_DAY = 1;
-
-    @Autowired
-    private LoadedFileService loadedFileService;
-
+    private static FastDateFormat fastDateFormat = FastDateFormat.getInstance("yyyyMMdd");
     @Autowired
     private LoaderFromNalog loaderFromNalog;
-
     @Autowired
     private ParseArchive parseArchive;
 
-    private static FastDateFormat fastDateFormat = FastDateFormat.getInstance("yyyyMMdd");
-
-
-    //    @Scheduled(fixedDelay = 1000 * 60 * 60 * 60)
-    public void execute() throws ParseException, IOException {
+    @Override
+    public void execute(CallbackSave callbackSave, ArchiveFileStoreService loadedFileService) throws ParseException, IOException {
         Date firstDateYear = fastDateFormat.parse("20170101");
         //Первым делом берем последниию загрузку
         ArchiveFile lastArchiveFile = loadedFileService.lastLoadedFileCorrect();
         //Высчитываем следующий файл
-        ArchiveFile archiveFile = nextArchiveFileEntity(lastArchiveFile, firstDateYear);
+        ArchiveFile archiveFile = nextArchiveFileEntity(lastArchiveFile, firstDateYear, loadedFileService);
         while (true) {
             try {
                 //Берем файлик если нет его то грузим с сервера
@@ -55,22 +47,26 @@ public class UpdateScheduler {
                         TypeFile.EGRUL,
                         archiveFile.getDateFile().equals(firstDateYear),
                         archiveFile.getFileId());
+
+
                 archiveFile.setStatus(LoadedFileStatus.LOADED);
                 archiveFile.setFileName(fileArchive.getName());
-                archiveFile = loadedFileService.createOrUpdate(archiveFile, 1);
-                //Парсим файл
-                parseArchive.parseArchiveFile(fileArchive, archiveFile);
-                archiveFile.setStatus(LoadedFileStatus.COMPLETE);
-                archiveFile = loadedFileService.createOrUpdate(archiveFile, 1);
+                archiveFile = loadedFileService.createOrUpdate(archiveFile);
 
-                archiveFile = nextArchiveFileEntity(archiveFile, firstDateYear);
+
+                //Парсим файл
+                parseArchive.parseArchiveFile(fileArchive, archiveFile, callbackSave);
+                archiveFile.setStatus(LoadedFileStatus.COMPLETE);
+                archiveFile = loadedFileService.createOrUpdate(archiveFile);
+
+                archiveFile = nextArchiveFileEntity(archiveFile, firstDateYear, loadedFileService);
                 //Если дошли до последнего
                 if (archiveFile.getDateFile().after(DateUtils.addDays(new Date(), -ONE_DAY))) {
                     break;
                 }
             } catch (LoadException e) {
                 logger.error("load error", e);
-                if (e.getStatusCode() == HttpStatus.NOT_FOUND.value()) {
+                if (e.getStatusCode() == 404) {
                     archiveFile = nextArchiveFileEntityAddDay(archiveFile);
                     continue;
                 }
@@ -96,7 +92,7 @@ public class UpdateScheduler {
     /**
      * Формирует сущьность описывающию следующий файл, если первого файла нет то формирует по дате firstDateYear
      */
-    private ArchiveFile nextArchiveFileEntity(ArchiveFile lastArchiveFile, Date firstDateYear) {
+    private ArchiveFile nextArchiveFileEntity(ArchiveFile lastArchiveFile, Date firstDateYear, ArchiveFileStoreService loadedFileService) {
         Date loadedDate;
         int index = 0;
         if (lastArchiveFile == null) {

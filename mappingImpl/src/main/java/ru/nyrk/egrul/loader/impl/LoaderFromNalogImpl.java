@@ -1,10 +1,9 @@
-package ru.nyrk.egrul.loader;
+package ru.nyrk.egrul.loader.impl;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.io.ByteProcessor;
 import com.google.common.io.ByteStreams;
 import com.google.common.net.HttpHeaders;
-import lombok.Cleanup;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.text.StrSubstitutor;
@@ -27,6 +26,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.JsonParser;
 import org.springframework.stereotype.Service;
+import ru.nyrk.egrul.loader.LoadException;
+import ru.nyrk.egrul.loader.LoaderFromNalog;
+import ru.nyrk.egrul.loader.TypeFile;
 import ru.nyrk.egrul.prop.ConfigAppProperties;
 
 import javax.annotation.PostConstruct;
@@ -67,7 +69,7 @@ public class LoaderFromNalogImpl implements LoaderFromNalog {
     private void init() throws KeyStoreException, CertificateException, NoSuchAlgorithmException, IOException, UnrecoverableKeyException, KeyManagementException {
         KeyStore keyStore = KeyStore.getInstance("PKCS12");
         File fileP12 = new File(configAppProperties.getNalog().getP12());
-        @Cleanup FileInputStream fileInputStream = FileUtils.openInputStream(fileP12);
+        FileInputStream fileInputStream = FileUtils.openInputStream(fileP12);
         keyStore.load(fileInputStream, configAppProperties.getNalog().getPassword().toCharArray());
 
         SSLContext sslcontext = SSLContexts.custom()

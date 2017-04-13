@@ -10,7 +10,7 @@ public class LoadException extends RuntimeException {
         this.statusLine = statusLine;
     }
 
-    int getStatusCode() {
+    public int getStatusCode() {
         return statusLine.getStatusCode();
     }
 }

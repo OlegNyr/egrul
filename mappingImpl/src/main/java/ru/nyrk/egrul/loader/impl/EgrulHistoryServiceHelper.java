@@ -1,4 +1,4 @@
-package ru.nyrk.egrul.loader;
+package ru.nyrk.egrul.loader.impl;
 
 import com.google.common.collect.Sets;
 import org.springframework.stereotype.Service;

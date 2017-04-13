@@ -3,37 +3,38 @@ package ru.nyrk.egrul.database;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.nyrk.egrul.database.entity.Entity;
+import ru.nyrk.egrul.prop.ServiceDatabase;
 
 /**
  * Реализация CRUD
  */
 @Transactional(readOnly = true)
-abstract public class GenericService<T extends Entity> implements ServiceDatabase<T> {
+abstract public class GenericService<T extends Entity, R extends GraphRepository<T>> implements ServiceDatabase<T> {
 
-    private static final int DEPTH_LIST = 0;
-    private static final int DEPTH_ENTITY = 1;
+    protected static final int DEPTH_LIST = 0;
+    protected static final int DEPTH_ENTITY = 1;
 
 
-    private final GraphRepository<T> graphRepository;
+    protected final R repository;
 
-    public GenericService(GraphRepository<T> graphRepository) {
-        this.graphRepository = graphRepository;
+    public GenericService(R repository) {
+        this.repository = repository;
     }
 
     @Override
     public Iterable<T> findAll() {
-        return graphRepository.findAll(DEPTH_LIST);
+        return repository.findAll(DEPTH_LIST);
     }
 
     @Override
     public T find(Long id) {
-        return graphRepository.findOne(id, 0);
+        return repository.findOne(id, 0);
     }
 
     @Transactional
     @Override
     public void delete(Long id) {
-        graphRepository.delete(id);
+        repository.delete(id);
     }
 
     @Transactional
@@ -45,10 +46,7 @@ abstract public class GenericService<T extends Entity> implements ServiceDatabas
     @Transactional
     @Override
     public T createOrUpdate(T object, Integer dept) {
-        return graphRepository.save(object, dept);
+        return repository.save(object, dept);
     }
 
-    protected GraphRepository<T> getGraphRepository() {
-        return graphRepository;
-    }
 }

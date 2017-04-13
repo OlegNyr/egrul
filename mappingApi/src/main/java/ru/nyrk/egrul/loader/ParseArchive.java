@@ -6,8 +6,9 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * todo:java doc
+ * Грузит файл
  */
 public interface ParseArchive {
-    void parseArchiveFile(File file, ArchiveFile archiveFile) throws IOException;
+
+    void parseArchiveFile(File file, ArchiveFile archiveFile, CallbackSave callbackSave) throws IOException;
 }

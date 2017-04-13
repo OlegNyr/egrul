@@ -1,20 +1,14 @@
-package ru.nyrk.egrul.loader;
+package ru.nyrk.egrul.loader.impl;
 
 import com.google.common.base.MoreObjects;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import ru.nyrk.egrul.database.EconomicActivityService;
-import ru.nyrk.egrul.database.LegalPartyService;
-import ru.nyrk.egrul.database.entity.XmlFile;
 import ru.nyrk.egrul.database.entity.legal.*;
 import ru.nyrk.generate.egrul.*;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -23,8 +17,8 @@ import java.util.Set;
  * ПОлучает структуру
  */
 @Service
-public class EgrulServiceImpl implements EgrulService {
-    private static final Logger logger = LoggerFactory.getLogger(EgrulServiceImpl.class);
+public class EgrulMappingServiceImpl {
+    private static final Logger logger = LoggerFactory.getLogger(EgrulMappingServiceImpl.class);
 
     @Autowired
     private EgrulPersonServiceHelper egrulPersonServiceHelper;
@@ -32,19 +26,11 @@ public class EgrulServiceImpl implements EgrulService {
     private EgrulOwnerServiceHelper egrulOwnerServiceHelper;
     @Autowired
     private EgrulHistoryServiceHelper egrulHistoryServiceHelper;
-    @Autowired
-    private EconomicActivityService economicActivityService;
-    @Autowired
-    private LegalPartyService legalPartyService;
 
-    @Override
-    @Transactional
-    public LegalParty insertLegalParty(XmlFile xmlFile, DocInfoULType docInfoUL) {
-        logger.debug("Load legal party ogrn {}", docInfoUL.getOGRN());
+    public LegalParty mappingLegalParty(DocInfoULType docInfoUL) {
 
         LegalParty.Builder legalPartyBuilder =
                 LegalParty.newBuilder()
-                        .withXmlFile(xmlFile)
                         .withInn(docInfoUL.getINN())
                         .withKpp(docInfoUL.getKPP())
                         .withOgrn(docInfoUL.getOGRN())
@@ -93,7 +79,7 @@ public class EgrulServiceImpl implements EgrulService {
         }
         logger.debug("create or replace ogrn {} entity {}", legalParty.getOgrn(), legalParty);
 
-        return legalPartyService.findByOgrnOrCreate(legalParty);
+        return legalParty;
     }
 
     private Set<EconomicActivity> makeEconomicActivityList(DocInfoOKVEDType docInfoOKVED) {
@@ -106,12 +92,7 @@ public class EgrulServiceImpl implements EgrulService {
 
     private EconomicActivity makeEconomicActivity(InfoOKVEDType infoOKVEDType) {
         if (infoOKVEDType != null) {
-            EconomicActivity findActivity = economicActivityService.findByCode(infoOKVEDType.getKodOKVED());
-            if(findActivity != null){
-                return findActivity;
-            }
-            return economicActivityService.createOrUpdate(
-                    new EconomicActivity(infoOKVEDType.getKodOKVED(), infoOKVEDType.getNameOKVED()));
+            return new EconomicActivity(infoOKVEDType.getKodOKVED(), infoOKVEDType.getNameOKVED());
         } else {
             return null;
         }

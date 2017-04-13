@@ -1,19 +1,16 @@
-package ru.nyrk.egrul.loader;
+package ru.nyrk.egrul.loader.impl;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.nyrk.egrul.database.LegalPartyService;
 import ru.nyrk.egrul.database.entity.legal.LegalNotResident;
 import ru.nyrk.egrul.database.entity.legal.LegalParty;
 import ru.nyrk.egrul.database.entity.legal.OwnerCompany;
 import ru.nyrk.generate.egrul.*;
 
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -25,9 +22,6 @@ public class EgrulOwnerServiceHelper {
     private static final Logger logger = LoggerFactory.getLogger(EgrulOwnerServiceHelper.class);
     @Autowired
     private EgrulPersonServiceHelper egrulPersonServiceHelper;
-
-    @Autowired
-    private LegalPartyService legalPartyService;
 
     public Set<OwnerCompany> makeOwnerCompanys(DocInfoUcheredType docInfoUchered) {
         if (docInfoUchered == null) return null;
@@ -67,20 +61,16 @@ public class EgrulOwnerServiceHelper {
     }
 
     private LegalParty makeLegalParty(InfoULEGRULType infoULEGRULType) {
-        String ogrn = infoULEGRULType.getOGRN() != null ? infoULEGRULType.getOGRN() : DigestUtils.sha256Hex(infoULEGRULType.getNameUlFull());
-        LegalParty byOgrn = legalPartyService.findByOgrn(ogrn,0);
-        if (byOgrn != null) {
-            return byOgrn;
-        }
+        String ogrn = infoULEGRULType.getOGRN() != null
+                ? infoULEGRULType.getOGRN()
+                : DigestUtils.sha256Hex(infoULEGRULType.getNameUlFull());
 
-        return legalPartyService.createOrUpdate(
-                LegalParty.newBuilder()
-                        .withOgrn(ogrn)
-                        .withFullName(infoULEGRULType.getNameUlFull())
-                        .withShortName(infoULEGRULType.getNameUlFull())
-                        .withInn(infoULEGRULType.getInn())
-                        .build()
-        );
+        return LegalParty.newBuilder()
+                .withOgrn(ogrn)
+                .withFullName(infoULEGRULType.getNameUlFull())
+                .withShortName(infoULEGRULType.getNameUlFull())
+                .withInn(infoULEGRULType.getInn())
+                .build();
     }
 
     private String makeProportion(ShareCapitalEGRULType shareCapitalEGRULType) {

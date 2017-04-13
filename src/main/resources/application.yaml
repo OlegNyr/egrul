@@ -3,12 +3,18 @@ logging:
     org.apache.http: INFO
 #    org.neo4j.ogm.drivers.bolt.request: WARN
 #    org.neo4j.ogm.drivers.embedded.request: WARN
+    org.neo4j.ogm.drivers.bolt.request: DEBUG
+    org.neo4j.ogm.drivers.embedded.request: DEBUG
+    org.neo4j.ogm.drivers.bolt.transaction:  DEBUG
 spring:
   data:
     neo4j:
       uri: bolt://localhost:7687
+#      uri: http://localhost:7474
       embedded:
         enabled: false
+      username: neo4j
+      password: admin
   cache:
     cache-names:
        - NaturalPerson

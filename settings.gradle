@@ -1,1 +1,7 @@
 include "generate"
+include 'entity'
+include 'mappingImpl'
+include 'mappingApi'
+include 'core'
+include 'import'
+

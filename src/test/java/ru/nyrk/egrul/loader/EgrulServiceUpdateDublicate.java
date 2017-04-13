@@ -1,35 +1,12 @@
 package ru.nyrk.egrul.loader;
 
-import com.google.common.collect.Lists;
-import org.junit.Assert;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.neo4j.ogm.session.Session;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.support.TransactionTemplate;
-import org.springframework.util.ResourceUtils;
 import ru.nyrk.egrul.EgrulApplication;
 import ru.nyrk.egrul.MockConfig;
-import ru.nyrk.egrul.database.LegalPartyService;
-import ru.nyrk.egrul.database.entity.XmlFile;
-import ru.nyrk.egrul.database.entity.legal.LegalParty;
-import ru.nyrk.generate.egrul.DocInfoULType;
-import ru.nyrk.generate.egrul.EGRUL;
-
-import javax.xml.transform.stream.StreamSource;
-import java.io.FileNotFoundException;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
 /**
  * todo:java doc
@@ -39,18 +16,20 @@ import java.util.concurrent.Future;
 @SpringBootTest(classes = EgrulApplication.class)
 @ContextConfiguration(classes = MockConfig.class)
 @Rollback(value = false)
-@ActiveProfiles("test")
+//@ActiveProfiles("test")
 public class EgrulServiceUpdateDublicate {
-
-    private static final Logger logger = LoggerFactory.getLogger(EgrulServiceUpdateDublicate.class);
+/*
     public static final String OGRN_MAIN = "1065405116578";
     public static final String OGRN_OWNER = "1065405119185";
+    private static final Logger logger = LoggerFactory.getLogger(EgrulServiceUpdateDublicate.class);
     static EGRUL egrul;
 
     @Autowired
     Session session;
     @Autowired
     TransactionTemplate transactionTemplate;
+    @Autowired
+    XmlFileRepository xmlFileRepository;
     @Autowired
     private Jaxb2Marshaller jaxb2Marshaller;
     @Autowired
@@ -84,24 +63,129 @@ public class EgrulServiceUpdateDublicate {
         Assert.assertFalse("Сущьность после обновления имеет больше данных", legalPartyFindOwner.getLegalAttorneys().isEmpty());
     }
 
+    @Test
+    public void contextTwoAsync() throws FileNotFoundException, ExecutionException, InterruptedException {
+        ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
+        threadPoolTaskExecutor.setMaxPoolSize(2);
+        threadPoolTaskExecutor.setCorePoolSize(2);
+        threadPoolTaskExecutor.setThreadGroupName("loadXML");
+        threadPoolTaskExecutor.setThreadNamePrefix("loafXML-");
+        threadPoolTaskExecutor.initialize();
+
+        EGRUL egrul = getEgrul();
+        Optional<DocInfoULType> ulType = findByOgrn(egrul, OGRN_MAIN);
+        Optional<DocInfoULType> ulType2 = findByOgrn(egrul, "1076320014649");
+        XmlFile xmlFile = XmlFile.newBuilder().build();
+        Callable callable = new Callable() {
+            @Override
+            public Object call() throws Exception {
+                transactionTemplate.execute(status -> {
+                    try {
+                        save(ulType, xmlFile);
+                        Thread.sleep(TimeUnit.SECONDS.toMillis(5));
+                        save(ulType2, xmlFile);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                });
+                return null;
+            }
+        };
+
+        Callable callable2 = new Callable() {
+            @Override
+            public Object call() throws Exception {
+                transactionTemplate.execute(status -> {
+                    try {
+                        save(ulType2, xmlFile);
+                        Thread.sleep(TimeUnit.SECONDS.toMillis(5));
+                        save(ulType, xmlFile);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                });
+                return null;
+            }
+        };
+
+
+        try {
+            Future submit = threadPoolTaskExecutor.submit(callable);
+            Future submit2 = threadPoolTaskExecutor.submit(callable2);
+            logger.info("{}", submit.get());
+            logger.info("{}", submit2.get());
+        }catch (Throwable throwable){
+
+        }
+        try {
+            Future submit = threadPoolTaskExecutor.submit(callable);
+            Future submit2 = threadPoolTaskExecutor.submit(callable2);
+            logger.info("{}", submit.get());
+            logger.info("{}", submit2.get());
+        }catch (Throwable throwable){
+
+        }
+
+    }
+
+    private String save(Optional<DocInfoULType> ulType, XmlFile xmlFile) throws InterruptedException {
+        try {
+            egrulService.insertLegalParty(XmlFile.newBuilder().build(), ulType.get());
+            return "OK";
+        } catch (RuntimeException th) {
+            logger.info("{}", th);
+            return ExceptionUtils.getMessage(th);
+        }
+    }
+
+    @Test
+    public void name() throws Exception {
+        ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
+        threadPoolTaskExecutor.setMaxPoolSize(20);
+        threadPoolTaskExecutor.setCorePoolSize(20);
+        threadPoolTaskExecutor.setThreadGroupName("loadXML");
+        threadPoolTaskExecutor.setThreadNamePrefix("loafXML-");
+        threadPoolTaskExecutor.initialize();
+        List<Future<String>> futureList = Lists.newArrayList();
+        for (int i = 0; i < 50; i++) {
+            Callable callable = () -> {
+                try {
+                    transactionTemplate.execute(status -> {
+
+                        xmlFileRepository.load();
+                        return null;
+                    });
+                } catch (Throwable th) {
+                    logger.error("{}", th);
+                }
+                return "ok";
+            };
+            futureList.add(threadPoolTaskExecutor.submit(callable));
+        }
+        for (Future<String> future : futureList) {
+            if (!future.get().equals("ok")) throw new RuntimeException(future.get());
+        }
+
+        System.out.println("HELLO!!!!!!!!!!!!!!!!");
+    }
 
     @Test
     public void contextLoadsAsync() throws FileNotFoundException, ExecutionException, InterruptedException {
-        transactionTemplate.execute(status -> {
-            session.purgeDatabase();
-            return null;
-        });
 
         EGRUL egrul = getEgrul();
         XmlFile xmlFile = XmlFile.newBuilder().build();
         List<Future<String>> futureList = Lists.newArrayList();
         logger.info("Start submit");
         for (DocInfoULType docInfoULType : egrul.getDocInfoUL()) {
+
             futureList.add(egrulServiceAsync.insertLegalPartyAsync(xmlFile, docInfoULType));
         }
         logger.info("end submit");
         for (Future<String> future : futureList) {
-           if(!future.get().equals("OK")) throw new RuntimeException(future.get());
+            future.get();
+            //if(!future.get().equals("OK")) throw new RuntimeException(future.get());
         }
         logger.info("end future");
     }
@@ -133,5 +217,5 @@ public class EgrulServiceUpdateDublicate {
         }
         return egrul;
     }
-
+*/
 }

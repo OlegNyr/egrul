@@ -9,11 +9,7 @@ import org.w3c.dom.ls.LSSerializer
 import javax.xml.parsers.DocumentBuilder
 import javax.xml.parsers.DocumentBuilderFactory
 
-apply plugin: 'java'
 
-repositories {
-    mavenCentral()
-}
 
 configurations {
     jaxb

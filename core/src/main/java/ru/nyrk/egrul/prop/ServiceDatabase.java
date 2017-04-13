@@ -1,6 +1,6 @@
-package ru.nyrk.egrul.database;
+package ru.nyrk.egrul.prop;
 
-interface ServiceDatabase<T> {
+public interface ServiceDatabase<T> {
 
     Iterable<T> findAll();
 

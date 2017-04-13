@@ -1,4 +1,4 @@
-package ru.nyrk.egrul.loader;
+package ru.nyrk.egrul.loader.impl;
 
 import com.google.common.base.Preconditions;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
@@ -11,11 +11,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.stereotype.Service;
-import ru.nyrk.egrul.database.LoadedFileService;
 import ru.nyrk.egrul.database.entity.ArchiveFile;
 import ru.nyrk.egrul.database.entity.LoadedFileStatus;
 import ru.nyrk.egrul.database.entity.XmlFile;
-import ru.nyrk.egrul.database.repository.XmlFileRepository;
+import ru.nyrk.egrul.database.entity.legal.LegalParty;
+import ru.nyrk.egrul.loader.CallbackSave;
+import ru.nyrk.egrul.loader.ParseArchive;
 import ru.nyrk.generate.egrul.DocInfoULType;
 import ru.nyrk.generate.egrul.EGRUL;
 
@@ -25,35 +26,23 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-
-/**
- * todo:java doc
- */
 
 @Service
 public class ParseArchiveImpl implements ParseArchive {
     public static final String EXTENSION_ZIP = "zip";
     private static final Logger logger = LoggerFactory.getLogger(ParseArchiveImpl.class);
     @Autowired
-    private Jaxb2Marshaller jaxb2Marshaller;
-
+    EgrulMappingServiceImpl egrulMappingService;
     @Autowired
-    private LoadedFileService loadedFileService;
-
-    @Autowired
-    private EgrulServiceAsync egrulServiceAsync;
-
-    @Autowired
-    private XmlFileRepository xmlFileRepository;
+    private Jaxb2Marshaller jaxb2MarshallerEGRUL;
 
     @Override
-    public void parseArchiveFile(File file, ArchiveFile archiveFile) throws IOException {
+    public void parseArchiveFile(File file, ArchiveFile archiveFile, CallbackSave callbackSave) {
         Preconditions.checkArgument(FilenameUtils.isExtension(file.getName(), EXTENSION_ZIP));
         logger.info("Parse archive {}", file);
 
-        ZipFile zipFile = new ZipFile(file);
-        try {
+
+        try (ZipFile zipFile = new ZipFile(file)) {
             Enumeration<ZipArchiveEntry> entriesInPhysicalOrder = zipFile.getEntriesInPhysicalOrder();
             while (entriesInPhysicalOrder.hasMoreElements()) {
                 ZipArchiveEntry zipArchiveEntry = entriesInPhysicalOrder.nextElement();
@@ -65,48 +54,38 @@ public class ParseArchiveImpl implements ParseArchive {
                         continue;
                     }
                     logger.info("Start parsing file {}" + xmlFile.getName());
-                    EGRUL egrul = (EGRUL) jaxb2Marshaller.unmarshal(new StreamSource(entryStream));
+                    EGRUL egrul = (EGRUL) jaxb2MarshallerEGRUL.unmarshal(new StreamSource(entryStream));
                     logger.info("Finish parsing file");
 
-                    importBatch(xmlFile, egrul);
+                    callbackSave.call(archiveFile, xmlFile, mappingsEgrulToLegalParty(xmlFile, egrul));
 
                     xmlFile.setStatus(LoadedFileStatus.COMPLETE);
                 } catch (RuntimeException th) {
+
                     logger.error("Insert", th);
                     xmlFile.setStatus(LoadedFileStatus.ERROR);
                     xmlFile.setErrorMessage(ExceptionUtils.getMessage(th));
-                    loadedFileService.createOrUpdate(archiveFile);//запишем что там было в бд
+                    callbackSave.call(archiveFile, xmlFile, Collections.emptyList());
                     throw new RuntimeException(th);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 }
-                loadedFileService.createOrUpdate(archiveFile);
             }
-        } finally {
-            zipFile.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    private void importBatch(XmlFile xmlFile, EGRUL egrul) throws InterruptedException, ExecutionException {
-        logger.info("Start submit");
-        List<Future<String>> futureList = new ArrayList<>(egrul.getDocInfoUL().size());
+    private List<LegalParty> mappingsEgrulToLegalParty(XmlFile xmlFile, EGRUL egrul) throws InterruptedException, ExecutionException {
+        List<LegalParty> legalParties = new ArrayList<>(egrul.getDocInfoUL().size());
         for (DocInfoULType docInfoULType : egrul.getDocInfoUL()) {
-            futureList.add(egrulServiceAsync.insertLegalPartyAsync(xmlFile, docInfoULType));
+            LegalParty legalParty = egrulMappingService.mappingLegalParty(docInfoULType);
+            legalParty.setXmlFile(xmlFile);
+            legalParties.add(legalParty);
         }
-        logger.info("end submit");
-
-        System.out.print("Import doc:");
-        int count = 0;
-        for (Future<String> future : futureList) {
-            if(count++ % 50 == 0 ){
-                System.out.print("#");
-            }
-            if (!future.get().equals("OK")) throw new RuntimeException(future.get());
-        }
-        System.out.println(" end");
-        logger.info("end future");
+        return legalParties;
     }
 
     private XmlFile makeXmlFile(ArchiveFile archiveFile, ZipArchiveEntry zipArchiveEntry) {
@@ -125,7 +104,7 @@ public class ParseArchiveImpl implements ParseArchive {
                     .withArchiveFile(archiveFile)
                     .withDate(new Date())
                     .build();
-            archiveFile.getXmlFiles().add(xmlFileRepository.save(xmlFile));
+            archiveFile.getXmlFiles().add(xmlFile);
 
         }
         return xmlFile;

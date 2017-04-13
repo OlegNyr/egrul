@@ -1,0 +1,6 @@
+apply plugin: 'java'
+dependencies{
+    compile project(":mappingApi")
+    compile project(":core")
+    compile group: 'org.springframework', name: 'spring-oxm'
+}

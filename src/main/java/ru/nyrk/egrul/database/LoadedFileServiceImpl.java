@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.nyrk.egrul.database.entity.ArchiveFile;
 import ru.nyrk.egrul.database.repository.LoadedFileRepository;
+import ru.nyrk.egrul.loader.ArchiveFileStoreService;
 
 import java.util.Date;
 
 @Service
-public class LoadedFileServiceImpl extends GenericService<ArchiveFile> implements LoadedFileService {
+public class LoadedFileServiceImpl extends GenericService<ArchiveFile, LoadedFileRepository>
+        implements LoadedFileService, ArchiveFileStoreService {
 
     @Autowired
     public LoadedFileServiceImpl(LoadedFileRepository loadedFileRepository) {
@@ -16,17 +18,12 @@ public class LoadedFileServiceImpl extends GenericService<ArchiveFile> implement
     }
 
     @Override
-    protected LoadedFileRepository getGraphRepository() {
-        return (LoadedFileRepository) super.getGraphRepository();
-    }
-
-    @Override
     public ArchiveFile lastLoadedFileCorrect() {
-        return getGraphRepository().lastArchiveFileComplete();
+        return repository.lastArchiveFileComplete();
     }
 
     @Override
     public ArchiveFile findLoadedFileByDateFileAndFileId(Date dateFile, Integer fileId) {
-        return getGraphRepository().findByDateFileAndFileId(dateFile, fileId);
+        return repository.findByDateFileAndFileId(dateFile, fileId);
     }
 }

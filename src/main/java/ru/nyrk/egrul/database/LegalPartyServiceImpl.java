@@ -1,27 +1,32 @@
 package ru.nyrk.egrul.database;
 
-import com.google.common.collect.ImmutableMap;
-import org.neo4j.ogm.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.nyrk.egrul.database.entity.legal.LegalParty;
+import ru.nyrk.egrul.database.repository.HistoryRecordRepository;
+import ru.nyrk.egrul.database.repository.LegalAttorneyRepository;
 import ru.nyrk.egrul.database.repository.LegalPartyRepository;
-
-import java.util.Map;
+import ru.nyrk.egrul.database.repository.OwnerCompanyRepository;
 
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 import static org.apache.commons.collections4.CollectionUtils.removeAll;
 
 @Service
-public class LegalPartyServiceImpl extends GenericService<LegalParty> implements LegalPartyService {
-    public static final int DEPT = 1;
+public class LegalPartyServiceImpl extends GenericService<LegalParty, LegalPartyRepository> implements LegalPartyService {
+    public static final int DEPT_ONE = 1;
     private static final Logger logger = LoggerFactory.getLogger(LegalPartyServiceImpl.class);
 
     @Autowired
-    private Session session;
+    LegalAttorneyRepository legalAttorneyRepository;
+
+    @Autowired
+    OwnerCompanyRepository ownerCompanyRepository;
+
+    @Autowired
+    HistoryRecordRepository historyRecordRepository;
 
     @Autowired
     public LegalPartyServiceImpl(LegalPartyRepository graphRepository) {
@@ -29,25 +34,20 @@ public class LegalPartyServiceImpl extends GenericService<LegalParty> implements
     }
 
     @Override
-    protected LegalPartyRepository getGraphRepository() {
-        return (LegalPartyRepository) super.getGraphRepository();
-    }
-
-    @Override
     @Transactional
     public LegalParty findByOgrn(String ogrn, int dept) {
-        return getGraphRepository().findByOgrn(ogrn, dept);
+        return repository.findByOgrn(ogrn, dept);
     }
 
     @Override
     @Transactional
     public LegalParty findByOgrnOrCreate(LegalParty legalPartyNew) {
-        LegalParty findLegalPartyOld = getGraphRepository().findByOgrn(legalPartyNew.getOgrn(), 0);
+        LegalParty findLegalPartyOld = repository.findByOgrn(legalPartyNew.getOgrn(), 0);
         if (findLegalPartyOld == null) {
             logger.debug("Save legal party {}", legalPartyNew.getOgrn());
             return saveLegalParty(legalPartyNew);
         } else {
-            logger.debug("Save legal party update {}", legalPartyNew.getOgrn());
+            logger.info("Save legal party update {}", legalPartyNew.getOgrn());
             deleteRelationship(findLegalPartyOld);
             legalPartyNew.setId(findLegalPartyOld.getId());
             return saveLegalParty(legalPartyNew);
@@ -55,31 +55,23 @@ public class LegalPartyServiceImpl extends GenericService<LegalParty> implements
     }
 
     private void deleteRelationship(LegalParty findLegalPartyOld) {
-        Map<String, Long> prm = ImmutableMap.of("0", findLegalPartyOld.getId());
-        session.query("MATCH (n:LegalParty)-[:HISTORY_RECORDS]->(mv)-[r3:HISTORY_RECORD_DOCUMENTS]->(b) WHERE id(n)= {0} DELETE b, r3", prm);
-
-        session.query("MATCH (n:LegalParty)-[r:LEGAL_ADDRESS|OWNER_COMPANIES|HISTORY_RECORDS|LEGAL_ATTORNEYS]->(l)-[r2]->(a) " +
-                " WHERE id(n)= {0}" +
-                " DELETE r, r2,l", prm);
-        session.query("MATCH (n:LegalParty)-[r:LEGAL_ADDRESS|OWNER_COMPANIES|HISTORY_RECORDS|LEGAL_ATTORNEYS]->(l)  " +
-                " WHERE id(n)= {0}" +
-                " DELETE r,l ", prm);
-        session.query("MATCH (n:LegalParty)-[r]->() " +
-                " WHERE id(n)= {0} " +
-                " DELETE r ", prm);
+        repository.deleteHistoryRecords(findLegalPartyOld.getId());
+        repository.deleteSecondOrder(findLegalPartyOld.getId());
+        repository.deleteSecondRelationShip(findLegalPartyOld.getId());
+        repository.deleteFirstOrder(findLegalPartyOld.getId());
     }
 
     private LegalParty saveLegalParty(LegalParty legalPartyNew) {
         if (!isEmpty(legalPartyNew.getLegalAttorneys())) {
-            session.save(legalPartyNew.getLegalAttorneys(), 1);
+            legalAttorneyRepository.save(legalPartyNew.getLegalAttorneys(), DEPT_ONE);
         }
         if (!isEmpty(legalPartyNew.getOwnerCompanies())) {
-            session.save(legalPartyNew.getOwnerCompanies(), 1);
+            ownerCompanyRepository.save(legalPartyNew.getOwnerCompanies(), DEPT_ONE);
         }
         if (!isEmpty(legalPartyNew.getHistoryRecords())) {
-            session.save(legalPartyNew.getHistoryRecords(), 1);
+            historyRecordRepository.save(legalPartyNew.getHistoryRecords(), DEPT_ONE);
         }
-        return createOrUpdate(legalPartyNew, 1);
+        return createOrUpdate(legalPartyNew, DEPT_ONE);
     }
 
 }

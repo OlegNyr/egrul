@@ -10,7 +10,7 @@ import ru.nyrk.egrul.database.entity.legal.NaturalPerson;
  * Имплементация управления персонами
  */
 @Service
-public class NaturalPersonServiceImpl extends GenericService<NaturalPerson> implements NaturalPersonService {
+public class NaturalPersonServiceImpl extends GenericService<NaturalPerson, NaturalPersonRepository> implements NaturalPersonService {
 
     @Autowired
     public NaturalPersonServiceImpl(NaturalPersonRepository graphRepository) {
@@ -18,13 +18,8 @@ public class NaturalPersonServiceImpl extends GenericService<NaturalPerson> impl
     }
 
     @Override
-    protected NaturalPersonRepository getGraphRepository() {
-        return (NaturalPersonRepository) super.getGraphRepository();
-    }
-
-    @Override
     @Cacheable(cacheNames = "NaturalPerson", unless = "#result == null")
     public NaturalPerson findByKey(String key) {
-        return getGraphRepository().findByKey(key);
+        return repository.findByKey(key);
     }
 }

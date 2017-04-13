@@ -1,12 +1,13 @@
-package ru.nyrk.egrul.database;
+package ru.nyrk.egrul.loader;
 
 import ru.nyrk.egrul.database.entity.ArchiveFile;
-import ru.nyrk.egrul.prop.ServiceDatabase;
 
 import java.util.Date;
 
-public interface LoadedFileService extends ServiceDatabase<ArchiveFile> {
+public interface ArchiveFileStoreService {
     ArchiveFile lastLoadedFileCorrect();
 
     ArchiveFile findLoadedFileByDateFileAndFileId(Date dateFile, Integer fileId);
+
+    ArchiveFile createOrUpdate(ArchiveFile archiveFile);
 }
