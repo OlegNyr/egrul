@@ -1,17 +1,19 @@
 package ru.nyrk.egrul.database.entity.legal;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.neo4j.ogm.annotation.typeconversion.DateLong;
 import ru.nyrk.egrul.database.entity.EntityAbstract;
 
+import javax.persistence.Embeddable;
 import java.util.Date;
 
 /**
  * Дата записи и номер изменения
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
+@Getter
+@Setter
+@Embeddable
 public class GRNDate extends EntityAbstract {
     @DateLong
     private Date dateRecord;

@@ -4,6 +4,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.neo4j.ogm.annotation.NodeEntity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Date;
 
 /**
@@ -12,6 +15,7 @@ import java.util.Date;
 @Data
 @NodeEntity
 @EqualsAndHashCode(callSuper = true)
+@Entity()
 public class Address extends GRNDate {
     private String kladr;
     private String regionCode;
@@ -29,12 +33,16 @@ public class Address extends GRNDate {
     private String streetName;
     private String pIndex;
 
-
     private String house;
     private String korpus;
     private String kwartira;
 
     public Address() {
+    }
+
+    @Id
+    public Long getId() {
+        return id;
     }
 
     private Address(Builder builder) {

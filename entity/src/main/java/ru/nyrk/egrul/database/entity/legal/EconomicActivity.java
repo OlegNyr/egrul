@@ -5,19 +5,33 @@ package ru.nyrk.egrul.database.entity.legal;
 
 import com.google.common.base.Objects;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.neo4j.ogm.annotation.Index;
 import org.neo4j.ogm.annotation.NodeEntity;
 import ru.nyrk.egrul.database.entity.EntityAbstract;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  * Общероссийский классификатор видов экономической Деятельности
  */
-@Data
+@Getter
+@Setter
 @NodeEntity
+@Entity
 public class EconomicActivity extends EntityAbstract {
     @Index(unique = true, primary = true)
     private String code;
     private String name;
+
+    @Id
+    @GeneratedValue
+    public Long getId() {
+        return id;
+    }
 
     public EconomicActivity() {
     }
@@ -25,19 +39,5 @@ public class EconomicActivity extends EntityAbstract {
     public EconomicActivity(String code, String name) {
         this.code = code;
         this.name = name;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        EconomicActivity that = (EconomicActivity) o;
-        return Objects.equal(code, that.code) ;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(super.hashCode(), code);
     }
 }

@@ -8,6 +8,10 @@ import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 import ru.nyrk.egrul.database.entity.XmlFile;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
@@ -20,7 +24,8 @@ import java.util.Set;
  */
 @Data()
 @NodeEntity
-//@EqualsAndHashCode(callSuper = true, exclude = {"xmlFile", "previsionLegalHistory"})
+@EqualsAndHashCode(callSuper = true, exclude = {"xmlFile", "previsionLegalHistory"})
+@Entity
 public class LegalParty extends GRNDate {
     @Index()
     private String inn;
@@ -46,22 +51,55 @@ public class LegalParty extends GRNDate {
     private String fullName;
     private String shortName;
     private Address legalAddress;
+
     private XmlFile xmlFile;
 
-
     private Set<EconomicActivity> economicActivitiesOther;
-
     private EconomicActivity economicActivity;
-
     private Set<HistoryRecord> historyRecords;
-
     private Set<LegalAttorney> legalAttorneys;
-
 
     private BigDecimal capital;
     private Set<OwnerCompany> ownerCompanies;
 
+    @Id
+    public Long getId() {
+        return id;
+    }
+
     public LegalParty() {
+    }
+
+    @ManyToOne
+    public Address getLegalAddress() {
+        return legalAddress;
+    }
+    @ManyToOne
+    public XmlFile getXmlFile() {
+        return xmlFile;
+    }
+
+    @OneToMany
+    public Set<EconomicActivity> getEconomicActivitiesOther() {
+        return economicActivitiesOther;
+    }
+
+    @ManyToOne
+    public EconomicActivity getEconomicActivity() {
+        return economicActivity;
+    }
+
+    @OneToMany(mappedBy = "legalParty")
+    public Set<HistoryRecord> getHistoryRecords() {
+        return historyRecords;
+    }
+    @OneToMany(mappedBy = "legalParty")
+    public Set<LegalAttorney> getLegalAttorneys() {
+        return legalAttorneys;
+    }
+    @OneToMany(mappedBy = "legalParty")
+    public Set<OwnerCompany> getOwnerCompanies() {
+        return ownerCompanies;
     }
 
     private LegalParty(Builder builder) {
@@ -122,74 +160,6 @@ public class LegalParty extends GRNDate {
         builder.capital = copy.capital;
         builder.ownerCompanies = copy.ownerCompanies;
         return builder;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-
-        LegalParty that = (LegalParty) o;
-
-        if (inn != null ? !inn.equals(that.inn) : that.inn != null) return false;
-        if (ogrn != null ? !ogrn.equals(that.ogrn) : that.ogrn != null) return false;
-        if (ogrnDate != null ? !ogrnDate.equals(that.ogrnDate) : that.ogrnDate != null) return false;
-        if (beginDate != null ? !beginDate.equals(that.beginDate) : that.beginDate != null) return false;
-        if (endDate != null ? !endDate.equals(that.endDate) : that.endDate != null) return false;
-        if (endCode != null ? !endCode.equals(that.endCode) : that.endCode != null) return false;
-        if (endName != null ? !endName.equals(that.endName) : that.endName != null) return false;
-        if (regNumber != null ? !regNumber.equals(that.regNumber) : that.regNumber != null) return false;
-        if (pensionFondRegNumber != null ? !pensionFondRegNumber.equals(that.pensionFondRegNumber) : that.pensionFondRegNumber != null)
-            return false;
-        if (pensionFondRegDate != null ? !pensionFondRegDate.equals(that.pensionFondRegDate) : that.pensionFondRegDate != null)
-            return false;
-        if (kpp != null ? !kpp.equals(that.kpp) : that.kpp != null) return false;
-        if (okpfCode != null ? !okpfCode.equals(that.okpfCode) : that.okpfCode != null) return false;
-        if (okpfDict != null ? !okpfDict.equals(that.okpfDict) : that.okpfDict != null) return false;
-        if (okpfName != null ? !okpfName.equals(that.okpfName) : that.okpfName != null) return false;
-        if (fullName != null ? !fullName.equals(that.fullName) : that.fullName != null) return false;
-        if (shortName != null ? !shortName.equals(that.shortName) : that.shortName != null) return false;
-        if (legalAddress != null ? !legalAddress.equals(that.legalAddress) : that.legalAddress != null) return false;
-        if (economicActivitiesOther != null ? !economicActivitiesOther.equals(that.economicActivitiesOther) : that.economicActivitiesOther != null)
-            return false;
-        if (economicActivity != null ? !economicActivity.equals(that.economicActivity) : that.economicActivity != null)
-            return false;
-        if (historyRecords != null ? !historyRecords.equals(that.historyRecords) : that.historyRecords != null)
-            return false;
-        if (legalAttorneys != null ? !legalAttorneys.equals(that.legalAttorneys) : that.legalAttorneys != null)
-            return false;
-        if (capital != null ? !capital.equals(that.capital) : that.capital != null) return false;
-        return ownerCompanies != null ? ownerCompanies.equals(that.ownerCompanies) : that.ownerCompanies == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + (inn != null ? inn.hashCode() : 0);
-        result = 31 * result + (ogrn != null ? ogrn.hashCode() : 0);
-        result = 31 * result + (ogrnDate != null ? ogrnDate.hashCode() : 0);
-        result = 31 * result + (beginDate != null ? beginDate.hashCode() : 0);
-        result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
-        result = 31 * result + (endCode != null ? endCode.hashCode() : 0);
-        result = 31 * result + (endName != null ? endName.hashCode() : 0);
-        result = 31 * result + (regNumber != null ? regNumber.hashCode() : 0);
-        result = 31 * result + (pensionFondRegNumber != null ? pensionFondRegNumber.hashCode() : 0);
-        result = 31 * result + (pensionFondRegDate != null ? pensionFondRegDate.hashCode() : 0);
-        result = 31 * result + (kpp != null ? kpp.hashCode() : 0);
-        result = 31 * result + (okpfCode != null ? okpfCode.hashCode() : 0);
-        result = 31 * result + (okpfDict != null ? okpfDict.hashCode() : 0);
-        result = 31 * result + (okpfName != null ? okpfName.hashCode() : 0);
-        result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
-        result = 31 * result + (shortName != null ? shortName.hashCode() : 0);
-        result = 31 * result + (legalAddress != null ? legalAddress.hashCode() : 0);
-        result = 31 * result + (economicActivitiesOther != null ? economicActivitiesOther.hashCode() : 0);
-        result = 31 * result + (economicActivity != null ? economicActivity.hashCode() : 0);
-        result = 31 * result + (historyRecords != null ? historyRecords.hashCode() : 0);
-        result = 31 * result + (legalAttorneys != null ? legalAttorneys.hashCode() : 0);
-        result = 31 * result + (capital != null ? capital.hashCode() : 0);
-        result = 31 * result + (ownerCompanies != null ? ownerCompanies.hashCode() : 0);
-        return result;
     }
 
     public static final class Builder {

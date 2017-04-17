@@ -1,5 +1,7 @@
 package ru.nyrk.egrul.database.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.neo4j.ogm.annotation.GraphId;
 
 import javax.persistence.Embeddable;
@@ -7,13 +9,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 
+@Getter
+@Setter
 @Embeddable
 public abstract class EntityAbstract {
 
     @GraphId
     protected Long id;
     @Id
-    @GeneratedValue()
     public Long getId() {
         return id;
     }

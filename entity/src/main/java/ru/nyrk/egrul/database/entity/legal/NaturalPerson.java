@@ -1,16 +1,22 @@
 package ru.nyrk.egrul.database.entity.legal;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.neo4j.ogm.annotation.Index;
 import org.neo4j.ogm.annotation.NodeEntity;
 import ru.nyrk.egrul.database.entity.EntityAbstract;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  * Физическое лицо
  */
-@Data
+@Getter
+@Setter
 @NodeEntity
-//@EqualsAndHashCode(callSuper = false)
+@Entity
 public class NaturalPerson extends EntityAbstract {
     @Index(unique = true, primary = true)
     String key;
@@ -18,6 +24,10 @@ public class NaturalPerson extends EntityAbstract {
     String firstName;
     String middleName;
     String lastName;
+    @Id
+    public Long getId() {
+        return id;
+    }
 
     public NaturalPerson() {
 
@@ -83,28 +93,5 @@ public class NaturalPerson extends EntityAbstract {
         public NaturalPerson build() {
             return new NaturalPerson(this);
         }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof NaturalPerson)) return false;
-
-        NaturalPerson that = (NaturalPerson) o;
-
-        if (inn != null ? !inn.equals(that.inn) : that.inn != null) return false;
-        if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
-        if (middleName != null ? !middleName.equals(that.middleName) : that.middleName != null) return false;
-        return lastName != null ? lastName.equals(that.lastName) : that.lastName == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = 31;
-        result = 31 * result + (inn != null ? inn.hashCode() : 0);
-        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-        result = 31 * result + (middleName != null ? middleName.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        return result;
     }
 }
