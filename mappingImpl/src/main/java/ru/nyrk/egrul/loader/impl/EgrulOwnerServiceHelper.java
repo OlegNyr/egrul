@@ -49,9 +49,15 @@ public class EgrulOwnerServiceHelper {
     }
 
     private LegalNotResident makeLegalPartyNotResident(InfoULEGRULType infoULEGRULType, InfoRegInstrEGRULULType reg) {
-        return LegalNotResident.LegalNotResidentBuilder.aLegalNotResident()
-                .withFullName(infoULEGRULType.getNameUlFull())
-                .withOKSM(reg.getOKSM().getValue())
+        LegalNotResident.LegalNotResidentBuilder legalNotResidentBuilder = LegalNotResident
+                .LegalNotResidentBuilder
+                .aLegalNotResident()
+                .withFullName(infoULEGRULType.getNameUlFull());
+        if (reg == null) {
+            return legalNotResidentBuilder.build();
+        }
+        return legalNotResidentBuilder
+                .withOKSM(reg.getOKSM() == null ? null : reg.getOKSM().getValue())
                 .withCountry(reg.getNameContry())
                 .withRegDate(reg.getDateReg())
                 .withRegNumb(reg.getNumberReg())

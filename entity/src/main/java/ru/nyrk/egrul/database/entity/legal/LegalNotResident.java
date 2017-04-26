@@ -2,6 +2,8 @@ package ru.nyrk.egrul.database.entity.legal;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.typeconversion.DateLong;
 import ru.nyrk.egrul.database.entity.EntityAbstract;
@@ -10,10 +12,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Date;
 
-@Data
 @NodeEntity
-@EqualsAndHashCode(callSuper = false)
 @Entity
+@Getter
+@Setter
 public class LegalNotResident extends EntityAbstract {
     private String fullName;
     private String OKSM;

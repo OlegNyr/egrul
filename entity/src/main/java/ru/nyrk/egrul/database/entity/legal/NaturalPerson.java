@@ -7,6 +7,7 @@ import org.neo4j.ogm.annotation.Index;
 import org.neo4j.ogm.annotation.NodeEntity;
 import ru.nyrk.egrul.database.entity.EntityAbstract;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -24,10 +25,6 @@ public class NaturalPerson extends EntityAbstract {
     String firstName;
     String middleName;
     String lastName;
-    @Id
-    public Long getId() {
-        return id;
-    }
 
     public NaturalPerson() {
 
@@ -53,6 +50,16 @@ public class NaturalPerson extends EntityAbstract {
         builder.middleName = copy.middleName;
         builder.lastName = copy.lastName;
         return builder;
+    }
+
+    @Id
+    public Long getId() {
+        return id;
+    }
+
+    @Column(name = "key_id")
+    public String getKey() {
+        return key;
     }
 
     public static final class Builder {

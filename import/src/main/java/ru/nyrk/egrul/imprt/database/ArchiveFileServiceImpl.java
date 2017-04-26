@@ -19,11 +19,11 @@ public class ArchiveFileServiceImpl extends GenericService<ArchiveFile, ArchiveF
 
     @Override
     public ArchiveFile lastLoadedFileCorrect() {
-        return null;
+        return repository.lastArchiveFileComplete();
     }
 
     @Override
     public ArchiveFile findLoadedFileByDateFileAndFileId(Date dateFile, Integer fileId) {
-        return null;
+        return repository.findByDateFileAndFileId(dateFile, fileId);
     }
 }

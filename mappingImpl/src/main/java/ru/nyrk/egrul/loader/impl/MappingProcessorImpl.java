@@ -101,8 +101,11 @@ public class MappingProcessorImpl implements MappingProcessor {
             loadedDate = lastArchiveFile.getDateFile();
             index = lastArchiveFile.getFileId();
         }
+        ArchiveFile archiveFile;
+
+
         //Берем следующий
-        ArchiveFile archiveFile = new ArchiveFile();
+        archiveFile = new ArchiveFile();
         archiveFile.setDateFile(loadedDate);
         archiveFile.setFileId(++index);
         archiveFile.setDateLoad(new Date());

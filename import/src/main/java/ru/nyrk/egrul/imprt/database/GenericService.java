@@ -1,6 +1,7 @@
 package ru.nyrk.egrul.imprt.database;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.nyrk.egrul.database.entity.EntityAbstract;
 import ru.nyrk.egrul.prop.ServiceDatabase;
@@ -9,7 +10,7 @@ import ru.nyrk.egrul.prop.ServiceDatabase;
  * Реализация CRUD
  */
 @Transactional(readOnly = true)
-abstract public class GenericService<T extends EntityAbstract, R extends JpaRepository<T, Long>> implements ServiceDatabase<T> {
+abstract public class GenericService<T extends EntityAbstract, R extends CrudRepository<T, Long>> implements ServiceDatabase<T> {
 
     protected final R repository;
 

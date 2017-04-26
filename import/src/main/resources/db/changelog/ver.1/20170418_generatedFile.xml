@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet author="oleg" id="10">
+        <createTable tableName="address">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="pindex" type="VARCHAR(255)"/>
+            <column name="city_name" type="VARCHAR(255)"/>
+            <column name="city_type" type="VARCHAR(255)"/>
+            <column name="district_name" type="VARCHAR(255)"/>
+            <column name="district_type" type="VARCHAR(255)"/>
+            <column name="house" type="VARCHAR(255)"/>
+            <column name="kladr" type="VARCHAR(255)"/>
+            <column name="korpus" type="VARCHAR(255)"/>
+            <column name="kwartira" type="VARCHAR(255)"/>
+            <column name="locality_name" type="VARCHAR(255)"/>
+            <column name="locality_type" type="VARCHAR(255)"/>
+            <column name="region_code" type="VARCHAR(255)"/>
+            <column name="region_name" type="VARCHAR(255)"/>
+            <column name="region_type" type="VARCHAR(255)"/>
+            <column name="street_name" type="VARCHAR(255)"/>
+            <column name="street_type" type="VARCHAR(255)"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <append value=" engine myisam"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="oleg" id="20">
+        <createTable tableName="economic_activity">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="code" type="VARCHAR(30)"/>
+            <column name="name" type="VARCHAR(1024)"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <append value=" engine myisam"/>
+        </modifySql>
+    </changeSet>
+    <changeSet id="25" author="oleg">
+        <createIndex tableName="economic_activity" indexName="indx_economic_activity">
+            <column name="code"></column>
+        </createIndex>
+    </changeSet>
+    <changeSet author="oleg" id="30">
+        <createTable tableName="history_record">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="have_record" type="VARCHAR(255)"/>
+            <column name="name_record" type="VARCHAR(1024)"/>
+            <column name="vid_record" type="VARCHAR(255)"/>
+            <column name="legal_party_id" type="BIGINT"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <append value=" engine myisam"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="oleg" id="40">
+        <createTable tableName="history_record_document">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="date_doc" type="datetime(6)"/>
+            <column name="name_doc" type="VARCHAR(255)"/>
+            <column name="number_doc" type="VARCHAR(255)"/>
+            <column name="history_record_id" type="BIGINT"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <append value=" engine myisam"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="oleg" id="50">
+        <createTable tableName="legal_attorney">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="dolgnost_code" type="VARCHAR(255)"/>
+            <column name="dolgnost_code_name" type="VARCHAR(255)"/>
+            <column name="dolgnost_name" type="VARCHAR(255)"/>
+            <column name="legal_party_id" type="BIGINT"/>
+            <column name="natural_person_id" type="BIGINT"/>
+            <column name="natural_person_key" type="varchar(255)"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <append value=" engine myisam"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="oleg" id="60">
+        <createTable tableName="legal_not_resident">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="oksm" type="VARCHAR(255)"/>
+            <column name="address" type="VARCHAR(255)"/>
+            <column name="country" type="VARCHAR(255)"/>
+            <column name="full_name" type="VARCHAR(255)"/>
+            <column name="reg_date" type="datetime(6)"/>
+            <column name="reg_name" type="VARCHAR(255)"/>
+            <column name="reg_numb" type="VARCHAR(255)"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <append value=" engine myisam"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="oleg" id="250">
+        <createTable tableName="legal_party">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="begin_date" type="datetime(6)"/>
+            <column name="capital" type="DECIMAL(19, 2)"/>
+            <column name="end_code" type="VARCHAR(255)"/>
+            <column name="end_date" type="datetime(6)"/>
+            <column name="end_name" type="VARCHAR(255)"/>
+            <column name="full_name" type="VARCHAR(1024)"/>
+            <column name="inn" type="VARCHAR(255)"/>
+            <column name="kpp" type="VARCHAR(255)"/>
+            <column name="ogrn" type="VARCHAR(255)"/>
+            <column name="ogrn_date" type="datetime(6)"/>
+            <column name="okpf_code" type="VARCHAR(255)"/>
+            <column name="okpf_dict" type="VARCHAR(255)"/>
+            <column name="okpf_name" type="VARCHAR(255)"/>
+            <column name="pension_fond_reg_date" type="datetime(6)"/>
+            <column name="pension_fond_reg_number" type="VARCHAR(255)"/>
+            <column name="reg_number" type="VARCHAR(255)"/>
+            <column name="short_name" type="VARCHAR(255)"/>
+            <column name="economic_activity_id" type="BIGINT"/>
+            <column name="legal_address_id" type="BIGINT"/>
+            <column name="xml_file_id" type="BIGINT"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <append value=" engine myisam"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="oleg" id="260">
+        <createTable tableName="legal_party_economic_activities_other">
+            <column name="legal_party_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="economic_activities_other_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <modifySql dbms="mysql">
+            <append value=" engine myisam"/>
+        </modifySql>
+    </changeSet>
+    <changeSet author="oleg" id="270">
+        <createTable tableName="legal_party_legal_attorneys">
+            <column name="legal_party_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="legal_attorneys_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <modifySql dbms="mysql">
+            <append value=" engine myisam"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="oleg" id="290">
+        <createTable tableName="owner_company">
+            <column name="id" type="BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="proportion" type="VARCHAR(255)"/>
+            <column name="legal_party_id" type="BIGINT"/>
+            <column name="legal_party_not_resident_id" type="BIGINT"/>
+            <column name="natural_person_id" type="BIGINT"/>
+            <column name="natural_person_key" type="varchar(255)"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <append value=" engine myisam"/>
+        </modifySql>
+    </changeSet>
+</databaseChangeLog>

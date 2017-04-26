@@ -60,6 +60,8 @@ public class ParseArchiveImpl implements ParseArchive {
                     callbackSave.call(archiveFile, xmlFile, mappingsEgrulToLegalParty(xmlFile, egrul));
 
                     xmlFile.setStatus(LoadedFileStatus.COMPLETE);
+                    callbackSave.call(archiveFile, xmlFile, Collections.emptyList());
+                    logger.info("Save file to DataBase");
                 } catch (RuntimeException th) {
 
                     logger.error("Insert", th);
@@ -103,6 +105,7 @@ public class ParseArchiveImpl implements ParseArchive {
                     .withName(zipArchiveEntry.getName())
                     .withArchiveFile(archiveFile)
                     .withDate(new Date())
+                    .withStatus(LoadedFileStatus.LOADED)
                     .build();
             archiveFile.getXmlFiles().add(xmlFile);
 

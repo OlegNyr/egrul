@@ -2,6 +2,8 @@ package ru.nyrk.egrul.database.entity.legal;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.neo4j.ogm.annotation.NodeEntity;
 
 import javax.persistence.Entity;
@@ -12,14 +14,13 @@ import java.util.Date;
 /**
  * Адреса
  */
-@Data
 @NodeEntity
-@EqualsAndHashCode(callSuper = true)
+@Getter
+@Setter
 @Entity()
 public class Address extends GRNDate {
     private String kladr;
     private String regionCode;
-    private String treet;
     private String regionType;
     private String regionName;
 
@@ -40,15 +41,9 @@ public class Address extends GRNDate {
     public Address() {
     }
 
-    @Id
-    public Long getId() {
-        return id;
-    }
-
     private Address(Builder builder) {
         setKladr(builder.kladr);
         setRegionCode(builder.regionCode);
-        setTreet(builder.treet);
         setRegionType(builder.regionType);
         setRegionName(builder.regionName);
         setDistrictType(builder.districtType);
@@ -73,7 +68,6 @@ public class Address extends GRNDate {
         Builder builder = new Builder();
         builder.kladr = copy.kladr;
         builder.regionCode = copy.regionCode;
-        builder.treet = copy.treet;
         builder.regionType = copy.regionType;
         builder.regionName = copy.regionName;
         builder.districtType = copy.districtType;
@@ -91,11 +85,14 @@ public class Address extends GRNDate {
         return builder;
     }
 
+    @Id
+    public Long getId() {
+        return id;
+    }
 
     public static final class Builder {
         private String kladr;
         private String regionCode;
-        private String treet;
         private String regionType;
         private String regionName;
         private String districtType;
@@ -121,11 +118,6 @@ public class Address extends GRNDate {
 
         public Builder withRegionCode(String val) {
             regionCode = val;
-            return this;
-        }
-
-        public Builder withTreet(String val) {
-            treet = val;
             return this;
         }
 

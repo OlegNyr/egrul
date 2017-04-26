@@ -45,16 +45,7 @@ public class AppImport {
     }
 
     @Bean
-    CommandLineRunner commandLineRunner(MappingProcessor mappingProcessor, ArchiveFileStoreService archiveFileService) {
-        return a -> {
-            mappingProcessor.execute(
-                    new CallbackSave() {
-                        @Override
-                        public void call(ArchiveFile archiveFile, XmlFile xmlFile, List<LegalParty> legalParties) {
-
-                        }
-                    },
-                    archiveFileService);
-        };
+    CommandLineRunner commandLineRunner(MappingProcessor mappingProcessor, ArchiveFileStoreService archiveFileService, CallbackSave saveLegalPartiesService) {
+        return a -> mappingProcessor.execute(saveLegalPartiesService, archiveFileService);
     }
 }

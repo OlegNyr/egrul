@@ -3,6 +3,8 @@ package ru.nyrk.egrul.database.entity;
 import com.google.common.collect.Lists;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.neo4j.ogm.annotation.Index;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
@@ -38,21 +40,33 @@ public class ArchiveFile extends EntityAbstract {
     List<XmlFile> xmlFiles;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
 
     @OneToMany(mappedBy = "archiveFile")
+    @LazyCollection(LazyCollectionOption.FALSE)
     public List<LoadedFileError> getErrors() {
         return errors;
     }
 
     @OneToMany(mappedBy = "archiveFile")
+    @LazyCollection(LazyCollectionOption.FALSE)
     public List<XmlFile> getXmlFiles() {
         if (xmlFiles == null) {
             xmlFiles = Lists.newArrayList();
         }
         return xmlFiles;
+    }
+
+    @Temporal(TemporalType.DATE)
+    public Date getDateFile() {
+        return dateFile;
+    }
+
+    @Temporal(TemporalType.DATE)
+    public Date getDateLoad() {
+        return dateLoad;
     }
 }

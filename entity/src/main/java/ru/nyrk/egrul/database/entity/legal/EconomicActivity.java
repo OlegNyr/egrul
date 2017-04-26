@@ -28,7 +28,6 @@ public class EconomicActivity extends EntityAbstract {
     private String name;
 
     @Id
-    @GeneratedValue
     public Long getId() {
         return id;
     }

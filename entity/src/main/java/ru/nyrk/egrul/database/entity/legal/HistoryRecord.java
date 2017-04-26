@@ -2,6 +2,8 @@ package ru.nyrk.egrul.database.entity.legal;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.neo4j.ogm.annotation.NodeEntity;
 
 import javax.persistence.*;
@@ -12,9 +14,9 @@ import java.util.Set;
  * История записи
  */
 @NodeEntity
-@Data
-@EqualsAndHashCode(callSuper = true)
 @Entity
+@Getter
+@Setter
 public class HistoryRecord extends GRNDate {
     private String vidRecord;
     private String nameRecord;

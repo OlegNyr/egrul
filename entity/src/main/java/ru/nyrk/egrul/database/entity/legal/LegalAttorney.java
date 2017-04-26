@@ -7,6 +7,7 @@ import ru.nyrk.egrul.database.entity.EntityAbstract;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 /**
@@ -24,6 +25,7 @@ public class LegalAttorney extends EntityAbstract {
     private String dolgnostCodeName;
     private String dolgnostName;
     private LegalParty legalParty;
+
     @Id
     @Override
     public Long getId() {

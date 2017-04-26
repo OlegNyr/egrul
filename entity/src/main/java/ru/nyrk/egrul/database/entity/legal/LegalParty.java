@@ -2,6 +2,8 @@ package ru.nyrk.egrul.database.entity.legal;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.neo4j.ogm.annotation.Index;
 import org.neo4j.ogm.annotation.Labels;
 import org.neo4j.ogm.annotation.NodeEntity;
@@ -22,10 +24,10 @@ import java.util.Set;
 /**
  * Юридическое лицо
  */
-@Data()
 @NodeEntity
-@EqualsAndHashCode(callSuper = true, exclude = {"xmlFile", "previsionLegalHistory"})
 @Entity
+@Getter
+@Setter
 public class LegalParty extends GRNDate {
     @Index()
     private String inn;
@@ -62,44 +64,7 @@ public class LegalParty extends GRNDate {
     private BigDecimal capital;
     private Set<OwnerCompany> ownerCompanies;
 
-    @Id
-    public Long getId() {
-        return id;
-    }
-
     public LegalParty() {
-    }
-
-    @ManyToOne
-    public Address getLegalAddress() {
-        return legalAddress;
-    }
-    @ManyToOne
-    public XmlFile getXmlFile() {
-        return xmlFile;
-    }
-
-    @OneToMany
-    public Set<EconomicActivity> getEconomicActivitiesOther() {
-        return economicActivitiesOther;
-    }
-
-    @ManyToOne
-    public EconomicActivity getEconomicActivity() {
-        return economicActivity;
-    }
-
-    @OneToMany(mappedBy = "legalParty")
-    public Set<HistoryRecord> getHistoryRecords() {
-        return historyRecords;
-    }
-    @OneToMany(mappedBy = "legalParty")
-    public Set<LegalAttorney> getLegalAttorneys() {
-        return legalAttorneys;
-    }
-    @OneToMany(mappedBy = "legalParty")
-    public Set<OwnerCompany> getOwnerCompanies() {
-        return ownerCompanies;
     }
 
     private LegalParty(Builder builder) {
@@ -160,6 +125,46 @@ public class LegalParty extends GRNDate {
         builder.capital = copy.capital;
         builder.ownerCompanies = copy.ownerCompanies;
         return builder;
+    }
+
+    @Id
+    public Long getId() {
+        return id;
+    }
+
+    @ManyToOne
+    public Address getLegalAddress() {
+        return legalAddress;
+    }
+
+    @ManyToOne
+    public XmlFile getXmlFile() {
+        return xmlFile;
+    }
+
+    @OneToMany
+    public Set<EconomicActivity> getEconomicActivitiesOther() {
+        return economicActivitiesOther;
+    }
+
+    @ManyToOne
+    public EconomicActivity getEconomicActivity() {
+        return economicActivity;
+    }
+
+    @OneToMany(mappedBy = "legalParty")
+    public Set<HistoryRecord> getHistoryRecords() {
+        return historyRecords;
+    }
+
+    @OneToMany(mappedBy = "legalParty")
+    public Set<LegalAttorney> getLegalAttorneys() {
+        return legalAttorneys;
+    }
+
+    @OneToMany()
+    public Set<OwnerCompany> getOwnerCompanies() {
+        return ownerCompanies;
     }
 
     public static final class Builder {
